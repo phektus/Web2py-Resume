@@ -7,3 +7,8 @@ Setup:
 - edit settings in applications/resume/models/db_auth.py
 - place private data (keys, logins) in applications/resume/private/
 - deploy and enjoy!
+
+To use as a Web2py Appliance:
+- Pack as web2py.app.resume.tgz
+- Rename to web2py.app.resume.w2p
+- Import in web2py admin
