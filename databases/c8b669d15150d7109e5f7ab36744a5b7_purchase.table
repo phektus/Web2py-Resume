@@ -1,0 +1,34 @@
+(dp1
+S'status'
+p2
+S'CHAR(512)'
+p3
+sS'date'
+p4
+S'TIMESTAMP'
+p5
+sS'item'
+p6
+S'CHAR(512)'
+p7
+sS'amount'
+p8
+S'CHAR(512)'
+p9
+sS'invoice'
+p10
+S'CHAR(512) UNIQUE'
+p11
+sS'owner'
+p12
+S'INTEGER REFERENCES auth_user(id) ON DELETE CASCADE'
+p13
+sS'id'
+p14
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
+p15
+sS'transaction_id'
+p16
+S'CHAR(512)'
+p17
+s.

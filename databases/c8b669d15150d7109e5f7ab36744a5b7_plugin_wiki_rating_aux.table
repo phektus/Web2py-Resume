@@ -1,0 +1,49 @@
+(dp1
+S'rating'
+p2
+(dp3
+S'type'
+p4
+S'double'
+p5
+sS'sortable'
+p6
+I3
+sS'sql'
+p7
+S'DOUBLE'
+p8
+ssS'master'
+p9
+(dp10
+g4
+S'reference plugin_wiki_rating'
+p11
+sg6
+I2
+sg7
+S'INTEGER REFERENCES plugin_wiki_rating(id) ON DELETE CASCADE'
+p12
+ssS'id'
+p13
+(dp14
+g4
+S'id'
+p15
+sg6
+I1
+sg7
+S'INTEGER PRIMARY KEY AUTOINCREMENT'
+p16
+ssS'created_by'
+p17
+(dp18
+g4
+S'reference auth_user'
+p19
+sg6
+I4
+sg7
+S'INTEGER REFERENCES auth_user(id) ON DELETE CASCADE'
+p20
+ss.

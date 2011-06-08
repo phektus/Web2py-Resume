@@ -1,0 +1,66 @@
+import random, string
+
+def paypal():
+    session.recipient_id = '' 
+    item = request.args(0)
+    invoice = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(9)) + item.upper()
+    
+    purchase = db.purchase.insert(
+        owner=auth.user.id,
+        status = 'pending',
+        item = item,
+        amount = TEMPLATE_PRICE,
+        invoice = invoice)
+    paypal = local_import('paypal', reload=True)
+    row = db(db.purchase.id==purchase).select().first()
+    res = paypal.setec(paypal_config, row)
+    if res['ACK'][0]=='Success':        
+        session.recipient_id = auth.user.email
+        token = res['TOKEN'][0]
+        print 'token:', token
+        url = 'https://www.paypal.com/cgi-bin/webscr%3Fcmd%3D_express-checkout%26useraction%3Dcommit%26token%3D%27'
+        #print 'url:', '%s%s' % (url, token)
+        redirect('%s%s' % (url, token))
+        return locals()
+    else:
+        session.flash = 'Error: Purchase failure'
+        return locals()
+        
+        
+def paypal_return():
+    token = request.vars.token
+    recipient_id = session.recipient_id
+    paypal = local_import('paypal', reload=True)
+    payment = paypal.getec(paypal_config, token, recipient_id)
+    if payment['ACK'][0]=='Success':
+        invoice = payment['PAYMENTREQUEST_0_INVNUM'][0]
+        purchase = db(db.purchase.invoice==invoice).select().first()
+        if purchase.amount != payment['PAYMENTREQUEST_0_AMT'][0]:
+            session.flash = 'Error: Template price was not paid in full'  
+            return locals()          
+        
+        purchase.update_record(
+            amount=payment['PAYMENTREQUEST_0_AMT'][0])                          
+        payerid = request.vars.PayerID
+        res = paypal.doec(paypal_config, token, purchase, payerid)
+
+        if res['ACK'][0]=='Success':
+            purchase.update_record(status='completed',
+                date=request.now,
+                payment_id=res['PAYMENTINFO_0_TRANSACTIONID'][0]) 
+            session.flash = 'Template purchase success'              
+            return locals()
+        else:
+            session.flash = 'Error: Payment not verified by Paypal'
+            return locals()  
+    else:
+        session.flash = 'Error: Unsuccessful purchase'
+        return locals()      
+    
+    return locals()     
+    
+def paypal_cancel():
+    return locals()
+    
+def paypal_ipn():
+    return locals()           

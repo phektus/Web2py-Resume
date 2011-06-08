@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<title>{{=response.title}}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<meta name="description" content="CVStash - Free Resume Builder - Created by Arbie Samong" />
+	<meta name="keywords" content="{{=userprofile.first_name}} {{=userprofile.last_name}}, {{=userprofile.first_name}} {{=userprofile.last_name}} resume, resume builder, free resume builder" />
+	
+	<!-- //////// Favicon ////////  -->
+	
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"  />
+	
+	<!-- //////// Css StyleSheets ////////  -->
+	
+	<link href="/static/css/clean/style.min.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/clean/print-style.css" rel="stylesheet" type="text/css" media="print" />
+	
+	<!-- //////// DD_belatedPNG - Png Fix for IE 6 ////////  -->
+	
+	<!--[if lt IE 7]>
+	<script type="text/javascript" src="/static/js/clean/DD_belatedPNG_0.0.7a-min.js"></script>
+	<script type="text/javascript">
+
+	</script>
+	<![endif]-->
+	
+	<!-- //////// jQuery ////////  -->
+	
+	<script src="/static/js/clean/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+	<!-- //////// Cufon Font Replacement ////////  -->
+	
+	<script src="/static/js/clean/cufon-yui.js" type="text/javascript"></script>
+	<script src="/static/js/clean/Aller.font.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		Cufon.replace('h1');
+		Cufon.replace('.item h2');
+		Cufon.replace('h2.cv-section-name');
+	</script>			 	
+	
+	<!--imports scrollTo plugin--> 
+  <script type="text/javascript" src="/static/js/temptation/jquery.scrollTo-1.4.2-min.js"></script> 
+  <!--imports local scroll plugin--> 
+  <script type="text/javascript" src="/static/js/temptation/jquery.localscroll-1.2.7-min.js"></script> 
+  <script type="text/javascript">
+    $(document).ready(function() {
+		  $('#navigation').localScroll();
+		});
+	</script>
+	
+	<link rel="icon" href="/static/favicon.ico" type="image/x-icon"> 
+  <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"> 
+  
+  <!-- bit client --> 
+  <script type="text/javascript" src="http://api.bitp.it/bitp.it.js"></script>
+  <script type="text/javascript">
+    bitpit({clientId: "98"});
+  </script>
+  
+  <!-- google analytics --> 
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-23484172-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+<body>
+	<div id="header-wrap">
+	  <div id="header-container">
+	    <a id="logo" href="/">CVStash</a><span id="subtitle">Resumes made easy</span>
+	    <ul id="navigation">
+	      {{if auth.user_id: }}
+	        {{=LI(A('Dashboard', _href=URL('dashboard')))}}
+	      {{else:}}
+	        {{=LI(A('Home', _href='/'))}}
+	      {{pass}}	 
+	      <li>&nbsp;</li>
+	      {{if skills: }}<li><a href="#skills">Skills</a></li>{{pass}}
+	      {{if work_entries: }}<li><a href="#work">Work</a></li>{{pass}}
+	      {{if education_entries: }}<li><a href="#education">Education</a></li>{{pass}}
+	      {{if personal_entries: }}<li><a href="#personal">Personal</a></li>{{pass}}
+	      <li><a href="#contactinfo">Contact</a></li>
+	      <li>&nbsp;</li>	       
+	      <li><a href="http://pdfmyurl.com?url=http://www.cvstash.com{{=URL('pdfdownload/%s' % usersettings.resumeurl)}}&-O=Portrait&-s=A4&--filename=resume.pdf">Download</a></li>
+	      <li><a href="javaScript:window.print();">Print</a></li>
+	      <li><a href="http://www.cvstash.com/profile/{{=usersettings.resumeurl}}">Permalink</a></li>
+	      {{if auth.user_id: }}	    	    
+    	    <li>{{=A('Logout', _href=URL('user/logout'))}}</li>
+    	  {{else:}}
+    	    <li>{{=A('Signup/Login', _href=URL('user/login'))}}</li>
+	      {{pass}}
+	    </ul>
+    </div>	    
+	</div>
+	<div id="cv">
+	<div class="flash">{{=response.flash or ''}}</div>
+
+{{if user:}}
+<!-- // ABOUT ME /////////////////////////////////////////////////////////////////// -->
+		
+<div class="cv-section first-cv-section fixed">
+
+	<div class="person">	  
+	  <img src='{{=Gravatar(user.email, default="http://www.cvstash.com/static/images/avatar-default.jpg").thumb}}' width="80" height="80" alt="{{=userprofile.first_name}} {{=userprofile.last_name}}" />		
+		<h1>{{=userprofile.first_name}} {{=userprofile.last_name}}</h1>
+		<h2>{{=userprofile.title or ''}}</h2>
+	</div>
+	
+</div><!-- end .cv-section -->
+
+<!-- // PERSONAL PROFILE //////////////////////////////////////////////////////// -->
+
+<div class="cv-section fixed">
+
+	<h2 class="cv-section-name">Personal Info</h2>
+	
+	<div class="cv-section-items">
+		
+		<div class="item last-item">
+			
+			<div id="contact-info">
+				<ul>					
+					{{if contactinfo.email:}}<li>e-mail: <a href="mailto:{{=contactinfo.email}}">{{=contactinfo.email}}</a></li>{{pass}}
+					<li id="permalink">CVStash profile: <a href="http://www.cvstash.com/profile/{{=usersettings.resumeurl}}">permalink</a></li>
+					{{if contactinfo.cell_phone:}}<li>phone: <strong>{{=contactinfo.cell_phone or ''}}</strong></li>{{pass}}
+					{{if contactinfo.address:}}<li>adress: {{=contactinfo.address or ''}} </li>{{pass}}
+					{{if mycountry:}}<li>country: {{=mycountry}}</li>{{pass}}
+				</ul>
+				<p>{{=userprofile.about or ''}}</p>
+				<div id="socialmedia">
+				  <span class='st_email' ></span><span class='st_facebook' ></span><span class='st_linkedin' ></span><span class='st_twitter' ></span><span class='st_sharethis' ></span><span class='st_reddit' ></span><span class='st_blogger' ></span><span class='st_yahoo_bmarks' ></span><span class='st_stumbleupon' ></span><span class='st_delicious' ></span><span class='st_digg' ></span><span class='st_gbuzz' ></span><span class='st_fb_like' ></span>				
+          <script type="text/javascript">var switchTo5x=false;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+          <script type="text/javascript">stLight.options({publisher:'4d8bed4d-083e-4598-9c2b-af6c0d88c470'});</script>
+        </div>        
+			</div>
+			
+		</div><!-- end .item -->
+		
+	</div><!-- end .cv-section-items -->
+	
+</div><!-- end .cv-section -->
+
+<!-- // PROFESIONAL PROFILE //////////////////////////////////////////////////////// -->
+{{if userprofile.summary:}}
+<div class="cv-section fixed">
+
+	<h2 class="cv-section-name">Curriculum Vitae</h2>
+	
+	<div class="cv-section-items">
+		
+		<div class="item last-item">
+			<p>{{=MARKMIN(userprofile.summary or '')}}</p>
+		</div><!-- end .item -->
+		<p><a class="backtotop" href="#cv">Back to top</a></p>
+	</div><!-- end .cv-section-items -->
+	
+</div><!-- end .cv-section -->
+{{pass}}
+
+<!-- // SKILLS /////////////////////////////////////////////////////////// -->
+{{if skills:}}
+<div id="skills" class="top_buffer"></div>
+<div class="cv-section fixed">
+		
+	<h2 class="cv-section-name">Skills</h2>
+	
+	<div class="cv-section-items">
+		{{for skill in skills:}}
+		  <div class="item {{if skills[len(skills)-1] is skill:}}last-item{{pass}}">
+			  <h4>{{=skill.rating}}, {{=skill.duration}} year{{if skill.duration > 1:}}s{{pass}}</h4>
+			  <h2><a href="#">{{=skill.name}}</a></h2>
+			  <br />
+			  <p>{{=MARKMIN(skill.description)}}</p>
+			  <p><a class="backtotop" href="#cv">Back to top</a></p> 
+		  </div><!-- end .item -->				
+		{{pass}}
+	</div><!-- end .cv-section-items -->
+	
+</div><!-- end .cv-section -->
+{{pass}}
+
+<!-- // WORK EXPERINCE /////////////////////////////////////////////////////////// -->
+{{if work_entries:}}
+<div id="work" class="top_buffer"></div>
+<div class="cv-section fixed">
+
+	<h2 class="cv-section-name">Work Experience</h2>
+	
+	<div class="cv-section-items">
+		{{for work_entry in work_entries:}}
+		  <div class="item {{if work_entries[len(work_entries)-1] is work_entry:}}last-item{{pass}}">
+			  <h4>{{=work_entry.start.strftime('%B %Y')}} - {{if work_entry.end:}}{{=work_entry.end.strftime('%B %Y')}}{{else:}}Present{{pass}}</h4>
+			  <h2>{{=work_entry.position}}</h2>
+			  <h3>
+			    {{if work_entry.link:}}
+			      <a class="entrylink" href="{{=work_entry.link}}">{{=work_entry.title}}</a>
+			    {{else:}}
+			      {{=work_entry.title}}
+			    {{pass}}
+			  </h3>
+			  <p>{{=MARKMIN(work_entry.description)}}</p>
+			  <p><a class="backtotop" href="#cv">Back to top</a></p> 
+		  </div><!-- end .item -->		  
+	  {{pass}}	
+		
+	</div><!-- end .cv-section-items -->
+	
+</div><!-- end .cv-section -->
+{{pass}}
+
+<!-- // EDUCATION ////////////////////////////////////////////////////////////////// -->
+{{if education_entries:}}
+<div id="education" class="top_buffer"></div>
+<div class="cv-section fixed">
+
+	<h2 class="cv-section-name">Education</h2>
+	
+	<div class="cv-section-items">
+		{{for education_entry in education_entries:}}
+		  <div class="item {{if education_entries[len(education_entries)-1] is education_entry:}}last-item{{pass}}">
+			  <h4>{{=education_entry.start.strftime('%B %Y')}} - {{if education_entry.end:}}{{=education_entry.end.strftime('%B %Y')}}{{else:}}Present{{pass}}</h4>
+			  <h2>{{=education_entry.position}}</h2>
+			  <h3>
+			    {{if education_entry.link:}}
+			      <a class="entrylink" href="{{=education_entry.link}}">{{=education_entry.title}}</a>
+			    {{else:}}
+			      {{=education_entry.title}}
+			    {{pass}}
+			  </h3>
+			  <p>{{=MARKMIN(education_entry.description)}}</p>
+			  <p><a class="backtotop" href="#cv">Back to top</a></p> 
+		  </div><!-- end .item -->		  
+	  {{pass}}	
+		
+	</div><!-- end .cv-section-items -->
+	
+</div><!-- end .cv-section -->
+{{pass}}
+
+<!-- // PERSONAL PROJECTS /////////////////////////////////////////////////////////// -->
+{{if personal_entries:}}
+<div id="personal" class="top_buffer"></div>
+<div class="cv-section fixed">
+
+	<h2 class="cv-section-name">Personal Projects</h2>
+	
+	<div class="cv-section-items">
+		{{for personal_entry in personal_entries:}}
+		  <div class="item {{if personal_entries[len(personal_entries)-1] is personal_entry:}}last-item{{pass}}">
+			  <h4>{{=personal_entry.start.strftime('%B %Y')}} - {{if personal_entry.end:}}{{=personal_entry.end.strftime('%B %Y')}}{{else:}}Present{{pass}}</h4>
+			  <h2>{{=personal_entry.position}}</h2>
+			  <h3>
+			    {{if personal_entry.link:}}
+			      <a class="entrylink" href="{{=personal_entry.link}}">{{=personal_entry.title}}</a>
+			    {{else:}}
+			      {{=personal_entry.title}}
+			    {{pass}}
+			  </h3>
+			  <p>{{=MARKMIN(personal_entry.description)}}</p>
+			  <p><a class="backtotop" href="#cv">Back to top</a></p>
+		  </div><!-- end .item -->
+	  {{pass}}	
+		
+	</div><!-- end .cv-section-items -->
+	
+</div><!-- end .cv-section -->
+{{pass}}
+
+<!-- // CONTACT INFO //////////////////////////////////////////////////////// -->
+<div id="contactinfo" class="top_buffer"></div>
+<div class="cv-section last-cv-section fixed">
+
+	<h2 class="cv-section-name">Contact Me</h2>
+	
+	<div class="cv-section-items">
+							
+			<div id="contact" class="vcard">
+				<ul>
+				  {{if userprofile.first_name and userprofile.last_name:}}<li class="fn"><span class="type">full name:</span> <span class="value">{{=userprofile.first_name}} {{=userprofile.last_name}}</span></li>{{pass}}
+				  {{if contactinfo.email:}}<li class="email"><span class="type">e-mail:</span> <span class="value"><a href="mailto:{{=contactinfo.email}}">{{=contactinfo.email}}</a></span></li>{{pass}}
+					{{if contactinfo.address:}}<li class="adr"><span class="type">adress:</span> <span class="value">{{=contactinfo.address or ''}}</span></li>{{pass}}
+					{{if contactinfo.cell_phone:}}<li><span class="type">cell phone:</span> <span class="value">{{=contactinfo.cell_phone or ''}}</span></li>{{pass}}
+					{{if contactinfo.home_phone:}}<li><span class="type">home phone:</span> <span class="value">{{=contactinfo.home_phone or ''}}</span></li>{{pass}}
+					{{if contactinfo.office_phone:}}<li><span class="type">office phone:</span> <span class="value">{{=contactinfo.office_phone or ''}}</span></li>{{pass}}
+					{{if contactinfo.skype:}}<li><span class="type">skype:</span> <span class="value">{{=contactinfo.skype or ''}}</span></li>{{pass}}
+					{{if contactinfo.yahoo:}}<li><span class="type">yahoo:</span> <span class="value">{{=contactinfo.yahoo or ''}}</span></li>{{pass}}
+					{{if contactinfo.gchat:}}<li><span class="type">gchat:</span> <span class="value">{{=contactinfo.gchat or ''}}</span></li>{{pass}}
+					{{if contactinfo.aim:}}<li><span class="type">aim:</span> <span class="value">{{=contactinfo.aim or ''}}</span></li>{{pass}}
+					{{if contactinfo.msn:}}<li><span class="type">msn:</span> <span class="value">{{=contactinfo.msn or ''}}</span></li>{{pass}}
+				</ul>
+				<p><br /><a class="backtotop" href="#cv">Back to top</a></p>
+			</div>
+			
+	</div><!-- end .cv-section-items -->
+	
+</div><!-- end .cv-section -->
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////// -->
+
+</div><!-- end #cv -->
+
+{{else:}}
+<h1>Resume not found</h1>
+{{pass}}		
+
+<div id="footer">
+    <center>&copy; 2011 All Rights Reserved CVStash by Arbie Samong</center>
+  </div>
+	<script type="text/javascript"> Cufon.now(); </script>	
+</body>
+</html>

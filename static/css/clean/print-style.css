@@ -1,0 +1,25 @@
+/* 
+
+	PRINT STYLESHEET
+	
+*/
+
+body {
+  font-family: Helvetica;
+}
+
+#cv{ border:none; width: 100%; margin: 0; float: none; }
+
+.first-cv-section{ padding:30px 0; }
+	.person h1{ margin-bottom:10px; }
+	.person h2{ letter-spacing:0px; }
+	#contact-info{ margin-top:30px; }
+
+.cv-section{ margin:0; }
+
+	.cv-section-name{ float:none; margin-bottom:30px; }
+		h2.cv-section-name{ font-style:normal; }
+		
+	.cv-section-items{ float:none; width:90%; margin-left:10%; }
+
+.panel, ul#social-media, a.emailme, #header, #socialmedia, #permalink, .backtotop, a.getmine { display: none; }

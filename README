@@ -1,0 +1,9 @@
+CVStash is a simple web2py application for managing resumes.
+
+Requirements:
+- python 2.5 or higher
+
+Setup:
+- edit settings in applications/resume/models/db_auth.py
+- place private data (keys, logins) in applications/resume/private/
+- deploy and enjoy!

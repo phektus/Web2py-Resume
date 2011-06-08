@@ -1,0 +1,137 @@
+/* 
+ 	
+	GENERAL STYLESHEET CV/RESUME TEMPLATE
+
+	T.O.C
+		=RESET
+		=LAYOUT
+		=COLORS-TYPOGRAPHY
+		=EMAIL-ME
+		=CONTACT-FORM
+		
+*/
+
+/* =RESET
+=------------------------------------*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline}:focus{outline:0}body{line-height:1;color:black;background:white}ol,ul{list-style:none}table{border-collapse:separate;border-spacing:0}caption,th,td{text-align:left;font-weight:normal}blockquote:before,blockquote:after,q:before,q:after{content:""}blockquote,q{quotes:""""}
+
+/* =GENERAL
+--------------------- */
+
+body{
+	background-color:#222;
+	color:#333; 
+	font:12px Arial, Helvetica, sans-serif;
+	line-height:22px;
+}
+
+	a{ color:#0066AA; }
+	strong{ font-weight:700; }
+	em{ font-style:italic; }
+
+	/* Clear Fix Hack - add  class="fixed"  to div's that have floated elements in them */
+	.fixed:after{content:"."; display:block; height:0; clear:both; visibility:hidden;}
+		.fixed{display:block;}
+		/*  \*/
+		.fixed{min-height:1%;}
+		* html .fixed{height:1%;}
+	
+/* =LAYOUT
+----------------------------------*/
+
+#cv{ margin:66px auto 0 auto; width:780px; padding:0 0 40px;  }
+
+	.cv-section{ margin:0 40px; padding:30px 0; }
+				
+		.first-cv-section{ margin:0; padding:30px 40px; }
+			
+			.person{ float:left; margin-top:20px; width:500px; }
+				.person img{ float:left; margin-right:25px; padding:10px; }
+				.person  h1{ margin-top:25px; }
+			
+			#contact-info{ float:right; margin-right:10px; }
+				ul#social-media{ margin-bottom:18px; }
+				ul#social-media li{ display:inline; }	
+			
+		.cv-section-name{ float:left; width:200px; }
+				
+		.cv-section-items{ float:right; margin-right:10px; width:490px; }
+		
+			.item{ margin-bottom:20px; padding-bottom:20px; }
+				
+				.item h4{ float:right; margin:0 0 1em; padding:2px 10px; }
+				
+				.item p{ padding:0 0 15px; }
+				.item ul{ padding:0 0 15px; }
+					.item ul li{}
+					
+			.last-item{ margin-bottom:0; padding-bottom:0; }
+
+
+/* =COLORS-TYPOGRAPHY
+----------------------------------*/
+
+#cv{ background-color:#FFF; border-bottom:15px solid #FDB020; border-top:15px solid #FDB020; }
+
+	.cv-section{ border-bottom:1px solid #dfdfdf; }
+		
+		.first-cv-section{ background-color:#F8F8F8; }
+			
+				.person img{ background-color:#FFF; border:1px solid #dedede; }
+				.person h1{ color:#475261; font-size:48px; font-weight:400; letter-spacing:-1px; }
+				.person h2{ color:#475261; font-family:Arial, Helvetica, sans-serif; font-size:20px; font-weight:400; letter-spacing:-.7px; text-transform:uppercase; }
+			
+			#contact-info{}
+				ul#social-media{ list-style:none; }
+				ul#social-media li{}	
+			
+		.cv-section-name{}
+			h2.cv-section-name{ color:#3C4756; font-size:24px; font-style:italic; font-weight:400; letter-spacing:-1px; }
+		
+		.cv-section-items{}
+		
+			.item{ border-bottom:1px solid #dfdfdf; }
+				
+				.item h4{ background-color:#eee; color:#333; font-size:10px; text-transform:uppercase; }
+					.item h4:hover{ background-color:#000; color:#fff; }
+				
+				.item h2{ color:#06A; font-family:Georgia, serif; font-size:22px; font-weight:400; letter-spacing:-1px; }
+					.item h2 a{ color:#06A; text-decoration:none; }
+				
+				.item h3{ color:#262625; font-family:Georgia, serif; font-size:15px; font-style:italic; font-weight:400; }
+				
+				.item p{ text-align:justify; }
+				.item ul{ list-style:inside; text-align:justify; }
+					.item ul li{ list-style-type:disc; }
+					
+			.last-item{ border-bottom:none; }
+			
+		.last-cv-section{ border-bottom:none; }
+			
+			
+/* =EMAIL-ME
+--------------------- */
+
+.panel{ background:#f8f8f8; border:1px solid #dfdfdf; display:none; height:auto; left:0; padding:30px 30px 30px 170px; 
+		top:66px; width:230px; position:fixed; _position:absolute ;}
+
+a.emailme{ _background-image:none; background:#333 url(images/bg-emailme.png) 90% 50% no-repeat; border:1px solid #444; color:#fff;
+			display:block; font-size:15px; font-weight:700; left:0; padding:15px 40px 15px 15px; _padding:15px 20px 15px 15px; text-decoration:none; top:85px; 
+			position:fixed; _position:absolute;}
+			
+	a.emailme:hover{ background:#222 url(images/bg-emailme.png) 90% 50% no-repeat; _position:absolute; _background-image:none; }
+	a.active.emailme{ background:#222 url(images/bg-emailme-extended.png) 90% 50% no-repeat; _position:absolute; _background-image:none; }
+	
+/* =CONTACT-FORM
+--------------------- */
+
+#contact-form{width:210px;}
+	form p{clear:both;margin-bottom:10px;}
+	input,textarea{background-color:#fff;border:1px solid #ccc;color:#515151;padding:5px;width:200px;}
+	textarea{height:50px;}
+	.btn{_height:25px;_padding:2px;width:80px;}
+
+#formstatus{clear:both;font-weight:700; font-size:12px; line-height:10px; }
+	.formstatuserror{color:#FF0000;}
+	.formstatusok{color:#0C3;}	
+	

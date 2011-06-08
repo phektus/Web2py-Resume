@@ -1,0 +1,228 @@
+@charset "utf-8";
+
+/* -- TABLE OF CONTENTS ---------
+ 
+	1. RESET BROWSER DEFAULTS
+	2. TYPOGRAPHY
+	3. STRUCTURE
+	4. SLIDER
+	5. SUBSCRIBE FORM
+	6. MISCELLANEOUS
+	
+-------------------------------*/
+
+
+/* -- 1. RESET BROWSER DEFAULTS -- */
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, code, em, i, font, img, small, strike, strong, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin:0px; padding:0px; border:0px; font-weight:inherit; font-style:inherit; font-size:100%; font-family:inherit; vertical-align:baseline }
+:focus { outline: 0 }
+
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner { border: none }
+
+
+/* -- 2. TYPOGRAPHY -- */
+
+body { margin:0px auto; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:21px; text-align:center; color:#555f6e; background:#fbfdff url(/static/images/clickr/pattern.jpg) }	
+p, ul, ol { margin-bottom: 21px }
+ul { list-style:square; margin-left: 21px }
+ol { list-style:decimal; margin-left: 21px }
+h1, h2, h3 { font-family: Helvetica, Arial, sans-serif; color:#3e4550; font-weight:bold; margin-bottom:21px; text-shadow:0px 1px 0px rgba(255,255,255,0.5) }	
+h1 { font-size: 36px; line-height: 42px; letter-spacing:-1px; margin-bottom:0px }
+h2 { font-size: 26px; line-height: 30px; letter-spacing:0px; margin-bottom:12px }
+h3 { font-size: 16px; margin-bottom:6px }	
+a {	color:#DB7030; text-decoration:none; border:none; outline:none }
+a:hover { text-decoration:underline }
+em, i { font-style:italic }
+b, strong { font-weight:bold }
+input, textarea { border:none; outline:none }
+
+
+/* -- 3. STRUCTURE -- */
+
+.header, .header1, .primary, .primary1, .featured, .footer, .wrap { width:960px; margin:0px auto; position:relative; overflow:hidden; text-align:left }
+.wrap { width:864px }
+.header { height:96px; background:url(/static/images/clickr/top_curve.png) 0px bottom no-repeat }
+.brand { text-align:right }
+.header1 { width:864px; padding:36px 48px 80px; background:url(/static/images/clickr/top_curve_arrow.png) 0px bottom no-repeat }
+.featured { width: 864px; padding:0px 48px; background:#ecf1f6 url(/static/images/clickr/middle_shade.png) 0px 0px repeat-y }
+.primary { width:864px; min-height:70px; padding:84px 48px 0px; background:url(/static/images/clickr/bottom_curve_arrow.png) 0px 0px no-repeat }
+.primary1 { width:864px; padding:96px 48px 36px; background:url(/static/images/clickr/bottom_curve.png) 0px 0px no-repeat }
+.half, .one_third { float:left; width:408px; margin-right:48px; position:relative; overflow:hidden }
+.one_third { width:256px }
+.footer { width:864px; padding:24px 48px; background:url(/static/images/clickr/hr.gif) 0px 0px repeat-x }
+
+
+/* -- 4. SLIDER -- */
+
+.slider_wrap { position:relative; overflow:hidden; margin:0px; padding:0px; width:392px; height:274px; background:#fbfdff; border:1px solid #e0e4ea; padding:7px; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px; -khtml-border-radius:6px; }
+#slider { position:relative; overflow:hidden; margin:0px; padding:0px; list-style:none }
+#slider li { float:left; width:392px; height:274px; overflow:hidden }
+#pager { position:relative; overflow:hidden; text-align:center; margin:0px; padding:12px 0px 0px; list-style:none; z-index:999; line-height:0px; background:url(/static/images/clickr/slider_shadow.png) 50% 0px no-repeat }
+#pager li { display:inline-block; width:10px; margin:0px 2px }
+#pager li a { display:block; width:10px; height:11px; background:url(/static/images/clickr/pager.png) -14px 0px no-repeat }
+#pager li.activeSlide a { background-position:0px 0px }
+
+
+/* -- 5. SUBSCRIBE FORM -- */
+
+#subscribe { padding-bottom:21px; margin-bottom:6px }
+#subscribe input { font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#87909a; width:250px; padding:11px 10px; margin-right:2px; background:#eceff4; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; -khtml-border-radius:4px; border: 1px solid #e0e4ea; 
+-moz-box-shadow:0px 1px 2px rgba(255,255,255,0.3);
+-webkit-box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
+box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
+} 
+#subscribe input:hover, #subscribe input:focus { color:#555f6e }
+#subscribe input#submit { width:100px; background:url(/static/images/clickr/submit_btn.jpg) 0px 0px repeat-x; outline:none; border:none; border:1px solid #e27000; color:#fff; font-weight:bold;  text-shadow: 0px 1px 0px rgba(0,0,0,0.3); cursor:pointer;
+-moz-box-shadow:0px 1px 2px rgba(0,0,0,0.3);
+-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+}
+#subscribe input#submit:hover { background-position:0px -45px }
+#subscribe input#submit:active { background-position:0px -91px; color:#703500; border:1px solid #b75700; text-shadow:0px 1px 0px rgba(255,255,255,0.2); -moz-box-shadow:0px 1px 2px rgba(255,255,255,0.3); }
+
+
+
+/* -- 6. MISCELLANEOUS -- */
+
+.testimonial { position:relative; overflow:hidden; width:368px; float:left; margin-right:48px; padding:21px 0px 0px 21px; background:url(/static/images/clickr/quote.png) 0px 0px no-repeat; font-family:Georgia, "Times New Roman", Times, serif; color:#87909a; }
+ul.features { position:relative; overflow:hidden; margin:0px; padding:0px; list-style:none; font-size:14px; line-height:21px }
+ul.features li { position:relative; overflow:hidden }
+.button { 
+  font-family: Helvetica, sans-serif; 
+  letter-spacing:-1px; 
+  display:inline-block; 
+  padding:0px 21px; 
+  font-size:36px; 
+  line-height:70px; 
+  border:1px solid #db7030;
+  background:url(/static/images/clickr/btn.jpg) 0px 0px repeat-x; 
+  color:#fff; 
+  text-decoration:none; 
+  text-shadow:0px 1px 0px #db7030; 
+  border-radius:10px; 
+  -moz-border-radius:10px; 
+  -webkit-border-radius:10px; 
+  -khtml-border-radius:10px;
+  /*Box Shadow*/
+  -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+  box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+  
+}
+.button:hover { text-decoration:none; background-position:0px -75px }
+.button:active { background-position:0px -151px; text-shadow:0px 1px 0px rgba(255,255,255,0.2); border-color:#db7030; 
+-moz-box-shadow:0px 2px 2px rgba(255,255,255,0.3);
+-webkit-box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
+box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
+}
+
+.social { float:right; margin:0px 0px 4px; padding:0px; list-style:none; position:relative; overflow:hidden }
+.social li { float:left; margin-right:5px }
+.social li a { display:block; width:16px; height:16px; background:url(/static/images/clickr/social_sprite.png) 0px 0px no-repeat }
+.social li a.twitter { background-position:0px 0px }
+.social li a.facebook { background-position:-21px 0px }
+.social li a.skype { background-position:-42px 0px }
+.social li a.yahoo { background-position:-63px 0px }
+.social li a.blogger { background-position:-84px 0px }
+
+.clear { content:"."; display:block; clear:both; visibility:hidden; line-height:0; height:0; margin:0px; padding:0px }
+.nofloat { float:none }
+.center { text-align:center; margin-bottom:0px }
+.alignleft { float:left; margin:0px 21px 48px 0px }
+.last { margin-right:0px }
+.tiny { font-size:12px; color:#87909a; line-height:21px; margin-bottom:0px }
+.big { font-size:48px  }
+.notes { float:left; width:408px; margin-right:48px; font-size:11px; line-height:16px; color:#a4abb3; padding-top: 15px; }
+
+#logo {
+	width: 220px;
+	padding: 10px 0 0 0;
+	background: url(/static/images/temptation/logo.png) no-repeat top 15px;
+	margin-bottom: 5px;
+	float: right;
+}
+
+#logo a {
+	font-size: 42px;
+}
+
+#logo a:hover {
+	text-decoration: none;
+}
+
+#logo p {
+	color: #87909A;
+	font-size: 12px;
+	font-family: Arial, sans-serif;
+	text-transform: uppercase;
+
+}
+
+#affiliates img {
+  opacity: 0.6;
+  filter: alpha(opacity=50);
+}
+
+div.flash { 
+  position: fixed; 
+  float: right; 
+  padding: 10px; 
+  top: 65px; 
+  right: 80px; 
+  opacity: 0.75; 
+  margin: 10px 10px 10px 10px; 
+  text-align: center; 
+  clear: both; 
+  color: #DB7030; 
+  font-size: 11pt; 
+  font-weight: bold;
+  text-align: center; 
+  vertical-align: middle; 
+  cursor: pointer; 
+  background: black; 
+  border: 2px solid #fff; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+    z-index: 2; 
+}
+
+div.error {
+  background-color: red; 
+  color: #D3FF82; 
+  padding: 3px; 
+}
+
+#login_auth .w2p_fw input {
+  width: 150px;
+  height: 30px;
+  padding: 5px;
+  border: 2px solid #fff; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+    z-index: 2; 
+}
+
+#user_form input {
+  width: 300px;
+  height: 30px;
+  padding: 5px;
+  font-size: 18px;
+  border: 2px solid #fff; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+    z-index: 2; 
+}
+
+#user_form #recaptcha_response_field {
+  height: 20px;
+}
+
+#user_form #submit_record__row input {
+  width: 318px;
+}
+
+

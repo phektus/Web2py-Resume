@@ -1,0 +1,66 @@
+<html>
+<head>
+   <meta charset="utf-8" />           
+</head>
+<body>
+
+{{if user:}}    
+<h2>CVStash Profile: <a href="http://www.cvstash.com/profile/{{=resumeurl.fullname}}/{{=resumeurl.code}}">http://www.cvstash.com/profile/{{=resumeurl.code}}</a></h2>
+<br />
+
+{{if jobs:}}
+<hr />
+<h2>Work Experience</h2>
+<ol>
+{{for job in jobs:}}
+<li>
+<b>{{=job.title}}</b> as {{=job.position}} ({{=job.start.strftime('%B %d, %Y')}} to {{if job.end:}}{{=job.end.strftime('%B %d, %Y')}}{{else:}}Present{{pass}})
+{{=MARKMIN(job.description)}}
+<br />
+</li>
+{{pass}}
+</ol>
+<br />
+{{pass}}
+
+{{if educations:}}
+<hr />
+<h2>Education</h2>
+<ol>
+{{for education in educations:}}
+<li>
+<b>{{=education.title}}</b> as {{=education.position}}  ({{=education.start.strftime('%B %d, %Y')}} to {{if education.end:}}{{=education.end.strftime('%B %d, %Y')}}{{else:}}Present{{pass}})
+{{=MARKMIN(education.description)}}
+<br />
+</li>
+{{pass}}
+</ol>
+<br />
+{{pass}}
+
+{{if hobbies:}}
+<hr />
+<h2>Personal Projects</h2>
+<ol>
+{{for hobby in hobbies:}}
+<li>
+<b>{{=hobby.title}}</b> as {{=hobby.position}}  ({{=hobby.start.strftime('%B %d, %Y')}} to {{if hobby.end:}}{{=hobby.end.strftime('%B %d, %Y')}}{{else:}}Present{{pass}})
+{{=MARKMIN(hobby.description)}}
+<br />
+</li>
+{{pass}}
+</ol>
+<br />
+{{pass}}
+
+{{if contactinfo:}}
+<hr />
+<h2>Contact Information</h2>
+{{=crud.read('contactinfo', contactinfo.id)}}
+<hr />
+{{pass}}
+    
+{{pass}}
+
+</body>
+</html>

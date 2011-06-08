@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+        <meta name="description" content="CVStash - Free Resume Builder - Created by Arbie Samong" />
+        <meta name="keywords" content="resume builder, resume templates, free resume builder, free resume" />
+        
+        <title>Free Resume Builder | Advocate yourself | Resumes made simple | CVStash</title> 
+        <link rel="stylesheet" type="text/css" href="/static/css/clickr/style.min.css"> 
+        <!--[if IE]>
+            <style type="text/css">
+                #pager { padding-left: 20px }
+                #pager li { float:left }
+            </style>
+        <![endif]-->        
+        <script type="text/javascript" src="/static/js/clickr/jquery-1.4.4.min.js"></script> 
+        <script type="text/javascript" src="/static/js/clickr/jquery.cycle.all.min.js"></script> 
+        <script type="text/javascript" src="/static/js/clickr/jquery.easing.min.js"></script> 
+        <script type="text/javascript" src="/static/js/clickr/cufon-yui.js"></script> 
+        <script type="text/javascript" src="/static/js/clickr/PT_Sans.font.js"></script> 
+        <script type="text/javascript" src="/static/js/clickr/custom.min.js"></script> 
+        <script type="text/javascript"> 
+			    Cufon.replace('h2');       
+        </script>
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon"> 
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"> 
+        {{include 'web2py_ajax.html'}}        
+        
+        <!-- bit client --> 
+        <script type="text/javascript" src="http://api.bitp.it/bitp.it.js"></script>
+        <script type="text/javascript">
+          bitpit({clientId: "98"});
+        </script>
+        
+        <!-- google analytics --> 
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-23484172-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+        
+        <!-- share this --> 
+        <script type="text/javascript">var switchTo5x=true;</script>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+        <script type="text/javascript">stLight.options({publisher:'4d8bed4d-083e-4598-9c2b-af6c0d88c470'});</script>
+    </head> 
+    <body> 
+    <div class="header"> 
+    </div><!-- .header --> 
+    <div class="featured"> 
+      <div class="flash">{{=response.flash or ''}}</div>
+      {{include}}
+    </div><!-- .featured -->         
+    <div class="primary"> 
+        <div class="half notes">                
+            <span  class='st_twitter_hcount' displayText='Tweet'></span><span  class='st_facebook_hcount' displayText='Facebook'></span>
+            <br /><br />Copyright &copy; 2011 <a href="/">CVStash</a> by <a href="http://www.cvstash.com/profile/arbie_samong_mfvvK163U">Arbie Samong</a> All Rights Reserved
+        </div><!-- .notes --> 
+        <div class="half brand last"> 
+            <div id="logo"> 
+			        <a href="/">CVStash</a>
+			        <p>Resumes made easy</p> 			        
+		        </div> 		        
+		        <div id="affiliates">
+		          <a href="http://www.twitter.com/cvstash"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-c.png" alt="Follow cvstash on Twitter" width="150px" /></a>    
+		          <a href="http://slapstart.com/2011/05/cvstash/"><img alt="" src="http://slapstart.com/wp-content/uploads/badges/badge9-150x38.png" border="0" alt="CVStash on SlapStart" width="150px" /></a>
+		        </div>
+        </div><!-- .brand --> 
+    </div><!-- .primary --> 
+    </body> 
+</html>    

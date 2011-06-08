@@ -1,0 +1,181 @@
+{{extend 'templates/temptation.html'}}
+	
+<!-- DUMMY SCROLLER -->
+<div id="dummyscroll">
+  <a href="#userprofile" id="scroll_userprofile">a</a>
+  <a href="#contact_info" id="scroll_contact_info">a</a>
+  <a href="#entries" id="scroll_entries">a</a>
+  <a href="#addentry" id="scroll_addentry">a</a>
+  {{for dummyentry in entries:}}
+    <a href="#entryform_{{=dummyentry.id}}" id="scroll_entryform_{{=dummyentry.id}}">a</a>
+  {{pass}}
+  <a href="#addskill" id="scroll_addskill">a</a>  
+  <a href="#skills" id="scroll_skills">a</a>  
+  <script>
+    $(document).ready(function() {
+      $('#dummyscroll').localScroll();
+      $('#scroll_{{=scrollto}}').click();
+      $('#entry_operation__row').css('display','none');
+    });
+  </script>
+</div>	
+	
+<!-- USER PROFILE FORM --> 
+<div id="userprofile" class="page"> 
+	<h2>Profile</h2> 
+	<p class="sub-title">General personal information</p> 
+	
+	<div class="two-third"> 
+		<div id="gravatar"> 
+	    <img width="68px" height="68px" src='{{=Gravatar(auth.user.email, default="http://www.cvstash.com/static/images/avatar-default.jpg").thumb}}' align="left" alt="{{=userprofile.first_name}} {{=userprofile.last_name}}">  
+      <span>Change your avatar at <a href="http://www.gravatar.com" target="#">gravatar.com</a></span>
+    </div>
+		{{=userprofileform}}
+		
+	</div> 
+	<div class="clear"></div>
+</div>	
+
+<!-- CONTACT FORM --> 
+<div id="contact_info" class="page"> 
+	<h2>Contact Information</h2> 
+	<p class="sub-title">Possible employers will contact you through information provided here. This is publicly viewable, so please be responsible with what you provide in order to protect your own privacy. <b> CVStash will not be responsible for any breaches and/or abuse that will result from information you will provide here. </b> As a general rule, just include those that you use the most and you know will be secure.</p> 
+	
+	<div class="two-third"> 
+		{{=contactform}}		
+	</div> 
+	<div class="clear"></div>
+</div>	
+ 
+<!-- ENTRIES PAGE --> 	  	
+<div id="entries" class="page"> 
+	<h2>Resume Entries</h2> 
+	<p class="sub-title">These are the entries that will appear to your public profile.<br /> We can accommodate up to {{=MAX_ENTRIES}} entries.</p> 
+  <h4 style="float: right;"><a href="#addentry">Click here to add a new Entry</a></h4>
+  		
+  <h3>Entry list ({{=len(entries)}})</h3> 		  
+	<div class="clear"></div>			
+	<table>							
+	  <thead> 
+	    <tr>
+	      <th>Title/Project</th>		      
+	      <th>Start Date</th>
+	      <th>End Date</th>
+	      <th>Actions</th>
+	    </tr> 		
+	  </thead> 
+		<tbody> 	
+		{{for entry in entries:}}					  
+		  <tr>
+		    <td>{{=A(entry.title, _href=URL('dashboard#entryform_%s' % entry.id))}}</td>
+		    <td>{{=entry.start.strftime('%B %d, %Y')}}</td>
+		    <td>{{if entry.end:}}{{=entry.end.strftime('%B %d, %Y')}}{{else:}}Present{{pass}}</td>
+		    <td>[ {{=A('Edit', _href=URL('dashboard#entryform_%s' % entry.id))}} | {{=A('Delete', _href='#', _onclick="if (confirm('Are you sure you want to delete this entry entitled %s?')) $('#entryform_%s #delete_record').attr('checked',true); $('#entryform_%s form').submit();" % (entry.title, entry.id, entry.id)) }} ]</td>
+		    
+		  </tr> 				  
+		{{pass}}	
+	  </tbody> 
+	</table> 
+	<p style="height: 300px;"></p>
+<div class="clear"></div>		
+</div>		
+
+<!-- NEW ENTRY --> 
+<div id="addentry" class="page"> 
+	<h2>New Entry</h2> 
+	<p class="sub-title">Add an entry here for your Resume. We can accommodate up to {{=MAX_ENTRIES}} entries.</p> 
+	
+	<div class="two-third"> 
+		{{=new_entryform}}		
+	</div> 
+	<div class="clear"></div>
+</div>	
+
+<!-- ENTRY FORM(s) --> 		
+{{for entry_form in entry_forms:}}
+  <div id="entryform_{{=entry_form['entry'].id}}" class="page"> 
+    <h2>Entry: {{=entry_form['entry'].position}} in {{=entry_form['entry'].title}}</h2>
+    <p class="sub-title">Use the form below to update this entry</p> 
+    {{=entry_form['form']}}
+    <div class="clear"></div>	
+  </div>
+{{pass}}
+
+<div id="skills" class="page">
+  <h2>Skills</h2> 
+  <p class="sub-title">Indicate your skills here. We can accommodate up to {{=MAX_SKILLS}} skills.</p>
+  <h4 style="float: right;"><a href="#addskill">Click here to add a new Skill</a></h4>
+  
+  <h3>Skill list ({{=len(skills)}})</h3> 		  
+	<div class="clear"></div>			
+	<table>							
+	  <thead> 
+	    <tr>
+	      <th>Name</th>		      
+	      <th>Rating</th>
+	      <th>Years</th>
+	      <th>Actions</th>
+	    </tr> 		
+	  </thead> 
+		<tbody> 	
+		{{for skill in skills:}}					  
+		  <tr>
+		    <td>{{=A(skill.name, _href=URL('dashboard#skillform_%s' % skill.id))}}</td>
+		    <td>{{=skill.rating}}</td>
+		    <td>{{=skill.duration or 0}}</td>
+		    <td>[ {{=A('Edit', _href=URL('dashboard#skillform_%s' % skill.id))}} | {{=A('Delete', _href='#skills', _onclick="if (confirm('Are you sure you want to delete this skill entitled %s?')) { $('#skillform_%s #delete_record').attr('checked',true); $('#skillform_%s form').submit(); }" % (skill.name, skill.id, skill.id)) }} ]</td>		    
+		  </tr> 				  
+		{{pass}}	
+	  </tbody> 
+	</table> 
+  <p style="height: 500px;"></p>    
+  
+  {{for skill_form in skill_forms:}}
+      <div id="skillform_{{=skill_form['skill'].id}}" class="skillform">
+          <h3>Skill: {{=skill_form['skill'].name}}</h3>
+          {{=skill_form['form']}}          
+      </div>
+  {{pass}}
+  <div class="clear"></div>
+</div>	
+
+<div id="addskill" class="page">
+  <h2>New Skill</h2> 
+	<p class="sub-title">Add a skill here. We can accommodate up to {{=MAX_SKILLS}} skills.</p> 
+  <div class="two-third">     
+		{{=new_skillform}}		
+	</div> 
+  <p style="height: 500px;"></p>
+</div> 
+
+<div id="templates" class="page">
+  <h2>Templates</h2> 
+	<p class="sub-title">Change your Resume template here. More templates to be uploaded soon!</p> 
+  <div id="current_template">
+    <h3>Current Template: {{=usersettings.activetemplate}}</h3>
+    <a href="#"><img src="/static/images/template/thumbs/{{=usersettings.activetemplate}}.png" alt="{{=usersettings.activetemplate}}" /></a> 
+  </div>
+  
+  {{if len(RESUME_TEMPLATES) > 1:}}
+    <div id="portfolio-content" class="js-off-overflow">	 
+      <h4>Available Templates</h4>
+	    <!-- portfolio page 1 --> 
+		  <ul id="page1" class="portfolio-thumbs js-off-position"> 
+		    {{for template in RESUME_TEMPLATES:}}
+			    <li> 
+				    <a href="#"><img src="/static/images/template/thumbs/{{=template}}.png" alt="{{=template}} template" /></a> 
+				    <div id="ov_{{=template}}" class="overlay"> 
+					    <h5>Template: {{=template}}</h5> 
+					    <p>You may now use this template for your resume. Click on the zoom icon for a preview, or activate to apply it permanently.</p> 
+					    {{=template_forms[template]}}
+					    <a href="#" onclick="$('#ov_{{=template}} form').submit();">Activate</a>
+					    <a class="zoom-btn" href="/static/images/template/full/{{=template}}.png" rel="prettyPhoto"></a> 
+				    </div> 
+			    </li> 
+			  {{pass}}
+      </ul>
+    </div><!-- end portfolio-content-->
+  {{pass}}
+  <p style="height: 500px;"></p>
+  <div class="clear"></div>	
+</div> 

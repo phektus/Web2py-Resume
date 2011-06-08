@@ -1,0 +1,26 @@
+paypal_config = { 
+    'user': 'phektus_api1.gmail.com', 
+    'pwd': '7EQ7RK98VADCQEXW', 
+    'signature': 'AXrPZ8BsMnHGZ.oVfi.cFs2HgawiApp5ZVMvpFJxjHPmQycBLBTSd565', 
+    'version': '66.0', 
+    'button_source': 'https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif' ,
+    'return_url' : 'http://localhost:8000/resume/checkout/paypal_return',
+    'cancel_url' : 'http://localhost:8000/resume/checkout/paypal_cancel',
+    'notify_url' : 'http://localhost:8000/resume/checkout/paypal_ipn',   
+} 
+
+"""
+curl --insecure https://api-3t.sandbox.paypal.com/nvp -d "METHOD=SetExpressCheckout&VERSION=66.0&USER=phektus_api1.gmail.com&PWD=7EQ7RK98VADCQEXW&SIGNATURE=AXrPZ8BsMnHGZ.oVfi.cFs2HgawiApp5ZVMvpFJxjHPmQycBLBTSd565"
+"""
+
+TEMPLATE_PRICE = 10
+
+
+db.define_table('purchase',    
+    Field('owner', 'reference auth_user', readable=False, writable=False, default=auth.user_id),
+    Field('amount'),
+    Field('item'),   
+    Field('invoice', unique=True),    
+    Field('status', readable=False, writable=False, default='pending'),
+    Field('transaction_id'),
+    Field('date', 'datetime', default=request.now))

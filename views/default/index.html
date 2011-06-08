@@ -1,0 +1,18 @@
+{{extend 'templates/clickr.html'}} 
+    <div class="half"> 
+      <h2>Resumes do not have to be painful.</h2> 
+      <p>The web is fast transforming the way we look for jobs. Join hundreds of professionals who created their online resumes and getting the word out about what they can do. It's simple, easy and most of all <b>FREE</b>. Create your Resume in minutes. Currently serving <b>{{=profile_count}}</b> profiles and growing!</p> 
+      <p>{{=A('JOIN NOW', _href=URL('user/login'), _class="button")}} &nbsp;&nbsp;absolutely <b>FREE</b></p>         
+      <p class="tiny"><b>Sign up</b>, <b>create</b> and then <b>distribute</b> within minutes. It's that simple. <br />See a <b><a href="http://www.cvstash.com/profile/arbie_samong_mfvvK163U">SAMPLE RESUME</a></b> for a preview, or <b>{{=A('LOG IN', _href=URL('user/login'))}}</b> if you already have an account.</p>      
+    </div><!-- .half --> 
+    <div class="half last"> 
+      <div class="slider_wrap"> 
+          <ul id="slider"> 
+              <li><img src="/static/images/clickr/slide1.png" alt="Easy Resume Management | CVStash"></li> 
+              <li><img src="/static/images/clickr/slide2.png" alt="Joining is easy | CVStash"></li> 
+              <li><img src="/static/images/clickr/slide3.png" alt="Elegant and Professional looking Resumes | CVStash"></li> 
+          </ul>           
+      </div><!-- .slider_wrap --> 
+      <ul id="pager"></ul>
+    </div><!-- .half last --> 
+{{pass}}

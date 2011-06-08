@@ -1,0 +1,50 @@
+{{extend 'templates/clickr.html'}} 
+
+{{if 'profile' in request.args(0):}}
+  <h1>My Profile</h1> 
+  <div id="web2py_user_form">   
+  <p>
+  <img src='{{=Gravatar(auth.user.email, default="http://www.cvstash.com/static/images/avatar-default.jpg").thumb}}'>
+  <br />
+  [ <a href="http://www.gravatar.com" target="#">change</a> ]
+  </p>
+  {{=form}} 
+  {{if auth.user_id:}}
+    <p>[ {{=A('Back to My Resume', _href=URL('public'))}} ]</p>
+  {{pass}}
+  </div>
+
+{{elif 'login' in request.args(0) and auth.user_id:}}
+  <script type="text/javascript">
+  <!--
+  window.location = "{{=URL('public')}}"
+  //-->
+  </script>
+
+{{else:}}  
+  {{title=dict(
+       login='',
+       register=H1('Register'),
+         logout=H1('Logged out'),
+         profile=H1('Change your profile'),
+         change_password=H1('Change your password'),
+         request_reset_password=H1('Reset your password'),
+         reset_password=H1('Define a new password'),
+         verify_email=H1('Verification mail'),
+         retrieve_username=H1('Request username'),
+         not_authorized=H1('Denied!')
+         )}}
+  <div id="login_main">      
+  <center>   
+  <p>{{=title[request.args(0)]}}</p> 
+  {{=form}}   
+  </center> 
+  </div>
+  {{if auth.user_id:}}
+    {{=A('back to Dashboard', _href=URL('dashboard'))}}
+  {{else:}}
+    {{=A('back to CVStash Home', _href='/')}}
+  {{pass}}
+{{pass}}
+
+

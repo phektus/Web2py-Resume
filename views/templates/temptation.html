@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<title>CVStash - {{=user.first_name}}'s Dashboard | Powered by CVStash | Free Resume Builder</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta name="description" content="CVStash - Free Resume Builder - Created by Arbie Samong" />
+<meta name="keywords" content="{{=userprofile.first_name}} {{=userprofile.last_name}}, {{=userprofile.first_name}} {{=userprofile.last_name}} resume, resume builder, free resume builder" />
+ 
+<!--imports the main css file--> 
+<link rel="stylesheet" href="/static/css/temptation/style.css" type="text/css" media="screen" /> 
+<!--imports prettyPhoto css file--> 
+<link rel="stylesheet" type="text/css" href="/static/css/temptation/prettyPhoto.css" media="screen" /> 
+<!--imports anythingslider css file--> 
+<!--<link rel="stylesheet" type="text/css" href="/static/css/temptation/anythingslider.css" media="screen" /> --> 
+
+ 
+<!--imports jquery--> 
+<script type="text/javascript" src="/static/js/temptation/jquery-1.5.2.js"></script> 
+<!--imports jquery form plugin--> 
+<script type="text/javascript" src="/static/js/temptation/jquery.form.js"></script> 
+<!--imports twitter feed plugin--> 
+<!--<script type="text/javascript" src="/static/js/temptation/jquery.tweet.js"></script> --> 
+<!--imports easing plugin--> 
+<script type="text/javascript" src="/static/js/temptation/easing.js"></script>
+<!--imports anything slider plugin--> 
+<!--<script type="text/javascript" src="/static/js/temptation/jquery.anythingslider.min.js"></script> --> 
+<!--imports prettyPhoto plugin--> 
+<script type="text/javascript" src="/static/js/temptation/jquery.prettyPhoto.js"></script>
+<!--imports jQuery Tools plugin--> 
+<script type="text/javascript" src="/static/js/temptation/jquery.tools.min.js"></script> 
+<!--imports scrollTo plugin--> 
+<script type="text/javascript" src="/static/js/temptation/jquery.scrollTo-1.4.2-min.js"></script> 
+<!--imports local scroll plugin--> 
+<script type="text/javascript" src="/static/js/temptation/jquery.localscroll-1.2.7-min.js"></script> 
+ 
+ 
+ 
+<!--imports custom javascript code--> 
+<script type="text/javascript" src="/static/js/temptation/custom.js"></script> 
+ 
+<!--[if IE 7]><link href="/static/css/temptation/ie7.css" rel="stylesheet" type="text/css" media="screen" /><![endif]--> 
+ 
+<link rel="stylesheet" type="text/css" href="/static/css/temptation/layout.css" media="screen" /> 
+<script type="text/javascript" src="/static/js/temptation/options.js"></script> 
+<script type="text/javascript" src="/static/js/calendar.js"></script> 
+
+<link rel="icon" href="/static/favicon.ico" type="image/x-icon"> 
+<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"> 
+        
+{{include 'web2py_ajax.html'}} 
+
+<script type="text/javascript" src="http://api.bitp.it/bitp.it.js"></script>
+<script type="text/javascript">
+  bitpit({clientId: "98"});
+</script>
+</head> 
+ 
+<body> 
+  <!--KISSInsights survey--> 
+  <script type="text/javascript">var _kiq = _kiq || [];</script>
+  <script type="text/javascript" src="//s3.amazonaws.com/ki.js/17043/3f6.js" async="true"></script>  
+  
+  <div class="flash">{{=response.flash or ''}}</div>
+  
+  <div id="left" class="plates"> 
+		<ul id="navigation"> 		  
+			<li>{{=A('Profile',_href=URL('dashboard'), _class='active')}}</li>
+			<li>{{=A('Contact Info',_href=URL('dashboard#contact_info'))}}</li>
+			<li>{{=A('Entries',_href=URL('dashboard#entries'))}}</li>
+			<li>{{=A('Skills',_href=URL('dashboard#skills'))}}</li>			
+			<li>{{=A('Templates', _href=URL('dashboard#templates'))}}</li>
+			<li>{{=A('My Resume', _href=URL('public'))}}</li>
+			<li>{{=A('Change Password', _href=URL('user/change_password'))}}</li> 
+			<li>{{=A('Logout', _href=URL('user/logout'))}}</li> 						 
+		</ul> 
+		
+		<div id="logo"> 
+			<h1><a href="/">CV Stash</a></h1> 
+			<p>Resumes made easy</p> 
+		</div> 
+		<p id="copyright">Copyright &copy; 2011 CVStash. All rights reserved</p> 
+ 	
+  </div><!-- end left -->	
+  
+  <div id="right" class="square-grid"> 
+	  {{include}}
+	</div><!-- end right -->		
+</body> 
+ 
+</html>
