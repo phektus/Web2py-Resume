@@ -8,7 +8,7 @@
 # items is a list of dictionaries each with title, link, description, pub_date.
 ###
 try:
-   from gluon.serializers import rss   
+   from gluon.serializers import rss
    response.write(rss(response._vars), escape=False)
    response.headers['Content-Type'] = 'application/rss+xml'
 except (TypeError, ValueError):

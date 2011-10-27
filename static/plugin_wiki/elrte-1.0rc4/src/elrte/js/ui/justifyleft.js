@@ -2,7 +2,7 @@
  * @class button - justify text
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
@@ -22,9 +22,9 @@ elRTE.prototype.ui.prototype.buttons.justifyleft = function(rte, name) {
 		}
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
-		var s = this.rte.selection.getNode(), 
+		var s = this.rte.selection.getNode(),
 			n = s.nodeName == 'BODY' ? s : this.rte.dom.selfOrParent(s, 'textNodes')||(s.parentNode && s.parentNode.nodeName == 'BODY' ? s.parentNode : null);
 		if (n) {
 			this.domElem.removeClass('disabled').toggleClass('active', $(n).css('text-align') == this.align);
@@ -32,7 +32,7 @@ elRTE.prototype.ui.prototype.buttons.justifyleft = function(rte, name) {
 			this.domElem.addClass('disabled');
 		}
 	}
-	
+
 }
 
 elRTE.prototype.ui.prototype.buttons.justifycenter = elRTE.prototype.ui.prototype.buttons.justifyleft;

@@ -1,10 +1,10 @@
 /********************BEGIN RESET********************/
 
 html,body,p,div,img,h1,h2,h3,h4,h5,li,ul,ol,dl,dd,dt,form,pagele,td,tr,blockquote,iframe {
-  margin:0px; 
-  padding:0px; 
-  border:0px; 
-  border-collapse:separate; 
+  margin:0px;
+  padding:0px;
+  border:0px;
+  border-collapse:separate;
   border-spacing:0px;
 }
 
@@ -67,17 +67,17 @@ h3 {
 h4 {
 	font-family: Bebas, Tahoma, Arial, sans-serif;
 	color: #db7030;
-	font-size: 20px; 
+	font-size: 20px;
 	font-weight: normal;
 }
 
 h5 {
-	font-size: 22px; 
+	font-size: 22px;
 }
 
 h6 {
 	font-family: Arial, sans-serif;
-	font-size: 10px; 
+	font-size: 10px;
 	letter-spacing: 0.5px;
 }
 
@@ -90,37 +90,37 @@ a:hover {
 	text-decoration: underline;
 }
 
-/********************BEGIN TABLES*****************/	
-table { 
-	width:100%; 
-	text-align: left; 
+/********************BEGIN TABLES*****************/
+table {
+	width:100%;
+	text-align: left;
 	border-collapse: collapse;
 }
 
-th   { 
+th   {
 	color: #db7030;
-	background: #f2f2f2; 
-	text-align: left; 
+	background: #f2f2f2;
+	text-align: left;
 }
 
 thead ,th ,tfoot {
 	font-weight: normal;
 }
 
-th,td,caption { 
-	padding: 7px; 
+th,td,caption {
+	padding: 7px;
 	border-bottom: 1px dashed #c1c1c1;
 }
 
 tr.even td  {
-	background: #f2f2f2; 
+	background: #f2f2f2;
 }
 
 caption     {
 	color: #db7030;
 	border-collapse: collapse;
 }
-/*****************END TABLES************************/	
+/*****************END TABLES************************/
 
 
 /*******************BEGIN MISC*********************/
@@ -154,17 +154,17 @@ blockquote  {
 	color: #db7030;
 }
 
-abbr, acronym { 
-	border-bottom: 1px solid #929292; 
+abbr, acronym {
+	border-bottom: 1px solid #929292;
 }
 
 del {
-	color:#929292; 
+	color:#929292;
 }
 
-pre,code,tt   { 
-	font-family: 'lucida console', monospace; 
-	color:#929292; 
+pre,code,tt   {
+	font-family: 'lucida console', monospace;
+	color:#929292;
 }
 
 ol li {
@@ -308,8 +308,8 @@ ul#navigation {
 	text-align: right;
 	list-style: none;
 	margin: 70px 30px 0 0;
-} 
-	
+}
+
 ul#navigation li a {
 	font-size: 44px;
 	line-height: 46px;
@@ -344,7 +344,7 @@ ul#navigation li a.active {
 /*====CYCLE - SLIDER
 =======================================================*/
 .cycle {
-	
+
 	height: 285px;
 	background: url(/static/images/temptation/slider-shadow.png) no-repeat bottom center;
 }
@@ -366,7 +366,7 @@ ul#navigation li a.active {
 	padding: 15px;
 	position: absolute;
 	background: url(/static/images/temptation/backgrounds/right/square-grid.png) repeat #e7e7e7;
-	width: 60%;	
+	width: 60%;
 }
 
 .caption h3 {
@@ -377,10 +377,10 @@ ul#navigation li a.active {
 	padding-bottom: 0px;
 }
 
-#slider-cycle li { 
+#slider-cycle li {
 	width: 610px;
 	height: 263px;
-	overflow: hidden; 
+	overflow: hidden;
 	display: block;
 }
 
@@ -410,19 +410,19 @@ ul#navigation li a.active {
 }
 
 #cycle-prev {
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat left bottom;	
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat left bottom;
 }
 
 #cycle-prev:hover{
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat left top;	
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat left top;
 }
 
 #cycle-next {
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat right bottom;	
-}	
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat right bottom;
+}
 
 #cycle-next:hover {
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat right top;	
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat right top;
 }
 
 
@@ -437,10 +437,10 @@ ul#navigation li a.active {
 	overflow: hidden;
 }
 
-#slider li { 
+#slider li {
 	width: 610px;
 	height: 224px;
-	overflow: hidden; 
+	overflow: hidden;
 	display: block;
 }
 
@@ -472,7 +472,7 @@ ul#navigation li a.active {
 
 /*====SLIDER NAV BUTTONS
 =======================================================*/
-#prev-button, #next-button, .arrow { 
+#prev-button, #next-button, .arrow {
 	display: none;
 	position: absolute;
 	top: 94px;
@@ -484,32 +484,32 @@ ul#navigation li a.active {
 	left: 0px;
 }
 
-#next-button, .forward { 
+#next-button, .forward {
 	right: 0px;
-}														
+}
 
-#prev-button a, #next-button a, .arrow a {  
+#prev-button a, #next-button a, .arrow a {
 	display: block;
 	position: relative;
 	width: 37px;
 	height: 36px;
-}	
+}
 
 #prev-button a, .back a {
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat left bottom;	
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat left bottom;
 }
 
-#next-button a, .forward a { 
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat right bottom;	
-}	
+#next-button a, .forward a {
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat right bottom;
+}
 
 #prev-button a, .back a:hover {
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat left top;	
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat left top;
 }
 
-#next-button a, .forward a:hover { 
-	background: url(/static/images/temptation/slider-arrows.png) no-repeat right top;	
-}	
+#next-button a, .forward a:hover {
+	background: url(/static/images/temptation/slider-arrows.png) no-repeat right top;
+}
 
 
 /*=====================================================================*/
@@ -693,7 +693,7 @@ ul.tweet_list li {
 }
 
 .toggle-content {
-	margin-top: 15px;	
+	margin-top: 15px;
 }
 
 .toggle-link {
@@ -727,17 +727,17 @@ ol li {
 
 .check li {
 	background: url(/static/images/temptation/bullets/check.png) no-repeat 0px 7px;
-	padding-left: 18px;	
+	padding-left: 18px;
 }
 
 .exclamation li {
 	background: url(/static/images/temptation/bullets/exclamation.png) no-repeat 0px 6px;
-	padding-left: 15px;	
+	padding-left: 15px;
 }
 
 .arrows li {
 	background: url(/static/images/temptation/bullets/arrow.png) no-repeat 0px 6px;
-	padding-left: 15px;	
+	padding-left: 15px;
 }
 
 .square li {
@@ -777,12 +777,12 @@ ol li {
 */
 
 /*begin*/
-	.js-off-overflow { 
+	.js-off-overflow {
 		overflow: visible !important;
 	}
-	
+
 	.js-off-position {
-		position: relative !important; 
+		position: relative !important;
 	}
 /*end*/
 
@@ -808,7 +808,7 @@ ol li {
 	text-decoration: none;
 }
 
-.portfolio-nav li a.current { 
+.portfolio-nav li a.current {
 	background: #db7030;
 }
 
@@ -906,7 +906,7 @@ ul.portfolio-thumbs li .zoom-btn:hover, ul.portfolio-thumbs li .play-btn:hover {
 .post-metadata p {
 	font-size: 11px;
 	padding-bottom: 0px;
-	
+
 }
 
 .post-metadata {
@@ -986,7 +986,7 @@ ul.portfolio-thumbs li .zoom-btn:hover, ul.portfolio-thumbs li .play-btn:hover {
 }
 
 #comments-form {
-	margin: 30px 0 100px 0;	
+	margin: 30px 0 100px 0;
 }
 
 
@@ -996,13 +996,13 @@ ul.portfolio-thumbs li .zoom-btn:hover, ul.portfolio-thumbs li .play-btn:hover {
 #google-map {
 	margin-bottom: 15px;
 	padding: 6px 6px 6px 6px;
-	border: 1px solid #d1d1d1;	
+	border: 1px solid #d1d1d1;
 }
 
-form {			
+form {
 	width: 400px;
 }
-				
+
 .textbox, input[type="text"] {
 	color: #747474;
 	width: 262px;
@@ -1026,12 +1026,12 @@ label {
 	width: 316px;
 }
 
-#submit, #post-comment, input[type="submit"] {		
+#submit, #post-comment, input[type="submit"] {
 	margin-bottom: 15px;
 	float: right;
 	cursor: pointer;
 	font-family: inherit;
-	font-size: 15px;	
+	font-size: 15px;
 	color: #fff;
 	background: #db7030;
 	padding: 6px 10px;
@@ -1046,14 +1046,14 @@ label {
 	clear: both;
 	margin-left: 70px;
 }
-	
+
 
 .social-networks {
 	padding-top: 10px;
 }
 
 .social-links {
-	list-style: none;	
+	list-style: none;
 }
 
 .social-links li {
@@ -1074,76 +1074,76 @@ label {
 /*=== SOCIAL LINKS
 ==================================================*/
 
-	.facebook a { background: url(/static/images/temptation/social/facebook.png) no-repeat top center;	}	
-	.facebook a:hover {	background: url(/static/images/temptation/social/facebook.png) no-repeat bottom center; }	
-	.blogger a { background: url(/static/images/temptation/social/blogger.png) no-repeat top center; }	
-	.blogger a:hover { background: url(/static/images/temptation/social/blogger.png) no-repeat bottom center; }	
-	.delicious a { background: url(/static/images/temptation/social/delicious.png) no-repeat top center; }	
-	.delicious a:hover { background: url(/static/images/temptation/social/delicious.png) no-repeat bottom center; }	
-	.deviant a { background: url(/static/images/temptation/social/deviant.png) no-repeat top center; }	
-	.deviant a:hover { background: url(/static/images/temptation/social/deviant.png) no-repeat bottom center; }	
-	.digg a { background: url(/static/images/temptation/social/digg.png) no-repeat top center; }	
-	.digg a:hover { background: url(/static/images/temptation/social/digg.png) no-repeat bottom center; }	
-	.flickr a { background: url(/static/images/temptation/social/flickr.png) no-repeat top center; }	
-	.flickr a:hover { background: url(/static/images/temptation/social/flickr.png) no-repeat bottom center; }	
-	.forrst a { background: url(/static/images/temptation/social/forrst.png) no-repeat top center;}	
-	.forrst a:hover { background: url(/static/images/temptation/social/forrst.png) no-repeat bottom center; }	
-	.lastfm a {	background: url(/static/images/temptation/social/lastfm.png) no-repeat top center;	}	
+	.facebook a { background: url(/static/images/temptation/social/facebook.png) no-repeat top center;	}
+	.facebook a:hover {	background: url(/static/images/temptation/social/facebook.png) no-repeat bottom center; }
+	.blogger a { background: url(/static/images/temptation/social/blogger.png) no-repeat top center; }
+	.blogger a:hover { background: url(/static/images/temptation/social/blogger.png) no-repeat bottom center; }
+	.delicious a { background: url(/static/images/temptation/social/delicious.png) no-repeat top center; }
+	.delicious a:hover { background: url(/static/images/temptation/social/delicious.png) no-repeat bottom center; }
+	.deviant a { background: url(/static/images/temptation/social/deviant.png) no-repeat top center; }
+	.deviant a:hover { background: url(/static/images/temptation/social/deviant.png) no-repeat bottom center; }
+	.digg a { background: url(/static/images/temptation/social/digg.png) no-repeat top center; }
+	.digg a:hover { background: url(/static/images/temptation/social/digg.png) no-repeat bottom center; }
+	.flickr a { background: url(/static/images/temptation/social/flickr.png) no-repeat top center; }
+	.flickr a:hover { background: url(/static/images/temptation/social/flickr.png) no-repeat bottom center; }
+	.forrst a { background: url(/static/images/temptation/social/forrst.png) no-repeat top center;}
+	.forrst a:hover { background: url(/static/images/temptation/social/forrst.png) no-repeat bottom center; }
+	.lastfm a {	background: url(/static/images/temptation/social/lastfm.png) no-repeat top center;	}
 	.lastfm a:hover { background: url(/static/images/temptation/social/lastfm.png) no-repeat bottom center; }
-	.linkedin a { background: url(/static/images/temptation/social/linkedin.png) no-repeat top center; }	
+	.linkedin a { background: url(/static/images/temptation/social/linkedin.png) no-repeat top center; }
 	.linkedin a:hover { background: url(/static/images/temptation/social/linkedin.png) no-repeat bottom center; }
-	.myspace a { background: url(/static/images/temptation/social/myspace.png) no-repeat top center; }	
+	.myspace a { background: url(/static/images/temptation/social/myspace.png) no-repeat top center; }
 	.myspace a:hover { background: url(/static/images/temptation/social/myspace.png) no-repeat bottom center; }
-	.reddit a { background: url(/static/images/temptation/social/reddit.png) no-repeat top center; }	
+	.reddit a { background: url(/static/images/temptation/social/reddit.png) no-repeat top center; }
 	.reddit a:hover { background: url(/static/images/temptation/social/reddit.png) no-repeat bottom center; }
-	.rss a { background: url(/static/images/temptation/social/rss.png) no-repeat top center; }	
+	.rss a { background: url(/static/images/temptation/social/rss.png) no-repeat top center; }
 	.rss a:hover { background: url(/static/images/temptation/social/rss.png) no-repeat bottom center; }
-	.share a { background: url(/static/images/temptation/social/share.png) no-repeat top center; }	
+	.share a { background: url(/static/images/temptation/social/share.png) no-repeat top center; }
 	.share a:hover { background: url(/static/images/temptation/social/share.png) no-repeat bottom center; }
-	.skype a { background: url(/static/images/temptation/social/skype.png) no-repeat top center; }	
+	.skype a { background: url(/static/images/temptation/social/skype.png) no-repeat top center; }
 	.skype a:hover { background: url(/static/images/temptation/social/skype.png) no-repeat bottom center; }
-	.stumble a { background: url(/static/images/temptation/social/stumble.png) no-repeat top center; }	
+	.stumble a { background: url(/static/images/temptation/social/stumble.png) no-repeat top center; }
 	.stumble a:hover { background: url(/static/images/temptation/social/stumble.png) no-repeat bottom center; }
-	.technocrati a { background: url(/static/images/temptation/social/technocrati.png) no-repeat top center; }	
+	.technocrati a { background: url(/static/images/temptation/social/technocrati.png) no-repeat top center; }
 	.technocrati a:hover { background: url(/static/images/temptation/social/technocrati.png) no-repeat bottom center; }
-	.tumblr a { background: url(/static/images/temptation/social/tumblr.png) no-repeat top center; }	
+	.tumblr a { background: url(/static/images/temptation/social/tumblr.png) no-repeat top center; }
 	.tumblr a:hover { background: url(/static/images/temptation/social/tumblr.png) no-repeat bottom center; }
-	.twitter a { background: url(/static/images/temptation/social/twitter.png) no-repeat top center; }	
+	.twitter a { background: url(/static/images/temptation/social/twitter.png) no-repeat top center; }
 	.twitter a:hover { background: url(/static/images/temptation/social/twitter.png) no-repeat bottom center; }
-	.vimeo a { background: url(/static/images/temptation/social/vimeo.png) no-repeat top center; }	
+	.vimeo a { background: url(/static/images/temptation/social/vimeo.png) no-repeat top center; }
 	.vimeo a:hover { background: url(/static/images/temptation/social/vimeo.png) no-repeat bottom center; }
-	.yahoo a { background: url(/static/images/temptation/social/yahoo.png) no-repeat top center; }	
+	.yahoo a { background: url(/static/images/temptation/social/yahoo.png) no-repeat top center; }
 	.yahoo a:hover { background: url(/static/images/temptation/social/yahoo.png) no-repeat bottom center; }
 
 
 /*  cvstash  */
-div.flash { 
-  position: fixed; 
-  float: right; 
-  padding: 10px; 
-  top: 25px; 
-  right: 30px; 
-  opacity: 0.75; 
-  margin: 10px 10px 10px 10px; 
-  text-align: center; 
-  clear: both; 
-  color: #DB7030; 
-  font-size: 11pt; 
+div.flash {
+  position: fixed;
+  float: right;
+  padding: 10px;
+  top: 25px;
+  right: 30px;
+  opacity: 0.75;
+  margin: 10px 10px 10px 10px;
+  text-align: center;
+  clear: both;
+  color: #DB7030;
+  font-size: 11pt;
   font-weight: bold;
-  text-align: center; 
-  vertical-align: middle; 
-  cursor: pointer; 
-  background: black; 
-  border: 2px solid #fff; 
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px; 
-    z-index: 2; 
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background: black;
+  border: 2px solid #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    z-index: 2;
 }
 
 div.error {
-  background-color: red; 
-  color: #D3FF82; 
-  padding: 3px; 
+  background-color: red;
+  color: #D3FF82;
+  padding: 3px;
 }
 
 /* Calendar */
@@ -1211,7 +1211,7 @@ div.error {
 
 .skillform {
   margin-bottom: 40px;
-  padding-top: 50px;   
+  padding-top: 50px;
 }
 
 #templates #current_template {

@@ -2,7 +2,7 @@
  * @class button - remove table row
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -12,13 +12,13 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
 	this.command = function() {
-		
+
 		var n  = this.rte.selection.getNode(),
 			c  = this.rte.dom.selfOrParent(n, /^(TD|TH)$/),
 			r  = this.rte.dom.selfOrParent(c, /^TR$/),
 			tb = this.rte.dom.selfOrParent(c, /^TABLE$/),
 			mx = this.rte.dom.tableMatrix(tb);
-		
+
 		if (c && r && mx.length) {
 			this.rte.history.add();
 			if (mx.length==1) {
@@ -27,7 +27,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 			}
 			var mdf = [];
 			var ro  = $(r).prevAll('tr').length;
-			
+
 			function _find(x, y) {
 				while (y>0) {
 					y--;
@@ -36,7 +36,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					}
 				}
 			}
-			
+
 			// move cell with rowspan>1 to next row
 			function _move(cell, x) {
 				y = ro+1;
@@ -47,7 +47,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 							sibling = mx[y][_x];
 						}
 					};
-					
+
 					cell = cell.remove();
 					if (sibling) {
 						cell.insertAfter(sibling);
@@ -56,7 +56,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					}
 				}
 			}
-			
+
 			function _cursorPos(column) {
 				for (var i = 0; i<column.length; i++) {
 					if (column[i] == c) {
@@ -64,7 +64,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					}
 				}
 			}
-			
+
 			for (var i=0; i<mx[ro].length; i++) {
 				var cell = null;
 				var move = false;
@@ -80,10 +80,10 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					if (rowspan>1) {
 						cell.attr('rowspan', rowspan-1);
 						move && _move(cell, i, ro);
-					} 
+					}
 				}
 			};
-			
+
 			var _c = _cursorPos(this.rte.dom.tableColumn(c));
 			if (_c) {
 				this.rte.selection.selectContents(_c).collapse(true);
@@ -93,7 +93,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 		}
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TR$/)) {
 			this.domElem.removeClass('disabled');

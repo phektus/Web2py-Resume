@@ -1,11 +1,11 @@
 /**
  * @class eli18n
- * Javascript applications localization 
+ * Javascript applications localization
  *
  * @param Object o - class options. Object. {textdomain : 'имя_группы_сообщений', messages : {textdomain1 : {}[, textdomain2 : {}]...}}
  *
  * Usage:
- * 
+ *
  * var msgs = { Hello : 'Превэд', 'Hello %user' : 'Превед %user' };
  * //load messages and set default textdomain
  * var translator = new eli18n( {textdomain : 'test', messages : {test : msgs}} )
@@ -20,7 +20,7 @@
  * license:   BSD license
  **/
 function eli18n(o) {
-	
+
 	/**
 	 * Get/set default textdomain
 	 *
@@ -30,13 +30,13 @@ function eli18n(o) {
 	this.textdomain = function(d) {
 		return this.messages[d] ? this._domain = d : this._domain;
 	}
-	
+
 	o && o.messages   && this.load(o.messages);
 	o && o.textdomain && this.textdomain(o.textdomain);
 }
 
 eli18n.prototype = new function() {
-	
+
 	/**
 	 * @var Object messages (key - messages in English or message handler, value - message in selected language)
 	 **/
@@ -45,7 +45,7 @@ eli18n.prototype = new function() {
 	 * @var String default textdomain
 	 **/
 	this._domain   = '';
-	
+
 	/**
 	 * Load new messages
 	 *
@@ -58,7 +58,7 @@ eli18n.prototype = new function() {
 				var _msgs = msgs[d];
 				if (typeof(_msgs) == 'object') {
 					if (!this.messages[d]) {
-						this.messages[d] = {}; 
+						this.messages[d] = {};
 					}
 					for (var k in _msgs) {
 						if (typeof(_msgs[k]) == 'string') {
@@ -81,9 +81,9 @@ eli18n.prototype = new function() {
 	this.translate = function(msg, d) {
 		var d = d && this.messages[d] ? d : this._domain;
 		return this.messages[d] && this.messages[d][msg] ? this.messages[d][msg] : msg;
-		
+
 	}
-	
+
 	/**
 	 * Translate message and replace placeholders (%placeholder)
 	 *
@@ -114,7 +114,7 @@ eli18n.prototype = new function() {
  *		.append(['Another field name: ', $('<input type="text" name="f2" />')])
  *      .open()
  * will create dialog with pair text field separated by horizontal rule
- * Calling append() with 2 additional arguments ( d.append([..], null, true)) 
+ * Calling append() with 2 additional arguments ( d.append([..], null, true))
  *  - will create table in dialog and put text inputs and labels in table cells
  *
  * Dialog with tabs:
@@ -133,7 +133,7 @@ eli18n.prototype = new function() {
  *   name      - hidden text field in wich selected value will saved
  *
  * Notice!
- * When close dialog, it will destroing insead of dialog('close'). Reason - strange bug with tabs in dialog on secondary opening. 
+ * When close dialog, it will destroing insead of dialog('close'). Reason - strange bug with tabs in dialog on secondary opening.
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  *
@@ -141,7 +141,7 @@ eli18n.prototype = new function() {
 
 function elDialogForm(o) {
 	var self = this;
-	
+
 	var defaults = {
 		'class'   : 'el-dialogform',
 		submit    : function(e, d) { window.console && window.console.log && window.console.log('submit called'); d.close(); },
@@ -186,11 +186,11 @@ function elDialogForm(o) {
 	if (this.opts.validate) {
 		this.form.validate(this.opts.validate);
 	}
-	
+
 	this.option = function(name, value) {
 		return this.dialog.dialog('option', name, value)
 	}
-	
+
 	this.showError = function(msg, hideContent) {
 		this.hideMessage();
 		this.hideSpinner();
@@ -198,28 +198,28 @@ function elDialogForm(o) {
 		hideContent && this.content.hide();
 		return this;
 	}
-	
+
 	this.hideError= function() {
 		this.error.text('').hide();
 		this.content.show();
-		return this;		
+		return this;
 	}
-	
+
 	this.showSpinner = function(txt) {
 		this.error.hide();
 		this.message.hide();
 		this.content.hide();
 		this.spinner.text(txt||this.opts.spinner).show();
 		this.option('buttons', {});
-		return this;		
+		return this;
 	}
-	
+
 	this.hideSpinner = function() {
 		this.content.show();
 		this.spinner.hide();
-		return this;		
+		return this;
 	}
-	
+
 	this.showMessage = function(txt, hideContent) {
 		this.hideError();
 		this.hideSpinner();
@@ -227,22 +227,22 @@ function elDialogForm(o) {
 		hideContent && this.content.hide();
 		return this;
 	}
-	
+
 	this.hideMessage = function() {
 		this.message.hide();
 		this.content.show();
-		return this;		
+		return this;
 	}
-	
+
 	/**
 	 * Create new tab
 	 * @param string id    - tab id
 	 * @param string title - tab name
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.tab = function(id, title) {
 		id = this.opts.tabPrefix+id;
-		
+
 		if (!this.ul) {
 			this.ul = jQuery('<ul />').prependTo(this.form);
 		}
@@ -250,28 +250,28 @@ function elDialogForm(o) {
 		this.tabs[id] = {tab : jQuery('<div />').attr('id', id).addClass('tab').appendTo(this.form), table : null};
 		return this;
 	}
-	
+
 	/**
 	 * Create new table
 	 * @param string id  tab id, if set - table will create in tab, otherwise - in dialog
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.table = function(id) {
 		id = id && id.indexOf(this.opts.tabPrefix) == -1 ? this.opts.tabPrefix+id : id;
 		if (id && this.tabs && this.tabs[id]) {
 			this.tabs[id].table = jQuery('<table />').appendTo(this.tabs[id].tab);
 		} else {
-			this._table = jQuery('<table />').appendTo(this.form); 
+			this._table = jQuery('<table />').appendTo(this.form);
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Append html, dom nodes or jQuery objects to dialog or tab
 	 * @param array|object|string  data object(s) to append to dialog
 	 * @param string               tid  tab id, if adding to tab
 	 * @param bool                 t    if true - data will added in table (creating automagicaly)
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.append = function(data, tid, t) {
 		tid = tid ? 'el-df-tab-'+tid : '';
@@ -279,7 +279,7 @@ function elDialogForm(o) {
 		if (!data) {
 			return this;
 		}
-		
+
 		if (tid && this.tabs[tid]) {
 			if (t) {
 				!this.tabs[tid].table && this.table(tid);
@@ -300,7 +300,7 @@ function elDialogForm(o) {
 					};
 				}
 			}
-			
+
 		} else {
 			if (!t) {
 				if (!jQuery.isArray(data)) {
@@ -326,11 +326,11 @@ function elDialogForm(o) {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Append separator (div class="separator") to dialog or tab
 	 * @param  string tid  tab id, if adding to tab
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.separator = function(tid) {
 		tid = 'el-df-tab-'+tid;
@@ -342,10 +342,10 @@ function elDialogForm(o) {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Open dialog window
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.open = function() {
 		this.ul && this.form.tabs(this.opts.tabs);
@@ -359,10 +359,10 @@ function elDialogForm(o) {
 		this.form.find(':text').eq(0).focus();
 		return this;
 	}
-	
+
 	/**
 	 * Close dialog window and destroy content
-	 * @return void	
+	 * @return void
 	**/
 	this.close = function() {
 		if (typeof(this.opts.close) == 'function') {
@@ -370,7 +370,7 @@ function elDialogForm(o) {
 		}
 		this.dialog.dialog('destroy').remove();
 	}
-	
+
 }
 
 /**
@@ -397,7 +397,7 @@ function elDialogForm(o) {
  *   paletteClass - css class for colors palette
  *   palettePosition - string indicate where palette will created:
  *      'inner' - palette will attach to element (acceptable in most cases)
- *      'outer' - palette will attach to document.body. 
+ *      'outer' - palette will attach to document.body.
  *                Use, when create color picker inside element with overflow == 'hidden', for example in ui.dialog
  *   update - function wich update button view on select color (by default set selected color as background)
  *   change - callback, called when color was selected (by default write color to console.log)
@@ -436,7 +436,7 @@ function elDialogForm(o) {
 						self.preview.css('background-color', v);
 					})
 					.click(function(e) {
-						e.stopPropagation(); 
+						e.stopPropagation();
 						setColor($(this).attr('title'));
 					});
 			};
@@ -473,21 +473,21 @@ function elDialogForm(o) {
 					}
 				})
 				.keyup(function(e) {
-					var c = $(this).val(); 
+					var c = $(this).val();
 					c.length == 7 && /^#[0-9abcdef]{6}$/i.test(c) && self.val(c);
 				});
-				
+
 			self.preview = $('<div />')
 				.addClass('preview rounded-3')
 				.click(function(e) {
 					e.stopPropagation();
 					setColor(self.input.val());
 				});
-			
+
 			self.palette
 				.append($('<div />').addClass('clearfix'))
 				.append($('<div />').addClass('panel').append(self.input).append(self.preview));
-			
+
 			if (opts.palettePosition == 'outer') {
 				self.palette.hide()
 					.appendTo(self.parents('body').eq(0))
@@ -510,10 +510,10 @@ function elDialogForm(o) {
 			}
 			self.val(self.val());
 		}
-		
+
 		this.empty().addClass(opts['class']+' rounded-3')
 			.css({'position' : 'relative', 'background-color' : opts.color||''})
-		.click(function(e) { 
+		.click(function(e) {
 			if (!self.hasClass('disabled')) {
 				!self.palette && init();
 				if (opts.palettePosition == 'outer' && self.palette.css('display') == 'none') {
@@ -525,7 +525,7 @@ function elDialogForm(o) {
 				self.palette.slideToggle();
 			}
 		});
-		
+
 		this.val = function(v) {
 			if (!v && v!=='') {
 				return this.hidden.val();
@@ -536,7 +536,7 @@ function elDialogForm(o) {
 				} else {
 					this.css('background-color', v);
 				}
-				
+
 				if (self.palette) {
 					self.preview.css('background-color', v);
 					self.input.val(v);
@@ -544,7 +544,7 @@ function elDialogForm(o) {
 			}
 			return this;
 		}
-		
+
 		return this;
 	}
 
@@ -557,9 +557,9 @@ function elDialogForm(o) {
 		update          : null,
 		change          : function(c) { window.console && window.console.log && window.console.log(c) },
 		colors          : [
-			'#ffffff', '#cccccc', '#999999', '#666666', '#333333', '#000000', 
-			'#ffcccc', '#cc9999', '#996666', '#663333', '#330000', 
-			'#ff9999', '#cc6666', '#cc3333', '#993333', '#660000', 
+			'#ffffff', '#cccccc', '#999999', '#666666', '#333333', '#000000',
+			'#ffcccc', '#cc9999', '#996666', '#663333', '#330000',
+			'#ff9999', '#cc6666', '#cc3333', '#993333', '#660000',
 			'#ff6666', '#ff3333', '#ff0000', '#cc0000', '#990000',
 			'#ff9966', '#ff6633', '#ff3300', '#cc3300', '#993300',
 			'#ffcc99', '#cc9966', '#cc6633', '#996633', '#663300',
@@ -575,61 +575,61 @@ function elDialogForm(o) {
 			'#ccffcc', '#99cc99', '#669966', '#336633', '#003300',
 			'#99ff99', '#66cc66', '#33cc33', '#339933', '#006600',
 			'#66ff66', '#33ff33', '#00ff00', '#00cc00', '#009900',
-			'#66ff99', '#33ff66', '#00ff33', '#00cc33', '#009933',			
-			'#99ffcc', '#66cc99', '#33cc66', '#339966', '#006633',						
-			'#33ff99', '#00ff66', '#00ff99', '#00cc66', '#33cc99',						
-			'#66ffcc', '#33ffcc', '#00ffcc', '#00cc99', '#009966',						
-			'#ccffff', '#99cccc', '#669999', '#336666', '#003333',						
-			'#99ffff', '#66cccc', '#33cccc', '#339999', '#006666',						
-			'#66cccc', '#33ffff', '#00ffff', '#00cccc', '#009999',						
-			'#66ccff', '#33ccff', '#00ccff', '#0099cc', '#006699',																		
-			'#99ccff', '#6699cc', '#3399cc', '#336699', '#003366',						
-			'#3399ff', '#0099ff', '#0066ff', '#066ccc', '#3366cc',																		
-			'#6699ff', '#3366ff', '#0033ff', '#0033cc', '#003399',						
-			'#ccccff', '#9999cc', '#666699', '#333366', '#000033',																		
-			'#9999ff', '#6666cc', '#3333cc', '#333399', '#000066',																		
-			'#6666ff', '#3333ff', '#0000ff', '#0000cc', '#009999',																		
-			'#9966ff', '#6633ff', '#3300ff', '#3300cc', '#330099',																		
+			'#66ff99', '#33ff66', '#00ff33', '#00cc33', '#009933',
+			'#99ffcc', '#66cc99', '#33cc66', '#339966', '#006633',
+			'#33ff99', '#00ff66', '#00ff99', '#00cc66', '#33cc99',
+			'#66ffcc', '#33ffcc', '#00ffcc', '#00cc99', '#009966',
+			'#ccffff', '#99cccc', '#669999', '#336666', '#003333',
+			'#99ffff', '#66cccc', '#33cccc', '#339999', '#006666',
+			'#66cccc', '#33ffff', '#00ffff', '#00cccc', '#009999',
+			'#66ccff', '#33ccff', '#00ccff', '#0099cc', '#006699',
+			'#99ccff', '#6699cc', '#3399cc', '#336699', '#003366',
+			'#3399ff', '#0099ff', '#0066ff', '#066ccc', '#3366cc',
+			'#6699ff', '#3366ff', '#0033ff', '#0033cc', '#003399',
+			'#ccccff', '#9999cc', '#666699', '#333366', '#000033',
+			'#9999ff', '#6666cc', '#3333cc', '#333399', '#000066',
+			'#6666ff', '#3333ff', '#0000ff', '#0000cc', '#009999',
+			'#9966ff', '#6633ff', '#3300ff', '#3300cc', '#330099',
 			'#cc99ff', '#9966cc', '#6633cc', '#663399', '#330066',
-			'#9933ff', '#6600ff', '#9900ff', '#6600cc', '#9933cc',			
+			'#9933ff', '#6600ff', '#9900ff', '#6600cc', '#9933cc',
 			'#cc66ff', '#cc33ff', '#cc00ff', '#9900cc', '#660099',
-			'#ffccff', '#cc99cc', '#996699', '#663366', '#330033',			
+			'#ffccff', '#cc99cc', '#996699', '#663366', '#330033',
 			'#ff99ff', '#cc66cc', '#cc33cc', '#993399', '#660066',
-			'#ff66ff', '#ff33ff', '#ff00ff', '#cc00cc', '#990099',			
+			'#ff66ff', '#ff33ff', '#ff00ff', '#cc00cc', '#990099',
 			'#ff66cc', '#ff33cc', '#ff00cc', '#cc0099', '#990066',
-			'#ff99cc', '#cc6699', '#cc3399', '#993366', '#660033',			
+			'#ff99cc', '#cc6699', '#cc3399', '#993366', '#660033',
 			'#ff3399', '#ff0099', '#ff0066', '#cc0066', '#cc3366',
-			'#ff6699', '#ff3366', '#ff0033', '#cc0033', '#990033'		
+			'#ff6699', '#ff3366', '#ff0033', '#cc0033', '#990033'
 			]
 	};
 
 })(jQuery);
 /**
- * jQuery plugin. Create group of text input, elSelect and elColorPicker. 
+ * jQuery plugin. Create group of text input, elSelect and elColorPicker.
  * Allow input border-width, border-style and border-color. Used in elRTE
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  **/
 (function($) {
-	
+
 	$.fn.elBorderSelect = function(o) {
-		
+
 		var $self = this;
 		var self  = this.eq(0);
 		var opts  = $.extend({}, $.fn.elBorderSelect.defaults, o);
 		var width = $('<input type="text" />')
 			.attr({'name' : opts.name+'[width]', size : 3}).css('text-align', 'right')
 			.change(function() { $self.change(); });
-		
+
 		var color = $('<div />').css('position', 'relative')
 			.elColorPicker({
 				'class'         : 'el-colorpicker ui-icon ui-icon-pencil',
-				name            : opts.name+'[color]', 
+				name            : opts.name+'[color]',
 				palettePosition : 'outer',
 				change          : function() { $self.change(); }
 			});
-		
-		
+
+
 		var style = $('<div />').elSelect({
 			tpl       : '<div style="border-bottom:4px %val #000;width:100%;margin:7px 0"> </div>',
 			tpls      : { '' : '%label'},
@@ -647,7 +647,7 @@ function elDialogForm(o) {
 				outset   : 'outset'
 			}
 		});
-		
+
 		self.empty()
 			.addClass(opts['class'])
 			.attr('name', opts.name||'')
@@ -659,22 +659,22 @@ function elDialogForm(o) {
 						.append($('<td />').append(color))
 				)
 			);
-		
+
 		function rgb2hex(str) {
 		    function hex(x)  {
 		    	hexDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8","9", "a", "b", "c", "d", "e", "f"];
 		        return !x  ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x% 16];
 		    }
-			var rgb = str.match(/\(([0-9]{1,3}),\s*([0-9]{1,3}),\s*([0-9]{1,3})\)/); 
+			var rgb = str.match(/\(([0-9]{1,3}),\s*([0-9]{1,3}),\s*([0-9]{1,3})\)/);
 			return rgb ? "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]) : '';
 		}
-		
+
 		function toPixels(num) {
 			var m = num.match(/([0-9]+\.?[0-9]*)\s*(px|pt|em|%)/);
 			if (m) {
 				num  = m[1];
 				unit = m[2];
-			} 
+			}
 			if (num[0] == '.') {
 				num = '0'+num;
 			}
@@ -691,11 +691,11 @@ function elDialogForm(o) {
 			}
 			return num;
 		}
-		
+
 		this.change = function() {
 			opts.change && opts.change(this.val());
 		}
-		
+
 		this.val = function(v) {
 			if (!v && v !== '') {
 				var w = parseInt(width.val());
@@ -704,7 +704,7 @@ function elDialogForm(o) {
 				var m, w, s, c, b = '';
 				if (v.nodeName || v.css) {
 					if (!v.css) {
-						v = $(v);					
+						v = $(v);
 					}
 					var b = v.css('border')
 					if ((b = v.css('border'))) {
@@ -728,18 +728,18 @@ function elDialogForm(o) {
 				return this;
 			}
 		}
-		
+
 		this.val(opts.value);
 		return this;
 	}
-	
+
 	$.fn.elBorderSelect.defaults = {
 		name      : 'el-borderselect',
 		'class'   : 'el-borderselect',
 		value     : {},
 		change    : null
 	}
-	
+
 })(jQuery);
 /**
  * jQuery plugin. Create group of text input fields and selects for setting padding/margin. Used in elRTE
@@ -747,7 +747,7 @@ function elDialogForm(o) {
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  **/
 (function($) {
-	
+
 	$.fn.elPaddingInput = function(o) {
 		var self = this;
 		var opts = $.extend({}, $.fn.elPaddingInput.defaults, {name : this.attr('name')}, o);
@@ -758,9 +758,9 @@ function elDialogForm(o) {
 			right  : new RegExp(opts.type == 'padding' ? 'padding-right\s*:\s*([^;"]+)'  : 'margin-right\s*:\s*([^;"]+)',  'im'),
 			bottom : new RegExp(opts.type == 'padding' ? 'padding-bottom\s*:\s*([^;"]+)' : 'margin-bottom\s*:\s*([^;"]+)', 'im')
 		};
-			
+
 		$.each(['left', 'top', 'right', 'bottom'], function() {
-			
+
 			self[this] = $('<input type="text" />')
 				.attr('size', 3)
 				.css('text-align', 'right')
@@ -779,13 +779,13 @@ function elDialogForm(o) {
 				self[this].append('<option value="%">%</option>');
 			}
 		});
-		
+
 		this.empty().addClass(opts['class'])
 			.append(this.left).append(this.uleft).append(' x ')
 			.append(this.top).append(this.utop).append(' x ')
 			.append(this.right).append(this.uright).append(' x ')
 			.append(this.bottom).append(this.ubottom);
-			
+
 		this.val = function(v) {
 			if (!v && v!=='') {
 				var l = parseNum(this.left.val());
@@ -793,7 +793,7 @@ function elDialogForm(o) {
 				var r = parseNum(this.right.val());
 				var b = parseNum(this.bottom.val());
 				var ret = {
-					left   : l=='auto' || l==0 ? l : (l!=='' ? l+this.uleft.val()   : ''), 
+					left   : l=='auto' || l==0 ? l : (l!=='' ? l+this.uleft.val()   : ''),
 					top    : t=='auto' || t==0 ? t : (t!=='' ? t+this.utop.val()    : ''),
 					right  : r=='auto' || r==0 ? r : (r!=='' ? r+this.uright.val()  : ''),
 					bottom : b=='auto' || b==0 ? b : (b!=='' ? b+this.ubottom.val() : ''),
@@ -806,10 +806,10 @@ function elDialogForm(o) {
 						ret.css = ret.top+' '+ret.right+' '+ret.bottom+' '+ret.left;
 					}
 				}
-				
+
 				return ret;
 			} else {
-				
+
 				if (v.nodeName || v.css) {
 					if (!v.css) {
 						v = $(v);
@@ -837,7 +837,7 @@ function elDialogForm(o) {
 						}
 					}
 					var v = val;
-				} 
+				}
 
 				$.each(['left', 'top', 'right', 'bottom'], function() {
 					var name = this.toString();
@@ -852,25 +852,25 @@ function elDialogForm(o) {
 				return this;
 			}
 		}
-			
+
 		function parseNum(num) {
 			num = $.trim(num.toString());
-			if (num[0] == '.') { 
+			if (num[0] == '.') {
 				num = '0'+num;
 			}
 			n = parseFloat(num);
 			return !isNaN(n) ? n : (num == 'auto' ? num : '');
 		}
-			
+
 		function change() {
 			opts.change && opts.change(self);
 		}
-		
+
 		this.val(opts.value);
-		
+
 		return this;
 	}
-	
+
 	$.fn.elPaddingInput.defaults = {
 		name     : 'el-paddinginput',
 		'class'  : 'el-paddinginput',
@@ -879,7 +879,7 @@ function elDialogForm(o) {
 		percents : true,
 		change   : null
 	}
-	
+
 })(jQuery);
 /**
  * elSelect JQuery plugin
@@ -901,7 +901,7 @@ function elDialogForm(o) {
  *   2. Elements list created only after first click on element (lazzy loading)
  *
  * Options:
- *   src       - object with pairs value:label to create drop-down list 
+ *   src       - object with pairs value:label to create drop-down list
  *   value     - current (selected) value
  *   class     - css class for display "button" (element on wich plugin was called)
  *   listClass - css class for drop down elements list
@@ -914,7 +914,7 @@ function elDialogForm(o) {
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  **/
 (function($) {
-	
+
 	$.fn.elSelect = function(o) {
 		var $self    = this;
 		var self     = this.eq(0);
@@ -933,7 +933,7 @@ function elDialogForm(o) {
 			opts.name  = self.attr('name');
 			self.replaceWith((self = $('<div />')));
 		}
-		
+
 		if (!opts.value || !opts.src[opts.val]) {
 			opts.value = null;
 			var i = 0;
@@ -964,13 +964,13 @@ function elDialogForm(o) {
 				return this;
 			}
 		}
-	
+
 		// update label content
 		function updateLabel(v) {
 			var tpl = opts.labelTpl || opts.tpls[v] || opts.tpl;
 			label.html(tpl.replace(/%val/g, v).replace(/%label/, opts.src[v])).children().attr({unselectable : 'on'});
 		}
-		
+
 		// init "select"
 		self.empty()
 			.addClass(opts['class']+' rounded-3')
@@ -985,7 +985,7 @@ function elDialogForm(o) {
 				!list && init();
 				list.slideToggle();
 				// stupid ie inherit width from parent
-				if ($.browser.msie && !ieWidth) { 
+				if ($.browser.msie && !ieWidth) {
 					list.children().each(function() {
 						ieWidth = Math.max(ieWidth, $(this).width());
 					});
@@ -994,9 +994,9 @@ function elDialogForm(o) {
 					}
 				}
 			});
-			
+
 		this.val(opts.value);
-	
+
 		// create drop-down list
 		function init() {
 			// not ul because of ie is stupid with mouseleave in it :(
@@ -1006,7 +1006,7 @@ function elDialogForm(o) {
 				.appendTo(self.mouseleave(function(e) { list.slideUp(); }));
 
 			for (var v in opts.src) {
-				var tpl = opts.tpls[v] || opts.tpl; 
+				var tpl = opts.tpls[v] || opts.tpl;
 				$('<div />')
 					.attr('name', v)
 					.append( $(tpl.replace(/%val/g, v).replace(/%label/g, opts.src[v])).attr({unselectable : 'on'}) )
@@ -1018,30 +1018,30 @@ function elDialogForm(o) {
 					.click(function(e) {
 						e.stopPropagation();
 						e.preventDefault();
-						
+
 						var v = $(this).attr('name');
 						$self.val(v);
 						opts.select(v);
 						list.slideUp();
 					});
 			};
-			
+
 			var w = self.outerWidth();
 			if (list.width() < w) {
 				list.width(w);
 			}
-			
+
 			var h = list.height();
 			if (opts.maxHeight>0 && h>opts.maxHeight) {
 				list.height(opts.maxHeight);
 			}
-			
+
 			$self.val(hidden.val());
 		}
-		
+
 		return this;
 	}
-	
+
 	$.fn.elSelect.defaults = {
 		name      : 'el-select',
 		'class'   : 'el-select',
@@ -1054,7 +1054,7 @@ function elDialogForm(o) {
 		select    : function(v) {  window.console &&  window.console.log && window.console.log('selected: '+v); },
 		maxHeight : 310
 	}
-	
+
 })(jQuery);
 /*
  * elRTE - WSWING editor for web
@@ -1084,8 +1084,8 @@ elRTE = function(target, opts) {
 	this.options = $.extend(true, {}, this.options, opts);
 	this.browser = $.browser;
 	this.target  = $(target);
-	
-	
+
+
 	this.toolbar   = $('<div class="toolbar"/>');
 	this.iframe    = document.createElement('iframe');
 	// this.source    = $('<textarea />').hide();
@@ -1093,16 +1093,16 @@ elRTE = function(target, opts) {
 	this.statusbar = $('<div class="statusbar"/>');
 	this.tabsbar   = $('<div class="tabsbar"/>');
 	this.editor    = $('<div class="'+this.options.cssClass+'" />').append(this.toolbar).append(this.workzone).append(this.statusbar).append(this.tabsbar);
-	
+
 	this.doc     = null;
 	this.$doc     = null;
 	this.window  = null;
-	
+
 	this.utils     = new this.utils(this);
 	this.dom       = new this.dom(this);
-	this._i18n     = new eli18n({textdomain : 'rte', messages : { rte : this.i18Messages[this.options.lang] || {}} });	
+	this._i18n     = new eli18n({textdomain : 'rte', messages : { rte : this.i18Messages[this.options.lang] || {}} });
 	this.filter    = new this.filter(this)
-	
+
 	/* attach editor to document */
 	this.editor.insertAfter(target);
 	/* init editor textarea */
@@ -1145,17 +1145,17 @@ elRTE = function(target, opts) {
 						}
 						self.ui.disable();
 						self.statusbar.empty();
-						
+
 					}
 				}
-				
+
 			});
 	}
-	
+
 	this.window = this.iframe.contentWindow;
 	this.doc    = this.iframe.contentWindow.document;
 	this.$doc   = $(this.doc);
-	
+
 	/* put content into iframe */
 	html = '<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
 	$.each(self.options.cssfiles, function() {
@@ -1164,39 +1164,39 @@ elRTE = function(target, opts) {
 	this.doc.open();
 	this.doc.write(self.options.doctype+html+'</head><body>'+(this.filter.fromSource(content))+'</body></html>');
 	this.doc.close();
-	
+
 	this.source.val(this.filter.toSource(content));
-	
+
 	/* make iframe editable */
 	if ($.browser.msie) {
 		this.doc.body.contentEditable = true;
 	} else {
-		try { this.doc.designMode = "on"; } 
+		try { this.doc.designMode = "on"; }
 		catch(e) { }
 		this.doc.execCommand('styleWithCSS', false, this.options.styleWithCSS);
 	}
-	
+
 	if (this.options.height>0) {
 		this.workzone.height(this.options.height);
 		$(this.iframe).height(this.options.height);
 		this.source.height(this.options.height);
 	}
-	
+
 	this.window.focus();
-	
+
 	this.history = new this.history(this)
-	
+
 	/* init selection object */
 	this.selection = new this.selection(this);
 	/* init buttons */
 	this.ui = new this.ui(this);
-	
-	
+
+
 	/* bind updateSource to parent form submit */
 	this.target.parents('form').bind('submit', function() {
 		self.beforeSave();
 	});
-	
+
 	/* update buttons on click and keyup */
 	this.$doc.bind('mouseup', function() {
 		self.ui.update();
@@ -1220,13 +1220,13 @@ elRTE = function(target, opts) {
 			}
 		}
 	})
-	
+
 	this.typing = false;
 	this.lastKey = null;
-	
+
 	this.$doc.bind('keydown', function(e) {
 		//@todo shortcuts
-		
+
 		if ((e.keyCode>=48 && e.keyCode <=57) || e.keyCode==61 || e.keyCode == 109 || (e.keyCode>=65 && e.keyCode<=90) || e.keyCode==188 ||e.keyCode==190 || e.keyCode==191 || (e.keyCode>=219 && e.keyCode<=222)) {
 			if (!self.typing) {
 				self.history.add(true);
@@ -1245,12 +1245,12 @@ elRTE = function(target, opts) {
 		self.typing = false;
 		self.lastKey = null;
 	}).bind('paste', function(e) {
-		setTimeout( function() { 
+		setTimeout( function() {
 			self.updateSource();
 			$(self.doc.body).html(self.filter.fromSource(self.source.val()));
 		}, 30);
 	});
-	
+
 	if ($.browser.msie) {
 		this.$doc.bind('keyup', function(e) {
 			if (e.keyCode == 86 && (e.metaKey||e.ctrlKey)) {
@@ -1334,14 +1334,14 @@ elRTE.prototype.log = function(msg) {
 	if (window.console && window.console.log) {
 		window.console.log(msg);
 	}
-        
+
 }
 
 elRTE.prototype.i18Messages = {};
 
-$.fn.elrte = function(o, v) { 
+$.fn.elrte = function(o, v) {
 	var cmd = typeof(o) == 'string' ? o : '', ret;
-	
+
 	this.each(function() {
 		if (!this.elrte) {
 			this.elrte = new elRTE(this, typeof(o) == 'object' ? o : {});
@@ -1360,7 +1360,7 @@ $.fn.elrte = function(o, v) {
 				break;
 		}
 	});
-	
+
 	if (cmd == 'val') {
 		if (!this.length) {
 			return '';
@@ -1379,7 +1379,7 @@ $.fn.elrte = function(o, v) {
 
 })(jQuery);
 /*
- * DOM utilites for elRTE 
+ * DOM utilites for elRTE
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  */
@@ -1391,15 +1391,15 @@ elRTE.prototype.dom = function(rte) {
 		textNodes         : /^(A|ABBR|ACRONYM|ADDRESS|B|BDO|BIG|BLOCKQUOTE|CAPTION|CENTER|CITE|CODE|DD|DEL|DFN|DIV|DT|EM|FIELDSET|FONT|H[1-6]|I|INS|KBD|LABEL|LEGEND|LI|MARQUEE|NOBR|NOEMBED|P|PRE|Q|SAMP|SMALL|SPAN|STRIKE|STRONG|SUB|SUP|TD|TH|TT|VAR)$/,
 		textContainsNodes : /^(A|ABBR|ACRONYM|ADDRESS|B|BDO|BIG|BLOCKQUOTE|CAPTION|CENTER|CITE|CODE|DD|DEL|DFN|DIV|DL|DT|EM|FIELDSET|FONT|H[1-6]|I|INS|KBD|LABEL|LEGEND|LI|MARQUEE|NOBR|NOEMBED|OL|P|PRE|Q|SAMP|SMALL|SPAN|STRIKE|STRONG|SUB|SUP|TABLE|THEAD|TBODY|TFOOT|TD|TH|TR|TT|UL|VAR)$/,
 		block             : /^(APPLET|BLOCKQUOTE|BR|CAPTION|CENTER|COL|COLGROUP|DD|DIV|DL|DT|H[1-6]|EMBED|FIELDSET|LI|MARQUEE|NOBR|OBJECT|OL|P|PRE|TABLE|THEAD|TBODY|TFOOT|TD|TH|TR|UL)$/,
-		selectionBlock    : /^(APPLET|BLOCKQUOTE|BR|CAPTION|CENTER|COL|COLGROUP|DD|DIV|DL|DT|H[1-6]|EMBED|FIELDSET|LI|MARQUEE|NOBR|OBJECT|OL|P|PRE|TD|TH|TR|UL)$/,		
+		selectionBlock    : /^(APPLET|BLOCKQUOTE|BR|CAPTION|CENTER|COL|COLGROUP|DD|DIV|DL|DT|H[1-6]|EMBED|FIELDSET|LI|MARQUEE|NOBR|OBJECT|OL|P|PRE|TD|TH|TR|UL)$/,
 		header            : /^H[1-6]$/,
 		formElement       : /^(FORM|INPUT|HIDDEN|TEXTAREA|SELECT|BUTTON)$/
 	};
-	
+
 	/********************************************************/
 	/*                      Утилиты                         */
-	/********************************************************/	
-	
+	/********************************************************/
+
 	/**
 	 * Возвращает body редактируемого документа
 	 *
@@ -1439,7 +1439,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ndx;
 	}
-	
+
 	/**
 	 * Вовращает значение аттрибута в нижнем регистре (ох уж этот IE)
 	 *
@@ -1454,10 +1454,10 @@ elRTE.prototype.dom = function(rte) {
 			if (v && attr != 'src' && attr != 'href') {
 				v = v.toString().toLowerCase();
 			}
-		} 
+		}
 		return v||'';
 	}
-	
+
 	/**
 	 * Вовращает ближайший общий контейнер для 2-х эл-тов
 	 *
@@ -1560,7 +1560,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает все предыдующие соседнии ноды (не включаются текстовые ноды не создающие значимые пробелы между инлайн элементами)
 	 *
@@ -1574,7 +1574,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает все следующие соседнии inline ноды (не включаются текстовые ноды не создающие значимые пробелы между инлайн элементами)
 	 *
@@ -1588,7 +1588,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает все предыдующие соседнии inline ноды (не включаются текстовые ноды не создающие значимые пробелы между инлайн элементами)
 	 *
@@ -1602,7 +1602,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает TRUE, если нода - первый непустой эл-т внутри родителя
 	 *
@@ -1617,7 +1617,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Вовращает TRUE, если нода - последний непустой эл-т внутри родителя
 	 *
@@ -1632,7 +1632,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Вовращает TRUE, если нода - единственный непустой эл-т внутри родителя
 	 *
@@ -1642,7 +1642,7 @@ elRTE.prototype.dom = function(rte) {
 	this.isOnlyNotEmpty = function(n) {
 		return this.isFirstNotEmpty(n) && this.isLastNotEmpty(n);
 	}
-	
+
 	/**
 	 * Вовращает последний непустой дочерний эл-т ноды или FALSE
 	 *
@@ -1663,9 +1663,9 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Возвращает TRUE, если нода "inline" 
+	 * Возвращает TRUE, если нода "inline"
 	 *
 	 * @param  DOMElement n  нода
 	 * @return bool
@@ -1681,12 +1681,12 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return true;
 	}
-	
-	
+
+
 	/********************************************************/
 	/*                  Поиск элементов                     */
 	/********************************************************/
-	
+
 	this.is = function(n, f) {
 		if (n && n.nodeName) {
 			if (typeof(f) == 'string') {
@@ -1698,10 +1698,10 @@ elRTE.prototype.dom = function(rte) {
 				return f(n);
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Вовращает элемент(ы) отвечающие условиям поиска
 	 *
@@ -1721,8 +1721,8 @@ elRTE.prototype.dom = function(rte) {
 		};
 		return ret;
 	}
-	
-	
+
+
 	/**
 	 * Вовращает массив родительских элементов, отвечающих условиям поиска
 	 *
@@ -1740,7 +1740,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает ближайший родительский эл-т, отвечающий условиям поиска
 	 *
@@ -1748,10 +1748,10 @@ elRTE.prototype.dom = function(rte) {
 	 * @param  RegExp||String f   фильтр условия поиска (RegExp или имя ключа this.regExp или *)
 	 * @return DOMElement
 	 **/
-	this.parent = function(n, f) { 
-		return this.parents(n, f)[0] || null; 
+	this.parent = function(n, f) {
+		return this.parents(n, f)[0] || null;
 	}
-	
+
 	/**
 	 * Вовращает или саму ноду или ее ближайшего родителя, если выполняются условия sf для самой ноды или pf для родителя
 	 *
@@ -1763,7 +1763,7 @@ elRTE.prototype.dom = function(rte) {
 	this.selfOrParent = function(n, sf, pf) {
 		return this.is(n, sf) ? n : this.parent(n, pf||sf);
 	}
-	
+
 	/**
 	 * Вовращает родительскую ноду - ссылку
 	 *
@@ -1797,7 +1797,7 @@ elRTE.prototype.dom = function(rte) {
 		$('a[href]', n).each(function() { res.push(this); });
 		return res;
 	}
-	
+
 	this.selectionHas = function(f) {
 		var n = this.rte.selection.cloneContents(), i;
 		if (n && n.childNodes && n.childNodes.length) {
@@ -1813,13 +1813,13 @@ elRTE.prototype.dom = function(rte) {
 				}
 			};
 		}
-		
+
 		return false;
 	}
 	/********************************************************/
 	/*                    Изменения DOM                     */
 	/********************************************************/
-	
+
 	/**
 	 * Оборачивает одну ноду другой
 	 *
@@ -1838,7 +1838,7 @@ elRTE.prototype.dom = function(rte) {
 		})
 		return w;
 	}
-	
+
 	/**
 	 * Оборачивает все содержимое ноды
 	 *
@@ -1854,7 +1854,7 @@ elRTE.prototype.dom = function(rte) {
 		n.appendChild(w);
 		return w;
 	}
-	
+
 	this.cleanNode = function(n) {
 
 		if (n.nodeType != 1) {
@@ -1880,16 +1880,16 @@ elRTE.prototype.dom = function(rte) {
 			$n.replaceWith($n.html());
 		}
 	}
-	
+
 	this.cleanChildNodes = function(n) {
 		var cmd = this.cleanNode;
 		$(n).children().each(function() { cmd(this); });
 	}
-	
+
 	/********************************************************/
 	/*                       Таблицы                        */
 	/********************************************************/
-	
+
 	this.tableMatrix = function(n) {
 		var mx = [];
 		if (n && n.nodeName == 'TABLE') {
@@ -1901,12 +1901,12 @@ elRTE.prototype.dom = function(rte) {
 					}
 				};
 			}
-			
+
 			$(n).find('tr').each(function(r) {
 				if (!$.isArray(mx[r])) {
 					mx[r] = [];
 				}
-				
+
 				$(this).children('td,th').each(function() {
 					var w = parseInt($(this).attr('colspan')||1);
 					var h = parseInt($(this).attr('rowspan')||1);
@@ -1927,18 +1927,18 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return mx;
 	}
-	
+
 	this.indexesOfCell = function(n, tbm) {
 		for (var rnum=0; rnum < tbm.length; rnum++) {
 			for (var cnum=0; cnum < tbm[rnum].length; cnum++) {
 				if (tbm[rnum][cnum] == n) {
 					return [rnum, cnum];
 				}
-				
+
 			};
 		};
 	}
-	
+
 	this.fixTable = function(n) {
 		if (n && n.nodeName == 'TABLE') {
 			var tb = $(n);
@@ -1954,11 +1954,11 @@ elRTE.prototype.dom = function(rte) {
 			// for (var i=0; i<mx.length; i++) {
 			// 	this.rte.log(mx[i]);
 			// }
-			
+
 			for (var r=0; r<mx.length; r++) {
 				var l = mx[r].length;
 				//this.rte.log(r+' : '+l)
-				
+
 				if (l==0) {
 					//this.rte.log('remove: '+tb.find('tr').eq(r))
 					tb.find('tr').eq(r).remove();
@@ -1971,10 +1971,10 @@ elRTE.prototype.dom = function(rte) {
 					}
 				}
 			}
-			
+
 		}
 	}
-	
+
 	this.tableColumn = function(n, ext, fix) {
 		n      = this.selfOrParent(n, /^TD|TH$/);
 		var tb = this.selfOrParent(n, /^TABLE$/);
@@ -1997,7 +1997,7 @@ elRTE.prototype.dom = function(rte) {
 					break;
 				}
 			}
-			
+
 			// this.rte.log('matrix');
 			// for (var i=0; i<mx.length; i++) {
 			// 	this.rte.log(mx[i]);
@@ -2052,7 +2052,7 @@ elRTE.prototype.dom = function(rte) {
 		this._deny = rte.options.denyTags||[];
 		/* swf placeholder class */
 		this.swfClass = 'elrte-swf-placeholder';
-		
+
 		n = $('<span />').addClass(this.swfClass).appendTo(rte.editor).text('swf')[0];
 		if (typeof n.currentStyle != "undefined") {
 			url = n.currentStyle['backgroundImage'];
@@ -2081,9 +2081,9 @@ elRTE.prototype.dom = function(rte) {
 		if (!this._chains.fromSource || !this._chains.fromSource.length) {
 			this._chains.fromSource = [this.rules.fromSource]
 		}
-		
+
 		/**
-		 * Procces html in required chains 
+		 * Procces html in required chains
 		 *
 		 * @param String
 		 * @param String  chain name
@@ -2097,9 +2097,9 @@ elRTE.prototype.dom = function(rte) {
 			}
 			return html;
 		}
-		
+
 		/**
-		 * Procces html in toSource chain 
+		 * Procces html in toSource chain
 		 *
 		 * @param String
 		 * @return String
@@ -2107,9 +2107,9 @@ elRTE.prototype.dom = function(rte) {
 		this.toSource = function(html) {
 			return this.proccess(html, 'toSource');
 		}
-		
+
 		/**
-		 * Procces html in fromSource chain 
+		 * Procces html in fromSource chain
 		 *
 		 * @param String
 		 * @return String
@@ -2117,7 +2117,7 @@ elRTE.prototype.dom = function(rte) {
 		this.fromSource = function(html) {
 			return this.proccess(html, 'fromSource');
 		}
-		
+
 		/**
 		 * Add user methods for replace/restore any patterns in html
 		 *
@@ -2132,9 +2132,9 @@ elRTE.prototype.dom = function(rte) {
 				this._chains.toSource.unshift(rp);
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * Default rules
 	 */
@@ -2154,16 +2154,16 @@ elRTE.prototype.dom = function(rte) {
 					small  : ['span', 'font-size:small'],
 					u      : ['span', 'text-decoration:underline']
 				};
-			
+
 			if ($.browser.opera||$.browser.msie) {
 				html = f.rules.tagsToLower(f, html);
 			}
-				
+
 			/* Replace non-semantic tags */
 			html = html.replace(/\<(\/?)(b|i|u|font|center|nobr|big|small)(\s+[^>]*)?\>/gi, function(t, s, n, a) {
 				n = n.toLowerCase(n);
 				a = (a||'').toLowerCase(a);
-				
+
 				if (map[n]) {
 					if (!s && map[n][1]) {
 						a = a.indexOf('style="') == -1 ? a+' style="'+map[n][1]+'"' : a.replace('style="', 'style="'+map[n][1]+';');
@@ -2177,7 +2177,7 @@ elRTE.prototype.dom = function(rte) {
 			html = html.replace(/\<([a-z1-6]+)\s+([^>]*(border|bordercolor|color|background|bgcolor|align|valign|hspace|vspace|clear|size|face)=[^>]*)\>/gi, function(t, n, a) {
 				var attrs = {},
 					m = a.match(/([a-z]+)="([^"]*)"/gi), _t, i;
-				
+
 				function style(v) {
 					if (!attrs.style) {
 						attrs.style = '';
@@ -2189,9 +2189,9 @@ elRTE.prototype.dom = function(rte) {
 						_t = m[i].split('=');
 						attrs[_t[0]] = _t[1].replace(/"/g, '');
 					}
-				} 
+				}
 
-				
+
 				if (attrs.border) {
 					style('border:'+attrs.border+'px solid '+(attrs.bordercolor||'#000'));
 					delete attrs.border;
@@ -2225,7 +2225,7 @@ elRTE.prototype.dom = function(rte) {
 					} else {
 						style('text-align:'+attrs.align);
 					}
-					
+
 					delete attrs.align;
 				}
 				if (attrs.valign) {
@@ -2247,7 +2247,7 @@ elRTE.prototype.dom = function(rte) {
 						style('font-size:'+(fsize[attrs.size]||'medium'));
 					}
 					delete attrs.size;
-				} 
+				}
 				if (attrs.clear) {
 					style('clear:'+(attrs.clear=='all' ? 'both' : attrs.clear));
 					delete attrs.clear;
@@ -2255,8 +2255,8 @@ elRTE.prototype.dom = function(rte) {
 				if (attrs.face) {
 					delete attrs.face;
 				}
-				
-				
+
+
 				a = '';
 				for (i in attrs) {
 					if (attrs.hasOwnProperty(i) && attrs[i]) {
@@ -2265,7 +2265,7 @@ elRTE.prototype.dom = function(rte) {
 				}
 				return '<'+n+a+'>';
 			})
-			
+
 			/* Remove not allowed tags */
 			if ( at || dt) {
 				html = html.replace(/\<(\/?)([a-z1-6]+)([^>]*)\>/gi, function(t, s, n, a) {
@@ -2278,54 +2278,54 @@ elRTE.prototype.dom = function(rte) {
 
 		/* move tags to lowercase in ie and opera */
 		tagsToLower : function(f, html) {
-			return html.replace(/\<(\/?)([a-z1-6]+)([^\>]*)\>/ig, function(s, sl, tag, arg) { 
+			return html.replace(/\<(\/?)([a-z1-6]+)([^\>]*)\>/ig, function(s, sl, tag, arg) {
 				arg = arg.replace(/([a-z\-]+)\:/ig, function(s, a) { return a.toLowerCase()+':' });
 				arg = arg.replace(/([a-z\-]+)=/ig, function(s, a) { return a.toLowerCase()+'=' });
 				arg = arg.replace(/([a-z\-]+)=([a-z1-9\-]+)/ig, function(s, a, v) { return a+'="'+v+'"' })
 				return '<'+sl+tag.toLowerCase()+arg+'>';
 			})//.replace(/\<\/([a-z1-6]+)\>/ig, function(s, tag) { return '</'+tag.toLowerCase()+'>';});
 		},
-		
+
 		/* make xhtml tags */
 		xhtmlTags : function(f, html) {
 			return html.replace(/\<(img|hr|br)([^>\/]*)\>/gi, "<$1$2 />");
 		},
-		
-		/* proccess html for textarea */
-		toSource : function(f, html) { 
 
-			
+		/* proccess html for textarea */
+		toSource : function(f, html) {
+
+
 			html = f.rules.restore(f, html);
 
 
 			/* clean tags & attributes */
 			html = f.rules.cleanup(f, html);
-			
-			
-			
+
+
+
 			/* make xhtml tags if required */
 			if (f._xhtml) {
 				html = f.rules.xhtmlTags(f, html);
 			}
-			
+
 			return html;
 		},
-		
+
 		/* proccess html for editor */
-		fromSource : function(f, html) { 
+		fromSource : function(f, html) {
 
 			html = f.rules.replace(f, html);
-		
+
 			/* clean tags & attributes */
 			html = f.rules.cleanup(f, html);
-			
+
 			return html;
 		},
-		
+
 		/* replace swf with placeholder */
-		replace : function(f, html) { 
+		replace : function(f, html) {
 			var n = $('<div/>').html(html);
-			
+
 			n.find('object[classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"]')
 				.each(function() {
 				var t = $(this),
@@ -2361,12 +2361,12 @@ elRTE.prototype.dom = function(rte) {
 					});
 					$(this).replaceWith(img);
 			})
-			
+
 			return n.html();
 		},
-		
+
 		/* restore swf from placeholder */
-		restore : function(f, html) { 
+		restore : function(f, html) {
 			var n = $('<div/>').html(html);
 
 			n.find('.'+f.swfClass).each(function() {
@@ -2393,7 +2393,7 @@ elRTE.prototype.dom = function(rte) {
 			return n.html();
 		}
 	}
-	
+
 
 	/**
 	 * Default chains configuration
@@ -2402,16 +2402,16 @@ elRTE.prototype.dom = function(rte) {
 		toSource   : [ 'toSource' ],
 		fromSource : [ 'fromSource' ]
 	}
-	
 
-	
+
+
 })(jQuery);(function($) {
 elRTE.prototype.history = function(rte) {
 	this.rte = rte;
 	this._prev = []
 	this._next = [];
 
-	
+
 	this.add = function() {
 		if (this.rte.options.historyLength>0 && this._prev.length>= this.rte.options.historyLength) {
 			this._prev.slice(this.rte.options.historyLength);
@@ -2422,14 +2422,14 @@ elRTE.prototype.history = function(rte) {
 		// this._prev.push($(this.rte.doc.body).html());
 		this._next = [];
 	}
-	
+
 	this.back = function() {
-		
+
 		if (this._prev.length) {
-			var b = this.rte.selection.getBookmark(), 
+			var b = this.rte.selection.getBookmark(),
 				data = this._prev.pop();
 			this._next.push([$(this.rte.doc.body).html(), b]);
-			
+
 			$(this.rte.doc.body).html(data[0]);
 			this.rte.selection.moveToBookmark(data[1]);
 		}
@@ -2437,19 +2437,19 @@ elRTE.prototype.history = function(rte) {
 
 	this.fwd = function() {
 		if (this._next.length) {
-			var b = this.rte.selection.getBookmark(), 
+			var b = this.rte.selection.getBookmark(),
 				data = this._next.pop();
 			this._prev.push([$(this.rte.doc.body).html(), b]);
-			
+
 			$(this.rte.doc.body).html(data[0]);
 			this.rte.selection.moveToBookmark(data[1]);
 		}
 	}
-	
+
 	this.canBack = function() {
 		return this._prev.length;
 	}
-	
+
 	this.canFwd = function() {
 		return this._next.length;
 	}
@@ -2500,7 +2500,7 @@ elRTE.prototype.options   = {
 		'paste'               : 'Paste',
 		'pastetext'           : 'Paste only text',
 		'pasteformattext'     : 'Paste formatted text',
-		'removeformat'        : 'Clean format', 
+		'removeformat'        : 'Clean format',
 		'undo'                : 'Undo last action',
 		'redo'                : 'Redo previous action',
 		'bold'                : 'Bold',
@@ -2561,7 +2561,7 @@ elRTE.prototype.options   = {
 		elements   : ['horizontalrule', 'blockquote', 'div', 'stopfloat', 'css', 'nbsp'],
 		links      : ['link', 'unlink', 'anchor'],
 		images     : ['image'],
-		media      : ['image', 'flash'],		
+		media      : ['image', 'flash'],
 		tables     : ['table', 'tableprops', 'tablerm',  'tbrowbefore', 'tbrowafter', 'tbrowrm', 'tbcolbefore', 'tbcolafter', 'tbcolrm', 'tbcellprops', 'tbcellsmerge', 'tbcellsplit'],
 		elfinder   : ['elfinder'],
 		fullscreen : ['fullscreen']
@@ -2573,7 +2573,7 @@ elRTE.prototype.options   = {
 		complete : ['save', 'copypaste', 'undoredo', 'style', 'alignment', 'colors', 'format', 'indent', 'lists', 'links', 'elements', 'media', 'fullscreen'],
 		maxi     : ['save', 'copypaste', 'undoredo', 'elfinder', 'style', 'alignment', 'colors', 'format', 'indent', 'lists', 'links', 'elements', 'media', 'tables', 'fullscreen'],
 		eldorado : ['save', 'copypaste', 'elfinder', 'undoredo', 'style', 'alignment', 'colors', 'format', 'indent', 'lists', 'links', 'elements', 'media', 'tables', 'fullscreen']
-		
+
 	},
 	panelNames : {
 		save      : 'Save',
@@ -2607,7 +2607,7 @@ elRTE.prototype.selection = function(rte) {
 	var self      = this;
 	this.w3cRange = null;
 	var start, end, node, bm;
-	
+
 	$(this.rte.doc)
 		.keyup(function(e) {
 			if (e.ctrlKey || e.metaKey || (e.keyCode >= 8 && e.keyCode <= 13) || (e.keyCode>=32 && e.keyCode<= 40) || e.keyCode == 46 || (e.keyCode >=96 && e.keyCode <= 111)) {
@@ -2632,7 +2632,7 @@ elRTE.prototype.selection = function(rte) {
 			end  = e.target;
 			node = null;
 		}).click();
-		
+
 	/**
 	 * возвращает selection
 	 *
@@ -2641,7 +2641,7 @@ elRTE.prototype.selection = function(rte) {
 	function selection() {
 		return self.rte.window.getSelection ? self.rte.window.getSelection() : self.rte.window.document.selection;
 	}
-	
+
 	/**
 	 * Вспомогательная функция
 	 * Возвращает самого верхнего родителя, отвечающего условию - текущая нода - его единственная непустая дочерняя нода
@@ -2657,7 +2657,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return n;
 	}
-	
+
 	/**
 	 * Возвращает TRUE, если выделение "схлопнуто"
 	 *
@@ -2666,9 +2666,9 @@ elRTE.prototype.selection = function(rte) {
 	this.collapsed = function() {
 		return this.getRangeAt().isCollapsed();
 	}
-	
+
 	/**
-	 * "Схлопывает" выделение 
+	 * "Схлопывает" выделение
 	 *
 	 * @param   bool  toStart  схлопнуть к начальной точке
 	 * @return  void
@@ -2676,7 +2676,7 @@ elRTE.prototype.selection = function(rte) {
 	this.collapse = function(toStart) {
 		this.getRangeAt().collapse(toStart ? true : false);
 	}
-	
+
 	/**
 	 * Возвращает TextRange
 	 * Для нормальных браузеров - нативный range
@@ -2692,18 +2692,18 @@ elRTE.prototype.selection = function(rte) {
 			updateW3cRange && this.w3cRange.update();
 			return this.w3cRange;
 		}
-		
+
 		var s = selection();
 		var r = s.rangeCount > 0 ? s.getRangeAt(0) : this.rte.doc.createRange();
 		r.getStart = function() {
-			return this.startContainer.nodeType==1 
-				? this.startContainer.childNodes[Math.min(this.startOffset, this.startContainer.childNodes.length-1)] 
+			return this.startContainer.nodeType==1
+				? this.startContainer.childNodes[Math.min(this.startOffset, this.startContainer.childNodes.length-1)]
 				: this.startContainer;
 		}
-		
+
 		r.getEnd = function() {
-			return this.endContainer.nodeType==1 
-				? this.endContainer.childNodes[ Math.min(this.startOffset == this.endOffset ? this.endOffset : this.endOffset-1, this.endContainer.childNodes.length-1)] 
+			return this.endContainer.nodeType==1
+				? this.endContainer.childNodes[ Math.min(this.startOffset == this.endOffset ? this.endOffset : this.endOffset-1, this.endContainer.childNodes.length-1)]
 				: this.endContainer;
 		}
 		r.isCollapsed = function() {
@@ -2711,24 +2711,24 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return r;
 	}
-	
+
 	this.saveIERange = function() {
 		if ($.browser.msie) {
 			bm = this.getRangeAt().getBookmark();
 		}
 	}
-	
+
 	this.restoreIERange = function() {
 		$.browser.msie && bm && this.getRangeAt().moveToBookmark(bm);
 	}
-	
+
 	this.cloneContents = function() {
 		var n = this.rte.dom.create('div'), r, c, i;
 		if ($.browser.msie) {
-			try { 
-				r = this.rte.window.document.selection.createRange(); 
-			} catch(e) { 
-				r = this.rte.doc.body.createTextRange(); 
+			try {
+				r = this.rte.window.document.selection.createRange();
+			} catch(e) {
+				r = this.rte.doc.body.createTextRange();
 			}
 			$(n).html(r.htmlText);
 		} else {
@@ -2739,7 +2739,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return n;
 	}
-	
+
 	/**
 	 * Выделяет ноды
 	 *
@@ -2749,19 +2749,19 @@ elRTE.prototype.selection = function(rte) {
 	 **/
 	this.select = function(s, e) {
 		e = e||s;
-		
+
 		if (this.rte.browser.msie) {
 			var r  = this.rte.doc.body.createTextRange(),
 				r1 = r.duplicate(),
 				r2 = r.duplicate();
-			
+
 			r1.moveToElementText(s);
 			r2.moveToElementText(e);
 			r.setEndPoint('StartToStart', r1);
 			r.setEndPoint('EndToEnd',     r2);
 			r.select();
 		} else {
-			
+
 			var sel = selection(),
 				r = this.getRangeAt();
 			r.setStartBefore(s);
@@ -2771,7 +2771,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return this.cleanCache();
 	}
-	
+
 	/**
 	 * Выделяет содержимое ноды
 	 *
@@ -2798,7 +2798,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Вставляет ноду в текущее выделение
 	 *
@@ -2836,7 +2836,7 @@ elRTE.prototype.selection = function(rte) {
 		if (collapse && !this.collapsed()) {
 			this.collapse();
 		}
-		
+
 		if (this.rte.browser.msie) {
 			this.getRangeAt().range().pasteHTML(html);
 		} else {
@@ -2863,14 +2863,14 @@ elRTE.prototype.selection = function(rte) {
 		var r, r1, r2, _s, _e,
 			s = this.rte.dom.createBookmark(),
 			e = this.rte.dom.createBookmark();
-			
-		
-		
+
+
+
 		if ($.browser.msie) {
-			try { 
-				r = this.rte.window.document.selection.createRange(); 
-			} catch(e) { 
-				r = this.rte.doc.body.createTextRange(); 
+			try {
+				r = this.rte.window.document.selection.createRange();
+			} catch(e) {
+				r = this.rte.doc.body.createTextRange();
 			}
 			r1 = r.duplicate();
 			r2 = r.duplicate();
@@ -2887,15 +2887,15 @@ elRTE.prototype.selection = function(rte) {
 
 			// s = this.rte.doc.getElementById($(s).attr('id'));
 			// e = this.rte.doc.getElementById($(e).attr('id'));
-			
+
 		} else {
 				var sel = selection();
 				var r = sel.rangeCount > 0 ? sel.getRangeAt(0) : this.rte.doc.createRange();
-				
+
 			// r  = this.getRangeAt();
 			r1 = r.cloneRange();
 			r2 = r.cloneRange();
-			
+
 			// this.insertNode(this.rte.dom.create('hr'))
 			// return
 			r2.collapse(false);
@@ -2904,13 +2904,13 @@ elRTE.prototype.selection = function(rte) {
 			r1.insertNode(s);
 			this.select(s, e);
 		}
-		
+
 		return [s.id, e.id];
 	}
 
 	this.moveToBookmark = function(b) {
 		this.rte.window.focus();
-		
+
 		if (b && b.length==2) {
 			var s = this.rte.doc.getElementById(b[0]),
 				e = this.rte.doc.getElementById(b[1]),
@@ -2926,12 +2926,12 @@ elRTE.prototype.selection = function(rte) {
 					sel.removeAllRanges();
 					sel.addRange(r);
 				}
-				
+
 				s.parentNode.removeChild(s);
 				e.parentNode.removeChild(e);
 			}
 		}
-		return this;	
+		return this;
 	}
 
 	this.removeBookmark = function(b) {
@@ -2956,7 +2956,7 @@ elRTE.prototype.selection = function(rte) {
 		return this;
 	}
 
-	
+
 	/**
 	 * Возвращает ноду начала выделения
 	 *
@@ -2969,7 +2969,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return start;
 	}
-	
+
 	/**
 	 * Возвращает ноду конца выделения
 	 *
@@ -2996,7 +2996,7 @@ elRTE.prototype.selection = function(rte) {
 		return node;
 	}
 
-	
+
 	/**
 	 * Возвращает массив выбранных нод
 	 *
@@ -3012,13 +3012,13 @@ elRTE.prototype.selection = function(rte) {
 			tag       : 'span'  // во что оборачиваем
 		}
 		opts = $.extend({}, opts, o);
-		
+
 		// блочное выделение - ищем блочную ноду, но не таблицу
 		if (opts.blocks) {
 			var n  = this.getNode(), _n = null;
 			if (_n = this.rte.dom.selfOrParent(n, 'selectionBlock') ) {
 				return [_n];
-			} 
+			}
 		}
 
 		var sel    = this.selectedRaw(opts.collapsed, opts.blocks);
@@ -3028,7 +3028,7 @@ elRTE.prototype.selection = function(rte) {
 
 		// оборачиваем ноды в буффере
 		function wrap() {
-			
+
 			function allowParagraph() {
 				for (var i=0; i < buffer.length; i++) {
 					if (buffer[i].nodeType == 1 && (self.rte.dom.selfOrParent(buffer[i], /^P$/) || $(buffer[i]).find('p').length>0)) {
@@ -3036,8 +3036,8 @@ elRTE.prototype.selection = function(rte) {
 					}
 				};
 				return true;
-			} 
-			
+			}
+
 			if (buffer.length>0) {
 				var tag  = opts.tag == 'p' && !allowParagraph() ? 'div' : opts.tag;
 				var n    = self.rte.dom.wrap(buffer, tag);
@@ -3046,7 +3046,7 @@ elRTE.prototype.selection = function(rte) {
 				buffer   = [];
 			}
 		}
-		
+
 		// добавляем ноды в буффер
 		function addToBuffer(n) {
 			if (n.nodeType == 1) {
@@ -3060,21 +3060,21 @@ elRTE.prototype.selection = function(rte) {
 					var tag = opts.tag == 'p' && $(n).find('p').length>0 ? 'div' : opts.tag;
 					var n = self.rte.dom.wrapContents(n, tag);
 					return ret.push(n);
-				} 
-			} 
+				}
+			}
 			var prev = buffer.length>0 ? buffer[buffer.length-1] : null;
 			if (prev && prev != self.rte.dom.prev(n)) {
 				wrap();
 			}
-			buffer.push(n); 
+			buffer.push(n);
 			if (ndx === null) {
 				ndx = ret.length;
 				ret.push('dummy'); // заглушка для оборачиваемых элементов
 			}
 		}
-		
+
 		if (sel.nodes.length>0) {
-			
+
 			for (var i=0; i < sel.nodes.length; i++) {
 				var n = sel.nodes[i];
 					// первую и посл текстовые ноды разрезаем, если необходимо
@@ -3096,16 +3096,16 @@ elRTE.prototype.selection = function(rte) {
 								ret.push(n);
 							}
 							break;
-						// оборачиваем все инлайн элементы	
+						// оборачиваем все инлайн элементы
 						case 'inline':
 							if (this.rte.dom.isInline(n)) {
 								addToBuffer(n);
 							} else if (n.nodeType == 1) {
-								
+
 								ret.push(n);
 							}
 							break;
-						// оборачиваем все	
+						// оборачиваем все
 						case 'all':
 							if (n.nodeType == 1 || !this.rte.dom.isEmpty(n)) {
 								addToBuffer(n);
@@ -3120,12 +3120,12 @@ elRTE.prototype.selection = function(rte) {
 			};
 			wrap();
 		}
-	
+
 		if (ret.length) {
 			this.rte.window.focus();
-			
+
 			this.select(ret[0], ret[ret.length-1]);
-		}	
+		}
 		return opts.filter ? this.rte.dom.filter(ret, opts.filter) : ret;
 	}
 
@@ -3157,27 +3157,27 @@ elRTE.prototype.selection = function(rte) {
 		var s, e;  // start & end nodes
 		var sf  = false; // start node fully selected
 		var ef  = false; // end node fully selected
-		
+
 		// возвращает true, если нода не текстовая или выделена полностью
 		function isFullySelected(n, s, e) {
 			if (n.nodeType == 3) {
 				e = e>=0 ? e : n.nodeValue.length;
 				return (s==0 && e==n.nodeValue.length) || $.trim(n.nodeValue).length == $.trim(n.nodeValue.substring(s, e)).length;
-			} 
+			}
 			return true;
 		}
-		
+
 		// возвращает true, если нода пустая или в ней не выделено ни одного непробельного символа
 		function isEmptySelected(n, s, e) {
 			if (n.nodeType == 1) {
 				return self.rte.dom.isEmpty(n);
 			} else if (n.nodeType == 3) {
 				return $.trim(n.nodeValue.substring(s||0, e>=0 ? e : n.nodeValue.length)).length == 0;
-			} 
+			}
 			return true;
 		}
-		
-		
+
+
 		//this.dump()
 		// начальная нода
 		if (r.startContainer.nodeType == 1) {
@@ -3191,8 +3191,8 @@ elRTE.prototype.selection = function(rte) {
 		} else {
 			s = r.startContainer;
 			res.so = r.startOffset;
-		} 
-		
+		}
+
 		// выделение схлопнуто
 		if (r.collapsed) {
 			if (collapsed) {
@@ -3201,27 +3201,27 @@ elRTE.prototype.selection = function(rte) {
 					s = realSelected(s);
 					if (!this.rte.dom.isEmpty(s) || (s = this.rte.dom.next(s))) {
 						res.nodes = [s];
-					} 
-					
-					// добавляем инлайн соседей 
+					}
+
+					// добавляем инлайн соседей
 					if (this.rte.dom.isInline(s)) {
 						res.nodes = this.rte.dom.toLineStart(s).concat(res.nodes, this.rte.dom.toLineEnd(s));
 					}
-					
+
 					// offset для текстовых нод
 					if (res.nodes.length>0) {
 						res.so = res.nodes[0].nodeType == 1 ? null : 0;
 						res.eo = res.nodes[res.nodes.length-1].nodeType == 1 ? null : res.nodes[res.nodes.length-1].nodeValue.length;
 					}
-					
+
 				} else if (!this.rte.dom.isEmpty(s)) {
 					res.nodes = [s];
 				}
-				
+
 			}
 			return res;
 		}
-		
+
 		// конечная нода
 		if (r.endContainer.nodeType == 1) {
 			e = r.endContainer.childNodes[r.endOffset-1];
@@ -3229,10 +3229,10 @@ elRTE.prototype.selection = function(rte) {
 		} else {
 			e = r.endContainer;
 			res.eo = r.endOffset;
-		} 
+		}
 		// this.rte.log('select 1')
 		//this.dump(ca, s, e, res.so, res.eo)
-		
+
 		// начальная нода выделена полностью - поднимаемся наверх по левой стороне
 		if (s.nodeType == 1 || blocks || isFullySelected(s, res.so, s.nodeValue.length)) {
 //			this.rte.log('start text node is fully selected')
@@ -3277,7 +3277,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		 // this.rte.log('start 2')
 		  //this.dump(ca, s, e, res.so, res.eo)
-		
+
 		// находим начальную и конечную точки - ноды из иерархии родителей начальной и конечно ноды, у которых родитель - контейнер
 		var sp = s;
 		while (sp.nodeName != 'BODY' && sp.parentNode !== ca && sp.parentNode.nodeName != 'BODY') {
@@ -3286,7 +3286,7 @@ elRTE.prototype.selection = function(rte) {
 		//this.rte.log(s.nodeName)
 		// this.rte.log('start point')
 		// this.rte.log(sp)
-		
+
 		var ep = e;
 //		this.rte.log(ep)
 		while (ep.nodeName != 'BODY' && ep.parentNode !== ca && ep.parentNode.nodeName != 'BODY') {
@@ -3295,8 +3295,8 @@ elRTE.prototype.selection = function(rte) {
 		}
 		// this.rte.log('end point')
 		// this.rte.log(ep)
-		
-		
+
+
 		//  если начальная нода не пустая - добавляем ее
 		if (!isEmptySelected(s, res.so, s.nodeType==3 ? s.nodeValue.length : null)) {
 			res.nodes.push(s);
@@ -3333,7 +3333,7 @@ elRTE.prototype.selection = function(rte) {
 		if (!isEmptySelected(e, 0, e.nodeType==3 ? res.eo : null)) {
 			res.nodes.push(e);
 		}
-		
+
 		if (blocks) {
 			// добавляем инлайн соседей слева
 			if (this.rte.dom.isInline(s)) {
@@ -3346,11 +3346,11 @@ elRTE.prototype.selection = function(rte) {
 				res.eo    = res.nodes[res.nodes.length-1].nodeType == 1 ? null : res.nodes[res.nodes.length-1].nodeValue.length;
 			}
 		}
-		
+
 		// все радуются! :)
 		return res;
 	}
-	
+
 }
 
 })(jQuery);/**
@@ -3371,14 +3371,14 @@ elRTE.prototype.ui = function(rte) {
 		tb        = this.rte.options.toolbars[rte.options.toolbar && rte.options.toolbars[rte.options.toolbar] ? rte.options.toolbar : 'normal'],
 		tbl       = tb.length,
 		p, pname, pl, n, c, b, i;
-	
+
 	// add prototype to all buttons
 	for (i in this.buttons) {
 		if (this.buttons.hasOwnProperty(i) && i != 'button') {
 			this.buttons[i].prototype = this.buttons.button.prototype;
 		}
 	}
-	
+
 	// create buttons and put on toolbar
 	while (tbl--) {
 		pname = tb[tbl];
@@ -3394,13 +3394,13 @@ elRTE.prototype.ui = function(rte) {
 			p.prepend(b.domElem);
 		}
 	}
-	
+
 
 	/**
 	 * Переключает вид редактора между окном редактирования и исходника
 	 **/
 	// this.rte.tabsbar.children('.tab').click(function(e) {
-	// 
+	//
 	// 	if (!$(e.target).hasClass('active')) {
 	// 		self.rte.tabsbar.children('.tab').toggleClass('active');
 	// 		self.rte.workzone.children().toggle();
@@ -3417,13 +3417,13 @@ elRTE.prototype.ui = function(rte) {
 	// });
 
 	this.update();
-	
+
 	this.disable = function() {
 		$.each(self._buttons, function() {
 			!this.active && this.domElem.addClass('disabled');
 		});
 	}
-	
+
 }
 
 /**
@@ -3454,9 +3454,9 @@ elRTE.prototype.ui.prototype.update = function(cleanCache) {
 
 
 elRTE.prototype.ui.prototype.buttons = {
-	
+
 	/**
-	 * @class кнопка на toolbar редактора 
+	 * @class кнопка на toolbar редактора
 	 * реализует поведение по умолчанию и является родителем для других кнопок
 	 *
 	 * @param  elRTE  rte   объект-редактор
@@ -3496,7 +3496,7 @@ elRTE.prototype.ui.prototype.buttons.button.prototype.command = function() {
 	} catch(e) {
 		return this.rte.log('commands failed: '+this.name);
 	}
-	
+
 	this.rte.ui.update(true);
 }
 
@@ -3542,22 +3542,22 @@ elRTE.prototype.utils = function(rte) {
 	this.baseURL = '';
 	this.path    = '';
 	var self     = this;
-	
+
 	this.rgb2hex = function(str) {
 	    function hex(x)  {
 	    	hexDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8","9", "a", "b", "c", "d", "e", "f"];
 	        return !x  ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x% 16];
 	    }
-		var rgb = str.match(/\(([0-9]{1,3}),\s*([0-9]{1,3}),\s*([0-9]{1,3})\)/); 
+		var rgb = str.match(/\(([0-9]{1,3}),\s*([0-9]{1,3}),\s*([0-9]{1,3})\)/);
 		return rgb ? "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]) : '';
 	}
-	
+
 	this.toPixels = function(num) {
 		var m = num.match(/([0-9]+\.?[0-9]*)\s*(px|pt|em|%)/);
 		if (m) {
 			num  = m[1];
 			unit = m[2];
-		} 
+		}
 		if (num[0] == '.') {
 			num = '0'+num;
 		}
@@ -3574,7 +3574,7 @@ elRTE.prototype.utils = function(rte) {
 		}
 		return num;
 	}
-	
+
 	// TODO: add parse rel path ../../etc
 	this.absoluteURL = function(url) {
 		!this.url && this._url();
@@ -3592,7 +3592,7 @@ elRTE.prototype.utils = function(rte) {
 			//this.rte.log('Invalid URL: '+url)
 			return '';
 		}
-		if (!this.rte.options.absoluteURLs) { 
+		if (!this.rte.options.absoluteURLs) {
 			return url;
 		}
 		if (u.protocol) {
@@ -3613,7 +3613,7 @@ elRTE.prototype.utils = function(rte) {
 		}
 		return url;
 	}
-	
+
 	this.parseURL = function(url) {
 		var u   = url.match(this.reg);
 		var ret = {};
@@ -3625,18 +3625,18 @@ elRTE.prototype.utils = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	this.trimEventCallback = function(c) {
 		c = c ? c.toString() : '';
 		return $.trim(c.replace(/\r*\n/mg, '').replace(/^function\s*on[a-z]+\s*\(\s*event\s*\)\s*\{(.+)\}$/igm, '$1'));
 	}
-	
+
 	this._url = function() {
 		this.url     = this.parseURL(window.location.href);
 		this.baseURL = this.url.protocol+'://'+(this.url.userInfo ?  parts.userInfo+'@' : '')+this.url.host+(this.url.port ? ':'+this.url.port : '');
 		this.path    = !this.url.file ? this.url.path : this.url.path.substring(0, this.url.path.length - this.url.file.length);
 	}
-	
+
 }
 
 })(jQuery);/**
@@ -3658,23 +3658,23 @@ elRTE.prototype.w3cRange = function(rte) {
 	this.startOffset             = 0;
 	this.endOffset               = 0;
 	this.commonAncestorContainer = null;
-	
+
 	this.range = function() {
-		try { 
-			this.r = this.rte.window.document.selection.createRange(); 
-		} catch(e) { 
-			this.r = this.rte.doc.body.createTextRange(); 
+		try {
+			this.r = this.rte.window.document.selection.createRange();
+		} catch(e) {
+			this.r = this.rte.doc.body.createTextRange();
 		}
 		return this.r;
 	}
-	
+
 	this.insertNode = function(html) {
 		this.range();
 		self.r.collapse(false)
 		var r = self.r.duplicate();
 		r.pasteHTML(html);
 	}
-	
+
 	this.getBookmark = function() {
 		this.range();
 		if (this.r.item) {
@@ -3684,13 +3684,13 @@ elRTE.prototype.w3cRange = function(rte) {
 		}
 		return this.r.getBookmark();
 	}
-	
+
 	this.moveToBookmark = function(bm) {
 		this.rte.window.focus();
 		this.range().moveToBookmark(bm);
 		this.r.select();
 	}
-	
+
 	/**
 	 * Обновляет данные о выделенных нодах
 	 *
@@ -3709,7 +3709,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			}
 
 			r.pasteHTML(marker);
-			
+
 			childs = p.childNodes;
 			for (var i=0; i < childs.length; i++) {
 				var n = childs[i];
@@ -3742,9 +3742,9 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setEnd(i.parentNode, this.startOffset+1);
 		} else {
 			this.collapsed = this.r.boundingWidth == 0;
-			var start = _findPos(true); 
+			var start = _findPos(true);
 			var end   = _findPos(false);
-			
+
 			start.parent.normalize();
 			end.parent.normalize();
 			start.ndx = Math.min(start.ndx, start.parent.childNodes.length-1);
@@ -3764,13 +3764,13 @@ elRTE.prototype.w3cRange = function(rte) {
 		}
 		return this;
 	}
-	
+
 	this.isCollapsed = function() {
 		this.range();
 		this.collapsed = this.r.item ? false : this.r.boundingWidth == 0;
 		return this.collapsed;
 	}
-	
+
 	/**
 	 * "Схлопывает" выделение
 	 *
@@ -3799,8 +3799,8 @@ elRTE.prototype.w3cRange = function(rte) {
 		var s = r.parentElement();
 		return s && s.nodeName == 'BODY' ? s.firstChild : s;
 	}
-	
-	
+
+
 	this.getEnd = function() {
 		this.range();
 		if (this.r.item) {
@@ -3812,7 +3812,7 @@ elRTE.prototype.w3cRange = function(rte) {
 		return e && e.nodeName == 'BODY' ? e.lastChild : e;
 	}
 
-	
+
 	/**
 	 * Устанавливает начaло выделения на указаную ноду
 	 *
@@ -3827,7 +3827,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.commonAncestorContainer = this.rte.dom.findCommonAncestor(this.startContainer, this.endContainer);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает конец выделения на указаную ноду
 	 *
@@ -3842,7 +3842,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.commonAncestorContainer = this.rte.dom.findCommonAncestor(this.startContainer, this.endContainer);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает начaло выделения перед указаной нодой
 	 *
@@ -3854,7 +3854,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setStart(n.parentNode, this.rte.dom.indexOf(n));
 		}
 	}
-	
+
 	/**
 	 * Устанавливает начaло выделения после указаной ноды
 	 *
@@ -3866,7 +3866,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setStart(n.parentNode, this.rte.dom.indexOf(n)+1);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает конец выделения перед указаной нодой
 	 *
@@ -3878,7 +3878,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setEnd(n.parentNode, this.rte.dom.indexOf(n));
 		}
 	}
-	
+
 	/**
 	 * Устанавливает конец выделения после указаной ноды
 	 *
@@ -3890,7 +3890,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setEnd(n.parentNode, this.rte.dom.indexOf(n)+1);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает новое выделение после изменений
 	 *
@@ -3912,14 +3912,14 @@ elRTE.prototype.w3cRange = function(rte) {
 			n.nodeValue = val;
 			return p;
 		};
-		
-		this.r = this.rte.doc.body.createTextRange(); 
+
+		this.r = this.rte.doc.body.createTextRange();
 		var so = this.startOffset;
 		var eo = this.endOffset;
-		var s = this.startContainer.nodeType == 1 
+		var s = this.startContainer.nodeType == 1
 			? this.startContainer.childNodes[Math.min(so, this.startContainer.childNodes.length - 1)]
 			: this.startContainer;
-		var e = this.endContainer.nodeType == 1 
+		var e = this.endContainer.nodeType == 1
 			? this.endContainer.childNodes[Math.min(so == eo ? eo : eo - 1, this.endContainer.childNodes.length - 1)]
 			: this.endContainer;
 
@@ -3932,7 +3932,7 @@ elRTE.prototype.w3cRange = function(rte) {
 				this.r.collapse(true);
 			}
 		} else {
-			var r  = this.rte.doc.body.createTextRange(); 
+			var r  = this.rte.doc.body.createTextRange();
 			var sp = getPos(s, so);
 			var ep = getPos(e, eo);
 			if (s.nodeType == 3) {
@@ -3947,17 +3947,17 @@ elRTE.prototype.w3cRange = function(rte) {
 			}
 			this.r.setEndPoint('EndToEnd', r);
 		}
-		
+
 		try {
 			this.r.select();
 		} catch(e) {
-			
+
 		}
 		if (r) {
 			r = null;
 		}
 	}
-	
+
 	this.dump = function() {
 		this.rte.log('collapsed: '+this.collapsed);
 		//this.rte.log('commonAncestorContainer: '+this.commonAncestorContainer.nodeName||'#text')
@@ -3966,14 +3966,14 @@ elRTE.prototype.w3cRange = function(rte) {
 		this.rte.log('endContainer: '+(this.endContainer ? this.endContainer.nodeName : 'none'));
 		this.rte.log('endOffset: '+this.endOffset);
 	}
-	
+
 }
 })(jQuery);
 /**
  * @class кнопка - Закладка (открывает диалоговое окно)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  **/
@@ -3982,7 +3982,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	this.input = $('<input type="text" />').attr('name', 'anchor').attr('size', '16')
 	var self = this;
-	
+
 	this.command = function() {
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); d.close(); self.set();  },
@@ -3991,7 +3991,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 			}
 		}
 
-		
+
 		this.anchor = this.rte.dom.selfOrParentAnchor(this.rte.selection.getEnd()) || rte.dom.create('a');
 		!this.rte.selection.collapsed() && this.rte.selection.collapse(false);
 		this.input.val($(this.anchor).addClass('el-rte-anchor').attr('name'));
@@ -4000,7 +4000,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 		d.append([this.rte.i18n('Bookmark name'), this.input], null, true).open();
 		setTimeout(function() { self.input.focus()}, 20);
 	}
-	
+
 	this.update = function() {
 		var n = this.rte.selection.getNode();
 		if (this.rte.dom.selfOrParentLink(n)) {
@@ -4011,7 +4011,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 			this.domElem.removeClass('disabled').removeClass('active');
 		}
 	}
-	
+
 	this.set = function() {
 		var n = $.trim(this.input.val());
 
@@ -4036,7 +4036,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
  * Новые цитаты создаются только из несхлопнутого выделения
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4044,7 +4044,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 (function($) {
 elRTE.prototype.ui.prototype.buttons.blockquote = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var n, nodes;
 		this.rte.history.add();
@@ -4056,7 +4056,7 @@ elRTE.prototype.ui.prototype.buttons.blockquote = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		if (this.rte.selection.collapsed()) {
 			if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^BLOCKQUOTE$/)) {
@@ -4071,11 +4071,11 @@ elRTE.prototype.ui.prototype.buttons.blockquote = function(rte, name) {
 }
 })(jQuery);
 /**
- * @class кнопки "копировать/вырезать/вставить" 
+ * @class кнопки "копировать/вырезать/вставить"
  * в firefox показывает предложение нажать Ctl+c, в остальных - копирует
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4083,9 +4083,9 @@ elRTE.prototype.ui.prototype.buttons.blockquote = function(rte, name) {
 (function($) {
 elRTE.prototype.ui.prototype.buttons.copy = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
-		
+
 		if (this.rte.browser.mozilla) {
 			try {
 				this.rte.doc.execCommand(this.name, false, null);
@@ -4116,20 +4116,20 @@ elRTE.prototype.ui.prototype.buttons.cut   = elRTE.prototype.ui.prototype.button
 elRTE.prototype.ui.prototype.buttons.paste = elRTE.prototype.ui.prototype.buttons.copy;
 
 })(jQuery);(function($) {
-	
+
 	elRTE.prototype.ui.prototype.buttons.css = function(rte, name) {
 		var self = this;
 		this.constructor.prototype.constructor.call(this, rte, name);
 		this.cssStyle = $('<input type="text" size="42" name="style" />');
 		this.cssClass = $('<input type="text" size="42" name="class" />');
-		
-		
+
+
 		this.command = function() {
 			var n = this.node(), opts;
 			this.rte.selection.saveIERange();
 			if (n) {
 				var opts = {
-					
+
 					submit : function(e, d) { e.stopPropagation(); e.preventDefault(); d.close(); self.set();  },
 					dialog : {
 						title : this.rte.i18n('Style'),
@@ -4146,7 +4146,7 @@ elRTE.prototype.ui.prototype.buttons.paste = elRTE.prototype.ui.prototype.button
 				setTimeout(function() { self.cssStyle.focus() }, 20)
 			}
 		}
-		
+
 		this.set = function() {
 			var n = this.node();
 			this.rte.selection.restoreIERange();
@@ -4156,7 +4156,7 @@ elRTE.prototype.ui.prototype.buttons.paste = elRTE.prototype.ui.prototype.button
 				this.rte.ui.update();
 			}
 		}
-		
+
 		this.node = function() {
 			var n = this.rte.selection.getNode();
 			if (n.nodeType == 3) {
@@ -4164,28 +4164,28 @@ elRTE.prototype.ui.prototype.buttons.paste = elRTE.prototype.ui.prototype.button
 			}
 			return n.nodeType == 1 && n.nodeName != 'BODY' ? n : null;
 		}
-		
+
 		this.update = function() {
 			this.domElem.toggleClass('disabled', this.node()?false:true);
 		}
-		
+
 	}
-	
+
 })(jQuery);/**
  * @class кнопка - DIV
  * Если выделение схлопнуто и находится внутри div'a - он удаляется
  * Новые div'ы создаются только из несхлопнутого выделения
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
- * 
+ * @param  String name  название кнопки
+ *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 elRTE.prototype.ui.prototype.buttons.div = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var n, nodes;
 		this.rte.history.add();
@@ -4201,7 +4201,7 @@ elRTE.prototype.ui.prototype.buttons.div = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		if (this.rte.selection.collapsed()) {
 			if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^DIV$/)) {
@@ -4219,22 +4219,22 @@ elRTE.prototype.ui.prototype.buttons.div = function(rte, name) {
  * @class кнопка - Включение/выключение показа структуры документа
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
- * 
+ * @param  String name  название кнопки
+ *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 elRTE.prototype.ui.prototype.buttons.docstructure = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		this.domElem.toggleClass('active');
 		$(this.rte.doc.body).toggleClass('el-rte-structure');
 	}
 	this.command();
-	
-	this.update = function() {	
+
+	this.update = function() {
 		this.domElem.removeClass('disabled');
 	}
 }
@@ -4243,7 +4243,7 @@ elRTE.prototype.ui.prototype.buttons.docstructure = function(rte, name) {
  * @class button - open elfinder window (not needed for image or link buttons).Used in ELDORADO.CMS for easy file manipulations.
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4257,7 +4257,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 			self.rte.options.fmOpen( function(url) { self.rte.log(url) } );
 		}
 	}
-	
+
 	this.update = function() {
 		if (self.rte.options.fmAllow && typeof(self.rte.options.fmOpen) == 'function') {
 			this.domElem.removeClass('disabled');
@@ -4268,7 +4268,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 }
 
 })(jQuery);(function($) {
-	
+
 	elRTE.prototype.ui.prototype.buttons.flash = function(rte, name) {
 		this.constructor.prototype.constructor.call(this, rte, name);
 		var self = this;
@@ -4290,7 +4290,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 						.append($('<option />').val('text-bottom').text(this.rte.i18n('Text bottom'))),
 			margin : $('<div />')
 		}
-		
+
 		this.command = function() {
 
 			var n = this.rte.selection.getEnd(), opts, url='', w='', h='', f, a, d;
@@ -4305,13 +4305,13 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 				f = $(n).css('float');
 				a = $(n).css('vertical-align');
 				this.src.margin.val(n);
-			} 
+			}
 			this.src.url.val(url);
 			this.src.width.val(w);
 			this.src.height.val(h);
 			this.src.align.val(f||a);
 
-			
+
 
 			var opts = {
 				submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
@@ -4322,7 +4322,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 				}
 			}
 			var d = new elDialogForm(opts);
-			
+
 			if (this.rte.options.fmAllow && this.rte.options.fmOpen) {
 				var src = $('<span />').append(this.src.url.css('width', '85%'))
 						.append(
@@ -4338,18 +4338,18 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 			} else {
 				var src = this.src.url;
 			}
-			
+
 			d.append([this.rte.i18n('URL'), src], null, true);
 			d.append([this.rte.i18n('Size'), $('<span />').append(this.src.width).append(' x ').append(this.src.height).append(' px')], null, true)
 			d.append([this.rte.i18n('Alignment'), this.src.align], null, true);
 			d.append([this.rte.i18n('Margins'), this.src.margin], null, true);
-			
-			
-			
+
+
+
 			d.open();
 			setTimeout( function() {self.src.url.focus()}, 100)
-			
-			
+
+
 			var fs = $('<fieldset />').append($('<legend />').text(this.rte.i18n('Preview')))
 			d.append(fs, 'main');
 			var frame = document.createElement('iframe');
@@ -4360,7 +4360,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 			frame.contentWindow.document.close();
 			this.frame = frame.contentWindow.document;
 			this.preview = $(frame.contentWindow.document.body);
-			 				 
+
 
 			this.src.width.change(function() {
 				if (self.swf) {
@@ -4383,7 +4383,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 					$(this).val('');
 				}
 			});
-			
+
 			this.src.align.change(function() {
 				var v = $(this).val(), f = v=='left' || v=='right';
 				if (self.swf) {
@@ -4395,7 +4395,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 					$(this).val('');
 				}
 			});
-			
+
 			this.src.margin.change(function() {
 				if (self.swf) {
 					var m = self.src.margin.val();
@@ -4405,13 +4405,13 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 						self.swf.css('margin-top', m.top);
 						self.swf.css('margin-right', m.right);
 						self.swf.css('margin-bottom', m.bottom);
-						self.swf.css('margin-left', m.left);						
+						self.swf.css('margin-left', m.left);
 					}
 				}
 
-				
+
 			});
-			
+
 			this.src.url.change(function() {
 				var url = self.rte.utils.absoluteURL($(this).val());
 				if (url) {
@@ -4428,7 +4428,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 
 			}).trigger('change');
 		}
-		
+
 		this.set = function() {
 			self.swf = null
 			var url = this.rte.utils.absoluteURL(this.src.url.val()),
@@ -4443,7 +4443,7 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 						width : w,
 						height : h,
 						'float' : f,
-						'vertical-align' : f ? '' : a 
+						'vertical-align' : f ? '' : a
 					};
 				if (m.css) {
 					css['margin'] = m.css;
@@ -4470,26 +4470,26 @@ elRTE.prototype.ui.prototype.buttons.elfinder = function(rte, name) {
 					self.placeholder.remove();
 				}
 			}
-			
-			
-		}
-		
 
-		
+
+		}
+
+
+
 		this.update = function() {
 			this.domElem.removeClass('disabled');
 			var n = this.rte.selection.getNode();
 			this.domElem.toggleClass('active', n.nodeName == 'IMG' && $(n).hasClass('elrte-swf-placeholder'))
-			
+
 		}
-		
-		
+
+
 	}
 })(jQuery);/**
  * @class drop-down menu - font-family for selected text
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4520,12 +4520,12 @@ elRTE.prototype.ui.prototype.buttons.fontname = function(rte, name) {
 			'verdana,geneva,sans-serif'                     : 'Verdana'
 		}
 	}
-	
+
 	this.select = this.domElem.elSelect(opts);
-	
+
 	this.command = function() {
 	}
-	
+
 	this.set = function(size) {
 		this.rte.history.add();
 		var nodes = this.rte.selection.selected({filter : 'textContainsNodes'});
@@ -4535,9 +4535,9 @@ elRTE.prototype.ui.prototype.buttons.fontname = function(rte, name) {
 		});
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
-		this.domElem.removeClass('disabled'); 
+		this.domElem.removeClass('disabled');
 		var n = this.rte.selection.getNode();
 		if (n.nodeType != 1) {
 			n = n.parentNode;
@@ -4552,7 +4552,7 @@ elRTE.prototype.ui.prototype.buttons.fontname = function(rte, name) {
  * @class drop-down menu - font size for selected text
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4567,21 +4567,21 @@ elRTE.prototype.ui.prototype.buttons.fontsize = function(rte, name) {
 		select   : function(v) { self.set(v); },
 		src      : {
 			''         : this.rte.i18n('Font size'),
-			'xx-small' : this.rte.i18n('Small (8pt)'), 
-			'x-small'  : this.rte.i18n('Small (10px)'), 
-			'small'    : this.rte.i18n('Small (12pt)'), 
+			'xx-small' : this.rte.i18n('Small (8pt)'),
+			'x-small'  : this.rte.i18n('Small (10px)'),
+			'small'    : this.rte.i18n('Small (12pt)'),
 			'medium'   : this.rte.i18n('Normal (14pt)'),
 			'large'    : this.rte.i18n('Large (18pt)'),
 			'x-large'  : this.rte.i18n('Large (24pt)'),
 			'xx-large' : this.rte.i18n('Large (36pt)')
 		}
 	}
-	
+
 	this.select = this.domElem.elSelect(opts);
-	
+
 	this.command = function() {
 	}
-	
+
 	this.set = function(size) {
 		this.rte.history.add();
 		var nodes = this.rte.selection.selected({filter : 'textContainsNodes'});
@@ -4591,7 +4591,7 @@ elRTE.prototype.ui.prototype.buttons.fontsize = function(rte, name) {
 		});
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		var n = this.rte.selection.getNode();
@@ -4603,7 +4603,7 @@ elRTE.prototype.ui.prototype.buttons.fontsize = function(rte, name) {
  * @class color pallete for text color and background
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4618,19 +4618,19 @@ elRTE.prototype.ui.prototype.buttons.forecolor = function(rte, name) {
 		update  : function(c) { self.indicator.css('background-color', c); },
 		change  : function(c) { self.set(c) }
 	}
-	
+
 	this.defaultColor = this.rte.utils.rgb2hex( $(this.rte.doc.body).css(this.name=='forecolor' ? 'color' : 'background-color') );
 	this.picker       = this.domElem.elColorPicker(opts);
 	this.indicator    = $('<div />').addClass('color-indicator').prependTo(this.domElem);
-	
+
 	this.command = function() {
 	}
-	
+
 	this.set = function(c) {
 		if (!this.rte.selection.collapsed()) {
 			this.rte.history.add();
 			var nodes = this.rte.selection.selected({collapse : false, wrap : 'text'}),
-				css   = this.name == 'forecolor' ? 'color' : 'background-color';			
+				css   = this.name == 'forecolor' ? 'color' : 'background-color';
 			$.each(nodes, function() {
 				if (/^(THEAD|TBODY|TFOOT|TR)$/.test(this.nodeName)) {
 					$(this).find('td,th').each(function() {
@@ -4643,7 +4643,7 @@ elRTE.prototype.ui.prototype.buttons.forecolor = function(rte, name) {
 			this.rte.ui.update(true);
 		}
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		var n = this.rte.selection.getNode();
@@ -4661,7 +4661,7 @@ elRTE.prototype.ui.prototype.buttons.hilitecolor = elRTE.prototype.ui.prototype.
  * @class drop-down menu - formatting text block
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4670,9 +4670,9 @@ elRTE.prototype.ui.prototype.buttons.hilitecolor = elRTE.prototype.ui.prototype.
 elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 
-	var cmd = this.rte.browser.msie 
+	var cmd = this.rte.browser.msie
 		? function(v) { self.val = v; self.constructor.prototype.command.call(self); }
-		: function(v) { self.ieCommand(v); } 
+		: function(v) { self.ieCommand(v); }
 	var self = this;
 	var opts = {
 		labelTpl : '%label',
@@ -4694,22 +4694,22 @@ elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 	}
 
 	this.select = this.domElem.elSelect(opts);
-	
+
 	this.command = function() {
 
 	}
-	
+
 	this.formatBlock = function(v) {
 
 		function format(n, tag) {
-			
+
 			function replaceChilds(p) {
 				$(p).find('h1,h2,h3,h4,h5,h6,p,address,pre').each(function() {
 					$(this).replaceWith($(this).html());
 				});
 				return p;
 			}
-			
+
 			if (/^(LI|DT|DD|TD|TH|CAPTION)$/.test(n.nodeName)) {
 				!self.rte.dom.isEmpty(n) && self.rte.dom.wrapContents(replaceChilds(n), tag);
 			} else if (/^(UL|OL|DL|TABLE)$/.test(n.nodeName)) {
@@ -4717,7 +4717,7 @@ elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 			} else {
 				!self.rte.dom.isEmpty(n) && $(replaceChilds(n)).replaceWith( $(self.rte.dom.create(tag)).html($(n).html()));
 			}
-			
+
 		}
 		this.rte.history.add();
 
@@ -4756,7 +4756,7 @@ elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(H[1-6]|P|ADDRESS|PRE)$/);
@@ -4768,7 +4768,7 @@ elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
  * @class button - switch to fullscreen mode and back
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4780,9 +4780,9 @@ elRTE.prototype.ui.prototype.buttons.fullscreen = function(rte, name) {
 	this.parents = [];
 	this.height  = 0;
 	var self     = this;
-	
+
 	this.command = function() {
-		
+
 		if (this.rte.editor.hasClass('el-fullscreen')) {
 			for (var i=0; i < this.parents.length; i++) {
 				$(this.parents[i]).css('position', 'relative');
@@ -4794,7 +4794,7 @@ elRTE.prototype.ui.prototype.buttons.fullscreen = function(rte, name) {
 		} else {
 			this.parents = [];
 			var p = this.rte.editor.parents().each(function() {
-				
+
 				if (this.nodeName != 'BODY' && this.name != 'HTML' && $(this).css('position') == 'relative') {
 					self.parents.push(this);
 					$(this).css('position', 'static');
@@ -4807,7 +4807,7 @@ elRTE.prototype.ui.prototype.buttons.fullscreen = function(rte, name) {
 			this.domElem.addClass('active');
 		}
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 	}
@@ -4817,7 +4817,7 @@ elRTE.prototype.ui.prototype.buttons.fullscreen = function(rte, name) {
  * @class button - horizontal rule (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -4838,23 +4838,23 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 		'class' : $('<input type="text" />').css('width', '100%'),
 		style   : $('<input type="text" />').css('width', '100%')
 	}
-	
+
 	this.command = function() {
 		this.src.bg.elColorPicker({palettePosition : 'outer', 'class' : 'el-colorpicker ui-icon ui-icon-pencil'});
-		
+
 		var n   = this.rte.selection.getEnd();
 		this.hr = n.nodeName == 'HR' ? $(n) : $(rte.doc.createElement('hr')).css({width : '100%', height : '1px'});
 		this.src.border.elBorderSelect({styleHeight : 73, value : this.hr});
-		
+
 		var _w  = this.hr.css('width') || this.hr.attr('width');
 		this.src.width.val(parseInt(_w) || 100);
 		this.src.wunit.val(_w.indexOf('px') != -1 ? 'px' : '%');
-		
+
 		this.src.height.val( this.rte.utils.toPixels(this.hr.css('height') || this.hr.attr('height')) || 1) ;
 		this.src.bg.val(this.rte.utils.rgb2hex(this.hr.css('background-color')) || '');
 		this.src['class'].val(this.rte.dom.attr(this.hr, 'class'));
 		this.src.style.val(this.rte.dom.attr(this.hr, 'style'));
-		
+
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
 			dialog : {
@@ -4871,7 +4871,7 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 			.append([this.rte.i18n('Css style'),   this.src.style], null, true)
 			.open();
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		if (this.rte.selection.getEnd().nodeName == 'HR') {
@@ -4880,7 +4880,7 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 			this.domElem.removeClass('active');
 		}
 	}
-	
+
 	this.set = function() {
 		this.rte.history.add();
 		!this.hr.parentNode && this.rte.selection.insertNode(this.hr.get(0));
@@ -4903,20 +4903,20 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 			.removeAttr('align')
 			.attr(attr)
 			.css(css);
-		
+
 		if (this.src['class'].val()) {
-			this.hr.attr('class', this.src['class'].val());	
+			this.hr.attr('class', this.src['class'].val());
 		}
 		this.rte.ui.update()
 	}
-	
+
 }
 })(jQuery);
 /**
  * @class button - insert/edit image (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * Copyright: Studio 42, http://www.std42.ru
@@ -4927,7 +4927,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 	var self = this;
 	this.img = null
 	this.init = function() {
-		
+
 		this.labels = {
 			main   : 'Properies',
 			link   : 'Link',
@@ -4941,7 +4941,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			target  : 'Open in',
 			title   : 'Title'
 		}
-		
+
 		this.src = {
 			main : {
 				src    : $('<input type="text" />').css('width', '100%'),
@@ -4974,24 +4974,24 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			// 	href  : $('<input type="text" />').css('width', '100%'),
 			// 	title : $('<input type="text" />').css('width', '100%')
 			// },
-			
+
 			events : {}
 		}
-		
+
 		$.each(
-			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'], 
+			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'],
 			function() {
 				self.src.events[this] = $('<input type="text" />').css('width', '100%');
 		});
-		
+
 		$.each(self.src, function() {
 			for (var n in this) {
 				this[n].attr('name', n);
 			}
 		});
-		
+
 	}
-	
+
 	this.command = function() {
 		!this.src && this.init();
 		this.rte.browser.msie && this.rte.selection.saveIERange();
@@ -5000,7 +5000,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 
 		this.cleanValues();
 		this.src.main.src.val('');
-		
+
 		var n = this.rte.selection.getEnd();
 		this.preview = null;
 		this.prevImg = null;
@@ -5009,9 +5009,9 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.img     = $(n);
 		} else {
 			this.img = $(this.rte.doc.createElement('img'));
-			
+
 		}
-		
+
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
 			dialog : {
@@ -5021,7 +5021,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			}
 		}
 		var d = new elDialogForm(opts);
-		
+
 		if (this.rte.options.fmAllow && this.rte.options.fmOpen) {
 			var src = $('<span />').append(this.src.main.src.css('width', '88%'))
 					.append(
@@ -5037,7 +5037,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 		} else {
 			var src = this.src.main.src;
 		}
-		
+
 		d.tab('main', this.rte.i18n('Properies'))
 			.append([this.rte.i18n('Image URL'), src],                 'main', true)
 			.append([this.rte.i18n('Title'),     this.src.main.title], 'main', true)
@@ -5065,9 +5065,9 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				}
 			}
 		};
-				
+
 		d.open();
-		
+
 		var fs = $('<fieldset />').append($('<legend />').text(this.rte.i18n('Preview')))
 		d.append(fs, 'main');
 		var frame = document.createElement('iframe');
@@ -5080,12 +5080,12 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 		this.frame = frame.contentWindow.document
 		this.preview = $(frame.contentWindow.document.body)
 		 				 .text('Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin');
-		
+
 		if (this.img.attr('src')) {
-			
+
 			this.prevImg = $(this.frame.createElement('img'))
 				.attr('src',  this.rte.utils.absoluteURL(this.img.attr('src')))
-				
+
 			this.prevImg.attr('width', this.img.attr('width'))
 				.attr('height', this.img.attr('height'))
 				.attr('title', this.img.attr('title')||'')
@@ -5096,12 +5096,12 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				if (a) {
 					this.prevImg.attr(n, a)
 				}
-			}	
-				
+			}
+
 			this.preview.prepend(this.prevImg);
 			this.updateValues();
 		}
-		
+
 		$.each(this.src, function() {
 			$.each(this, function() {
 				if (this === self.src.main.src) {
@@ -5113,30 +5113,30 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				}
 			});
 		});
-		
+
 		// this.src.link.href.change(function() {
 		// 	var $this = $(this);
 		// 	$this.val(self.rte.utils.absoluteURL($this.val()));
 		// });
-		
-	}
-	
 
-	
+	}
+
+
+
 	/**
 	 * Устанавливает значения полей формы из аттрибутов prevImg
 	 * Вызывается после загрузки prevImg
 	 *
 	 **/
 	this.updateValues = function() {
-		
+
 		var i = this.prevImg.get(0);
-		
-		this.origW = this.prevImg.attr('width'); 
+
+		this.origW = this.prevImg.attr('width');
 		this.origH = this.prevImg.attr('height');
-		
+
 		this.src.main.src.val(this.rte.dom.attr(i, 'src'));
-		this.src.main.title.val(this.rte.dom.attr(i, 'title'));		
+		this.src.main.title.val(this.rte.dom.attr(i, 'title'));
 		this.src.main.alt.val(this.rte.dom.attr(i, 'alt'));
 		this.src.main.width.val(this.origW);
 		this.src.main.height.val(this.origH);
@@ -5147,7 +5147,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 		this.src.main.border.val(this.prevImg)
 		this.src.adv.style.val(this.rte.dom.attr(i, 'style'));
 	}
-	
+
 	/**
 	 * Очищает поля формы
 	 *
@@ -5162,7 +5162,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			});
 		});
 	}
-	
+
 	/**
 	 * Устанавливает аттрибуты prevImg из полей формы
 	 *
@@ -5178,8 +5178,8 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 
 		var a = this.src.main.align.val();
 		var f = a == 'left' || a == 'right' ? a : '';
-		
-		var b = this.src.main.border.val(); 
+
+		var b = this.src.main.border.val();
 		var m = this.src.main.margin.val();
 		this.prevImg.css('float', f);
 		this.prevImg.css('vertical-align', f ? '' : a);
@@ -5190,7 +5190,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.prevImg.css('margin-top', m.top);
 			this.prevImg.css('margin-right', m.right);
 			this.prevImg.css('margin-bottom', m.bottom);
-			this.prevImg.css('margin-left', m.left);						
+			this.prevImg.css('margin-left', m.left);
 		}
 
 		$.each([this.src.events, this.src.adv], function() {
@@ -5207,15 +5207,15 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				}
 			});
 		});
-		
+
 	}
-	
+
 	/**
 	 * Обновляет форму выбора изображения
 	 *
 	 **/
 	this.updatePreview = function() {
-		
+
 		var imgsrc = this.prevImg ? this.prevImg.attr('src') : '';
 		var src    = $.trim(this.src.main.src.val());
 		if (!src || src !=imgsrc) { // new image or empty src
@@ -5225,7 +5225,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			}
 			this.cleanValues();
 			if (src) {  // new image
-				
+
 				this.prevImg = $(this.frame.createElement('img'))
 					.attr('src',  this.rte.utils.absoluteURL(src))
 					.bind('load', function() {
@@ -5238,27 +5238,27 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.updateImg();
 		}
 	}
-	
+
 	this.updateDimesions = function(e) {
-		
+
 		var w = parseInt(this.src.main.width.val())  || 0;
 		var h = parseInt(this.src.main.height.val()) || 0;
 		if (w > 0 && h > 0) {
 			if (e.currentTarget == this.src.main.width.get(0)) {
-				
+
 				this.src.main.height.val(parseInt(w*this.origH/this.origW));
 			} else {
 				this.src.main.width.val(parseInt(h*this.origW/this.origH));
-			}	
+			}
 		} else {
 			this.src.main.width.val(this.origW);
-			this.src.main.height.val(this.origH);			
+			this.src.main.height.val(this.origH);
 		}
 
 		this.updateImg();
 
 	}
-	
+
 	this.set = function() {
 		this.rte.history.add();
 		if (!this.prevImg || !this.prevImg.attr('width')) {
@@ -5277,7 +5277,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 					width  : parseInt(this.src.main.width.val()),
 					height : parseInt(this.src.main.height.val())
 				});
-				
+
 			for (var _n in this.src.adv) {
 				if (_n != 'style') {
 					var val = this.src.adv[_n].val();
@@ -5286,7 +5286,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 					} else {
 						this.img.removeAttr(_n)
 					}
-					
+
 				}
 			}
 			for (var _n in this.src.events) {
@@ -5297,7 +5297,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 					this.img.removeAttr(_n)
 				}
 			}
-				
+
 			if (!this.img.parents().length) {
 				this.rte.selection.insertNode(this.img.get(0))
 			}
@@ -5332,7 +5332,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.domElem.removeClass('active');
 		}
 	}
-	
+
 }
 })(jQuery);
 /**
@@ -5341,7 +5341,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
  * Если таблица выделена полностью - ей добавляется margin, если частично - увеличивается padding для ячеек
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
@@ -5351,7 +5351,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 elRTE.prototype.ui.prototype.buttons.indent = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
-	
+
 	this.command = function() {
 		this.rte.history.add();
 		var nodes = this.rte.selection.selected({collapsed : true, blocks : true, wrap : 'inline', tag : 'p'});
@@ -5361,7 +5361,7 @@ elRTE.prototype.ui.prototype.buttons.indent = function(rte, name) {
 			var val = self.rte.dom.attr(n, 'style').indexOf(css) != -1 ? parseInt($(n).css(css))||0 : 0;
 			$(n).css(css, val+40+'px');
 		}
-		
+
 		for (var i=0; i < nodes.length; i++) {
 			if (/^(TABLE|THEAD|TFOOT|TBODY|COL|COLGROUP|TR)$/.test(nodes[i].nodeName)) {
 				$(nodes[i]).find('td,th').each(function() {
@@ -5377,7 +5377,7 @@ elRTE.prototype.ui.prototype.buttons.indent = function(rte, name) {
 		};
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 	}
@@ -5388,7 +5388,7 @@ elRTE.prototype.ui.prototype.buttons.indent = function(rte, name) {
  * @class button - justify text
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
@@ -5408,9 +5408,9 @@ elRTE.prototype.ui.prototype.buttons.justifyleft = function(rte, name) {
 		}
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
-		var s = this.rte.selection.getNode(), 
+		var s = this.rte.selection.getNode(),
 			n = s.nodeName == 'BODY' ? s : this.rte.dom.selfOrParent(s, 'textNodes')||(s.parentNode && s.parentNode.nodeName == 'BODY' ? s.parentNode : null);
 		if (n) {
 			this.domElem.removeClass('disabled').toggleClass('active', $(n).css('text-align') == this.align);
@@ -5418,7 +5418,7 @@ elRTE.prototype.ui.prototype.buttons.justifyleft = function(rte, name) {
 			this.domElem.addClass('disabled');
 		}
 	}
-	
+
 }
 
 elRTE.prototype.ui.prototype.buttons.justifycenter = elRTE.prototype.ui.prototype.buttons.justifyleft;
@@ -5430,7 +5430,7 @@ elRTE.prototype.ui.prototype.buttons.justifyfull   = elRTE.prototype.ui.prototyp
  * @class button - insert/edit link (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * Copyright: Studio 42, http://www.std42.ru
@@ -5439,7 +5439,7 @@ elRTE.prototype.ui.prototype.buttons.justifyfull   = elRTE.prototype.ui.prototyp
 elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
-	
+
 	function init() {
 		self.labels = {
 			id        : 'ID',
@@ -5474,7 +5474,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				height     : $('<input type="text" />'    ).attr({size : 6, title : self.rte.i18n('Height')}).css('text-align', 'right'),
 				left       : $('<input type="text" />'    ).attr({size : 6, title : self.rte.i18n('Left')}  ).css('text-align', 'right'),
 				top        : $('<input type="text" />'    ).attr({size : 6, title : self.rte.i18n('Top')}   ).css('text-align', 'right'),
-				location   : $('<input type="checkbox" />'),				
+				location   : $('<input type="checkbox" />'),
 				menubar    : $('<input type="checkbox" />'),
 				toolbar    : $('<input type="checkbox" />'),
 				scrollbars : $('<input type="checkbox" />'),
@@ -5504,7 +5504,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		}
 
 		$.each(
-			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'], 
+			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'],
 			function() {
 				self.src.events[this] = $('<input type="text" />');
 		});
@@ -5518,16 +5518,16 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				}
 			}
 		});
-		
+
 	}
-	
+
 	this.command = function() {
 		var n = this.rte.selection.getNode();
 		!this.src && init();
 		this.rte.browser.msie && this.rte.selection.saveIERange();
-		
+
 		function isLink(n) { return n.nodeName == 'A' && n.href; }
-		
+
 		this.link = this.rte.dom.selfOrParentLink(n);
 		if (!this.link) {
 			var sel = $.browser.msie ? this.rte.selection.selected() : this.rte.selection.selected({wrap : false});
@@ -5543,11 +5543,11 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				}
 			}
 		}
-		
+
 		this.link = this.link ? $(this.link) : $(this.rte.doc.createElement('a'));
 
 		this.updatePopup();
-		
+
 		this.src.main.anchor.empty();
 		$('a[href!=""][name]', this.rte.doc).each(function() {
 			var n = $(this).attr('name');
@@ -5562,7 +5562,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 					}
 				});
 		}
-		
+
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
 			tabs : { show : function(e, ui) { if (ui.index==3) { self.updateOnclick(); } } },
@@ -5571,22 +5571,22 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				width : 'auto',
 				width : 430,
 				title : this.rte.i18n('Link')
-				
+
 			}
 		}
 		var d = new elDialogForm(opts);
-		
+
 		var l = $('<div />')
 			.append( $('<label />').append(this.src.popup.location).append(this.rte.i18n('Location bar')))
 			.append( $('<label />').append(this.src.popup.menubar).append(this.rte.i18n('Menu bar')))
-			.append( $('<label />').append(this.src.popup.toolbar).append(this.rte.i18n('Toolbar')))				
+			.append( $('<label />').append(this.src.popup.toolbar).append(this.rte.i18n('Toolbar')))
 			.append( $('<label />').append(this.src.popup.scrollbars).append(this.rte.i18n('Scrollbars')));
 		var r = $('<div />')
 			.append( $('<label />').append(this.src.popup.status).append(this.rte.i18n('Status bar')))
 			.append( $('<label />').append(this.src.popup.resizable).append(this.rte.i18n('Resizable')))
-			.append( $('<label />').append(this.src.popup.dependent).append(this.rte.i18n('Depedent')))				
+			.append( $('<label />').append(this.src.popup.dependent).append(this.rte.i18n('Depedent')))
 			.append( $('<label />').append(this.src.popup.retfalse).append(this.rte.i18n('Add return false')));
-		
+
 		d.tab('main', this.rte.i18n('Properies'))
 			.tab('popup',  this.rte.i18n('Popup'))
 			.tab('adv',    this.rte.i18n('Advanced'))
@@ -5596,7 +5596,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			.append([this.rte.i18n('URL'),  this.src.popup.url],  'popup', true)
 			.append([this.rte.i18n('Window name'), this.src.popup.name], 'popup', true)
 			.append([this.rte.i18n('Window size'), $('<span />').append(this.src.popup.width).append(' x ').append(this.src.popup.height).append(' px')], 'popup', true)
-			.append([this.rte.i18n('Window position'), $('<span />').append(this.src.popup.left).append(' x ').append(this.src.popup.top).append(' px')], 'popup', true)				
+			.append([this.rte.i18n('Window position'), $('<span />').append(this.src.popup.left).append(' x ').append(this.src.popup.top).append(' px')], 'popup', true)
 			.separator('popup')
 			.append([l, r], 'popup', true);
 
@@ -5605,7 +5605,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		this.src.main.href.val(href).change(function() {
 			$(this).val(self.rte.utils.absoluteURL($(this).val()));
 		});
-		
+
 		if (this.rte.options.fmAllow && this.rte.options.fmOpen) {
 			var s = $('<span />').append(this.src.main.href.css('width', '87%'))
 				.append(
@@ -5623,7 +5623,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			d.append([this.rte.i18n('Link URL'), this.src.main.href], 'main', true);
 		}
 		this.src.main.href.change();
-		
+
 		d.append([this.rte.i18n('Title'), this.src.main.title.val(this.rte.dom.attr(link, 'title'))], 'main', true);
 		if (this.src.main.anchor.children().length) {
 			d.append([this.rte.i18n('Bookmark'), this.src.main.anchor.val(href)], 'main', true)
@@ -5641,7 +5641,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.src.events[n].val(v);
 			d.append([this.rte.i18n(this.labels[n] ? this.labels[n] : n), this.src.events[n]], 'events', true);
 		}
-		
+
 		this.src.popup.use.change(function() {
 			var c = $(this).attr('checked');
 			$.each(self.src.popup, function() {
@@ -5657,15 +5657,15 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		this.src.popup.use.change();
 		d.open();
 		setTimeout(function() { self.src.main.href.focus()}, 20);
-		
+
 	}
-	
+
 	this.update = function() {
 		var n = this.rte.selection.getNode();
-		
+
 		// var t = this.rte.dom.selectionHas(function(n) { return n.nodeName == 'A' && n.href; });
 		// this.rte.log(t)
-		
+
 		if (this.rte.dom.selfOrParentLink(n)) {
 			this.domElem.removeClass('disabled').addClass('active');
 		} else if (this.rte.dom.selectionHas(function(n) { return n.nodeName == 'A' && n.href; })) {
@@ -5676,7 +5676,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.domElem.addClass('disabled').removeClass('active');
 		}
 	}
-	
+
 	this.updatePopup = function() {
 		var onclick = this.rte.dom.attr(this.link.get(0), 'onclick');
 		onclick = onclick ? $.trim(onclick.toString()) : ''
@@ -5735,9 +5735,9 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				}
 			});
 		}
-		
+
 	}
-	
+
 	this.updateOnclick = function () {
 		var url = this.src.popup.url.val();
 		if (this.src.popup.use.attr('checked') && url) {
@@ -5790,7 +5790,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.src.events.onclick.val(v);
 		}
 	}
-	
+
 	this.set = function() {
 		this.updateOnclick();
 		this.rte.browser.msie && this.rte.selection.restoreIERange();
@@ -5800,7 +5800,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.link.parents().length && this.rte.doc.execCommand('unlink', false, null);
 		} else {
 			if (!this.link.parents().length) {
-				
+
 				var fakeURL = '#--el-editor---'+Math.random();
 				var r =this.rte.doc.execCommand('createLink', false, fakeURL);
 
@@ -5833,7 +5833,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 }
 
 })(jQuery);
@@ -5843,7 +5843,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
  * Новые div'ы создаются только из несхлопнутого выделения
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -5851,14 +5851,14 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 (function($) {
 elRTE.prototype.ui.prototype.buttons.nbsp = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		this.rte.history.add();
 		this.rte.selection.insertHtml('&nbsp;', true);
 		this.rte.window.focus();
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 	}
@@ -5870,7 +5870,7 @@ elRTE.prototype.ui.prototype.buttons.nbsp = function(rte, name) {
  * уменьшает padding/margin/самомнение ;)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  * @todo decrease lists nesting level!
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
@@ -5889,7 +5889,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 			this.rte.ui.update();
 		}
 	}
-	
+
 	this.find = function(n) {
 		function checkNode(n) {
 			var ret = {type : '', val : 0};
@@ -5902,7 +5902,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 			}
 			return ret;
 		}
-		
+
 		var n = this.rte.selection.getNode();
 		var ret = checkNode(n);
 		if (ret.val) {
@@ -5918,7 +5918,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 		}
 		return ret;
 	}
-	
+
 	this.update = function() {
 		var v = this.find();
 		if (v.node) {
@@ -5928,7 +5928,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 		}
 	}
 
-	
+
 }
 
 })(jQuery);
@@ -5936,7 +5936,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
  * @class button - insert formatted text (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -5947,7 +5947,7 @@ elRTE.prototype.ui.prototype.buttons.pasteformattext = function(rte, name) {
 	this.iframe = $(document.createElement('iframe')).addClass('el-rte-paste-input');
 	this.doc    = null;
 	var self    = this;
-	
+
 	this.command = function() {
 		this.rte.browser.msie && this.rte.selection.saveIERange();
 		var opts = {
@@ -5972,13 +5972,13 @@ elRTE.prototype.ui.prototype.buttons.pasteformattext = function(rte, name) {
 				html += '<link rel="stylesheet" type="text/css" href="'+this+'" />';
 			});
 		}
-		html += '</head><body>  </body></html>';	
-		
+		html += '</head><body>  </body></html>';
+
 		this.doc.open();
 		this.doc.write(html);
 		this.doc.close();
 		if (!this.rte.browser.msie) {
-			try { this.doc.designMode = "on"; } 
+			try { this.doc.designMode = "on"; }
 			catch(e) { }
 		} else {
 			this.doc.body.contentEditable = true;
@@ -5986,7 +5986,7 @@ elRTE.prototype.ui.prototype.buttons.pasteformattext = function(rte, name) {
 		this.iframe.get(0).contentWindow.focus();
 
 	}
-	
+
 	this.paste = function() {
 		$(this.doc.body).find('[class]').removeAttr('class');
 		var html = $.trim($(this.doc.body).html());
@@ -6005,10 +6005,10 @@ elRTE.prototype.ui.prototype.buttons.pasteformattext = function(rte, name) {
 })(jQuery);
 
 /**
- * @class кнопка "вставить только текст" 
+ * @class кнопка "вставить только текст"
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -6018,7 +6018,7 @@ elRTE.prototype.ui.prototype.buttons.pastetext = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	this.input = $('<textarea />').addClass('el-rte-paste-input');
 	var self   = this;
-	
+
 	this.command = function() {
 		this.rte.browser.msie && this.rte.selection.saveIERange();
 		var opts = {
@@ -6036,7 +6036,7 @@ elRTE.prototype.ui.prototype.buttons.pastetext = function(rte, name) {
 		var d = new elDialogForm(opts);
 		d.append(this.input).open();
 	}
-	
+
 	this.paste = function() {
 		var txt = $.trim(this.input.val());
 		if (txt) {
@@ -6051,14 +6051,14 @@ elRTE.prototype.ui.prototype.buttons.pastetext = function(rte, name) {
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 	}
-	
+
 }
 })(jQuery);
 /**
  * @class button - save editor content (submit form)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -6067,11 +6067,11 @@ elRTE.prototype.ui.prototype.buttons.pastetext = function(rte, name) {
 elRTE.prototype.ui.prototype.buttons.save = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	this.active = true;
-	
+
 	this.command = function() {
 		this.rte.save();
 	}
-	
+
 	this.update = function() { }
 }
 })(jQuery);
@@ -6080,7 +6080,7 @@ elRTE.prototype.ui.prototype.buttons.save = function(rte, name) {
  * Если выделение схлопнуто и находится внутри div'a с аттрибутом или css clear - он удаляется
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -6097,7 +6097,7 @@ elRTE.prototype.ui.prototype.buttons.stopfloat = function(rte, name) {
 			}
 		}
 	}
-	
+
 	this.command = function() {
 		var n;
 		if ((n = this.find())) {
@@ -6114,7 +6114,7 @@ elRTE.prototype.ui.prototype.buttons.stopfloat = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		if (this.find()) {
@@ -6129,7 +6129,7 @@ elRTE.prototype.ui.prototype.buttons.stopfloat = function(rte, name) {
  * @class button - create/edit table (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * Copyright: Studio 42, http://www.std42.ru
@@ -6140,7 +6140,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 	var self    = this;
 	this.src    = null;
 	this.labels = null;
-	
+
 	function init() {
 		self.labels = {
 			main      : 'Properies',
@@ -6154,7 +6154,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			lang      : 'Language',
 			href      : 'URL'
 		}
-		
+
 		self.src = {
 			main : {
 				caption : $('<input type="text" />'),
@@ -6163,17 +6163,17 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				width   : $('<input type="text" />').attr('size', 5),
 				wunit   : $('<select />')
 							.append($('<option />').val('%').text('%'))
-							.append($('<option />').val('px').text('px')),				
-				height  : $('<input type="text" />').attr('size', 5),	
+							.append($('<option />').val('px').text('px')),
+				height  : $('<input type="text" />').attr('size', 5),
 				hunit   : $('<select />')
 							.append($('<option />').val('%').text('%'))
-							.append($('<option />').val('px').text('px')),	
+							.append($('<option />').val('px').text('px')),
 				align   : $('<select />')
 							.append($('<option />').val('').text(self.rte.i18n('Not set')))
 							.append($('<option />').val('left').text(self.rte.i18n('Left')))
-							.append($('<option />').val('center').text(self.rte.i18n('Center')))	
-							.append($('<option />').val('right').text(self.rte.i18n('Right'))),	
-				spacing : $('<input type="text" />').attr('size', 5),	
+							.append($('<option />').val('center').text(self.rte.i18n('Center')))
+							.append($('<option />').val('right').text(self.rte.i18n('Right'))),
+				spacing : $('<input type="text" />').attr('size', 5),
 				padding : $('<input type="text" />').attr('size', 5),
 				border  : $('<div />'),
 				// frame   : $('<select />')
@@ -6189,7 +6189,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				bg      : $('<div />'),
 				bgimg   : $('<input type="text" />').css('width', '90%')
 			},
-			
+
 			adv : {
 				id        : $('<input type="text" />'),
 				summary   : $('<input type="text" />'),
@@ -6201,14 +6201,14 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 								.append($('<option />').text(self.rte.i18n('Right to left')).val('rtl')),
 				lang      : $('<input type="text" />')
 			},
-			
+
 			events : {}
 		}
-		
+
 		$.each(self.src, function() {
 			for (var n in this) {
 				this[n].attr('name', n);
-				var t = this[n].get(0).nodeName; 
+				var t = this[n].get(0).nodeName;
 				if (t == 'INPUT' && n != 'bgimg') {
 					this[n].css(this[n].attr('size') ? {'text-align' : 'right'} : {width : '100%'});
 				} else if (t == 'SELECT' && n!='wunit' && n!='hunit') {
@@ -6216,13 +6216,13 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				}
 			}
 		});
-		
+
 		$.each(
-			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'], 
+			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'],
 			function() {
 				self.src.events[this] = $('<input type="text" />').attr('name', this).css('width', '100%');
 		});
-		
+
 		self.src.main.align.change(function() {
 			var v = $(this).val();
 			if (v == 'center') {
@@ -6234,28 +6234,28 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				}
 			}
 		});
-		
+
 		self.src.main.bgimg.change(function() {
 			var t = $(this);
 			t.val(self.rte.utils.absoluteURL(t.val()));
 		})
-		
+
 	}
-	
+
 	this.command = function() {
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TABLE$/);
-		
+
 		if (this.name == 'table') {
-			this.table = $(this.rte.doc.createElement('table'));	
+			this.table = $(this.rte.doc.createElement('table'));
 		} else {
-			this.table = n ? $(n) : $(this.rte.doc.createElement('table'));					
+			this.table = n ? $(n) : $(this.rte.doc.createElement('table'));
 		}
-		
+
 		!this.src && init();
 		this.src.main.border.elBorderSelect({styleHeight : 117});
 		this.src.main.bg.elColorPicker({palettePosition : 'outer', 'class' : 'el-colorpicker ui-icon ui-icon-pencil'});
 		this.src.main.margin.elPaddingInput({ type : 'margin', value : this.table});
-		
+
 		if (this.table.parents().length) {
 			this.src.main.rows.val('').attr('disabled', true);
 			this.src.main.cols.val('').attr('disabled', true);
@@ -6263,12 +6263,12 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			this.src.main.rows.val(2).removeAttr('disabled');
 			this.src.main.cols.val(2).removeAttr('disabled');
 		}
-		
+
 		var w = this.table.css('width') || this.table.attr('width');
 		this.src.main.width.val(parseInt(w)||'');
 		this.src.main.wunit.val(w.indexOf('px') != -1 ? 'px' : '%');
-		
-		var h = this.table.css('height') || this.table.attr('height');	
+
+		var h = this.table.css('height') || this.table.attr('height');
 		this.src.main.height.val(parseInt(h)||'');
 		this.src.main.hunit.val(h && h.indexOf('px') != -1 ? 'px' : '%');
 
@@ -6300,7 +6300,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			}
 		}
 		var d = new elDialogForm(opts);
-		
+
 		for (var tab in this.src) {
 			d.tab(tab, this.rte.i18n(this.labels[tab]));
 			if (tab == 'main') {
@@ -6313,7 +6313,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				var t3 = $('<table />')
 					.append($('<tr />').append('<td>'+this.rte.i18n('Spacing')+'</td>').append($('<td />').append(this.src.main.spacing.val(this.table.attr('cellspacing')||''))))
 					.append($('<tr />').append('<td>'+this.rte.i18n('Padding')+'</td>').append($('<td />').append(this.src.main.padding.val(this.table.attr('cellpadding')||''))));
-				
+
 				d.append([this.rte.i18n('Caption'), this.src.main.caption.val(this.table.find('caption').eq(0).text() || '')], 'main', true)
 					.separator('main')
 					.append([t1, t2, t3], 'main', true)
@@ -6329,17 +6329,17 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 					var v = this.rte.dom.attr(this.table, name);
 					if (tab == 'events') {
 						v = this.rte.utils.trimEventCallback(v);
-					} 
+					}
 					d.append([this.rte.i18n(this.labels[name] ? this.labels[name] : name), this.src[tab][name].val(v)], tab, true);
 				}
 			}
 		}
-		
+
 		d.open();
 	}
-	
+
 	this.set = function() {
-		
+
 		if (!this.table.parents().length) {
 			var r = parseInt(this.src.main.rows.val()) || 0;
 			var c = parseInt(this.src.main.cols.val()) || 0;
@@ -6370,7 +6370,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				.removeAttr('rules')
 				.removeAttr('style');
 		}
-		
+
 		var cap = $.trim(this.src.main.caption.val());
 		if (cap) {
 			if (!this.table.children('caption').length) {
@@ -6380,7 +6380,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 		} else {
 			this.table.children('caption').remove();
 		}
-		
+
 		for (var tab in this.src) {
 			if (tab != 'main') {
 				for (var n in this.src[tab]) {
@@ -6397,16 +6397,16 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 
 		if ((spacing = parseInt(this.src.main.spacing.val())) && spacing>=0) {
 			this.table.attr('cellspacing', spacing);
-		} 
+		}
 
 		if ((padding = parseInt(this.src.main.padding.val())) && padding>=0) {
 			this.table.attr('cellpadding', padding);
-		} 
-		
+		}
+
 		if ((rules = this.src.main.rules.val())) {
 			this.table.attr('rules', rules);
 		}
-		
+
 		var
 			w = parseInt(this.src.main.width.val()) || '',
 			h = parseInt(this.src.main.height.val()) || '',
@@ -6420,7 +6420,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			border             : $.trim(b.width+' '+b.style+' '+b.color),
 			'background-color' : this.src.main.bg.val(),
 			'background-image' : i ? 'url('+i+')' : ''
-		});	
+		});
 		if (m.css) {
 			this.table.css('margin', m.css);
 		} else {
@@ -6437,17 +6437,17 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 		if (!this.table.attr('style')) {
 			this.table.removeAttr('style');
 		}
-		
+
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		if (this.name == 'tableprops' && !this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TABLE$/)) {
 			this.domElem.addClass('disabled').removeClass('active');
 		}
 	}
-	
+
 }
 
 elRTE.prototype.ui.prototype.buttons.tableprops = elRTE.prototype.ui.prototype.buttons.table;
@@ -6458,7 +6458,7 @@ elRTE.prototype.ui.prototype.buttons.tableprops = elRTE.prototype.ui.prototype.b
  * @class button - remove table
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -6466,7 +6466,7 @@ elRTE.prototype.ui.prototype.buttons.tableprops = elRTE.prototype.ui.prototype.b
 (function($) {
 elRTE.prototype.ui.prototype.buttons.tablerm = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var t = this.rte.dom.parent(this.rte.selection.getNode(), /^TABLE$/);
 		// t && $(t).remove();
@@ -6476,7 +6476,7 @@ elRTE.prototype.ui.prototype.buttons.tablerm = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.parent(this.rte.selection.getNode(), /^TABLE$/)) {
 			this.domElem.removeClass('disabled');
@@ -6490,7 +6490,7 @@ elRTE.prototype.ui.prototype.buttons.tablerm = function(rte, name) {
  * @class button - table cell properties
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
@@ -6502,7 +6502,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 	var self = this;
 	this.src = null;
 	this.labels = null;
-	
+
 	function init() {
 		self.labels = {
 			main    : 'Properies',
@@ -6514,7 +6514,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 			dir     : 'Script direction',
 			lang    : 'Language'
 		}
-		
+
 		self.src = {
 			main : {
 				type    : $('<select />').css('width', '100%')
@@ -6523,17 +6523,17 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 				width   : $('<input type="text" />').attr('size', 4),
 				wunit   : $('<select />')
 							.append($('<option />').val('%').text('%'))
-							.append($('<option />').val('px').text('px')),				
-				height  : $('<input type="text" />').attr('size', 4),	
+							.append($('<option />').val('px').text('px')),
+				height  : $('<input type="text" />').attr('size', 4),
 				hunit   : $('<select />')
 							.append($('<option />').val('%').text('%'))
-							.append($('<option />').val('px').text('px')),	
+							.append($('<option />').val('px').text('px')),
 				align   : $('<select />').css('width', '100%')
 							.append($('<option />').val('').text(self.rte.i18n('Not set')))
 							.append($('<option />').val('left').text(self.rte.i18n('Left')))
-							.append($('<option />').val('center').text(self.rte.i18n('Center')))	
+							.append($('<option />').val('center').text(self.rte.i18n('Center')))
 							.append($('<option />').val('right').text(self.rte.i18n('Right')))
-							.append($('<option />').val('justify').text(self.rte.i18n('Justify'))),	
+							.append($('<option />').val('justify').text(self.rte.i18n('Justify'))),
 				border  : $('<div />'),
 				padding  : $('<div />'),
 				bg      : $('<div />'),
@@ -6541,10 +6541,10 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 				apply   : $('<select />').css('width', '100%')
 							.append($('<option />').val('').text(self.rte.i18n('Current cell')))
 							.append($('<option />').val('row').text(self.rte.i18n('All cells in row')))
-							.append($('<option />').val('column').text(self.rte.i18n('All cells in column')))	
+							.append($('<option />').val('column').text(self.rte.i18n('All cells in column')))
 							.append($('<option />').val('table').text(self.rte.i18n('All cells in table')))
 			},
-			
+
 			adv : {
 				id        : $('<input type="text" />'),
 				'class'   : $('<input type="text" />'),
@@ -6555,10 +6555,10 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 								.append($('<option />').text(self.rte.i18n('Right to left')).val('rtl')),
 				lang      : $('<input type="text" />')
 			},
-			
+
 			events : {}
 		}
-		
+
 		$.each(self.src, function() {
 			for (var n in this) {
 				this[n].attr('name', n);
@@ -6567,15 +6567,15 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 				}
 			}
 		});
-		
+
 		$.each(
-			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'], 
+			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'],
 			function() {
 				self.src.events[this] = $('<input type="text" />').attr('name', this).css('width', '100%');
 		});
-		
+
 	}
-	
+
 	this.command = function() {
 		!this.src && init();
 		this.cell = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(TD|TH)$/);
@@ -6587,21 +6587,21 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 		this.src.main.border.elBorderSelect({styleHeight : 117, value : this.cell});
 		this.src.main.bg.elColorPicker({palettePosition : 'outer', 'class' : 'el-colorpicker ui-icon ui-icon-pencil'});
 		this.src.main.padding.elPaddingInput({ value : this.cell});
-		
+
 		var w = this.cell.css('width') || this.cell.attr('width');
 		this.src.main.width.val(parseInt(w)||'');
 		this.src.main.wunit.val(w.indexOf('px') != -1 ? 'px' : '%');
-		
-		var h = this.cell.css('height') || this.cell.attr('height');	
+
+		var h = this.cell.css('height') || this.cell.attr('height');
 		this.src.main.height.val(parseInt(h)||'');
 		this.src.main.hunit.val(h.indexOf('px') != -1 ? 'px' : '%');
-		
+
 		this.src.main.align.val(this.cell.attr('align') || this.cell.css('text-align'));
 		this.src.main.bg.val(this.cell.css('background-color'));
 		var bgimg = this.cell.css('background-image');
 		this.src.main.bgimg.val(bgimg && bgimg!='none' ? bgimg.replace(/url\(([^\)]+)\)/i, "$1") : '');
 		this.src.main.apply.val('');
-		
+
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
 			dialog : {
@@ -6613,7 +6613,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 		var d = new elDialogForm(opts);
 		for (var tab in this.src) {
 			d.tab(tab, this.rte.i18n(this.labels[tab]));
-			
+
 			if (tab == 'main') {
 				d.append([this.rte.i18n('Width'),              $('<span />').append(this.src.main.width).append(this.src.main.wunit)],  'main', true)
 					.append([this.rte.i18n('Height'),          $('<span />').append(this.src.main.height).append(this.src.main.hunit)], 'main', true)
@@ -6628,14 +6628,14 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 					var v = this.cell.attr(name) || '';
 					if (tab == 'events') {
 						v = this.rte.utils.trimEventCallback(v);
-					} 
+					}
 					d.append([this.rte.i18n(this.labels[name] ? this.labels[name] : name), this.src[tab][name].val(v)], tab, true);
 				}
 			}
 		}
 		d.open()
 	}
-	
+
 	this.set = function() {
 		$(t).remove();
 		var target = this.cell,
@@ -6644,11 +6644,11 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 			case 'row':
 				target = this.cell.parent('tr').children('td,th');
 				break;
-				
+
 			case 'column':
 				target = $(this.rte.dom.tableColumn(this.cell.get(0)));
 				break;
-				
+
 			case 'table':
 				target = this.cell.parents('table').find('td,th');
 				break;
@@ -6666,14 +6666,14 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 				}
 			}
 		}
-		
+
 		target.removeAttr('width')
 			.removeAttr('height')
 			.removeAttr('border')
 			.removeAttr('align')
 			.removeAttr('bordercolor')
 			.removeAttr('bgcolor');
-			
+
 		var t = this.src.main.type.val();
 		var w = parseInt(this.src.main.width.val()) || '';
 		var h = parseInt(this.src.main.height.val()) || '';
@@ -6696,14 +6696,14 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 			css['padding-bottom'] = p.bottom;
 			css['padding-left']   = p.left;
 		}
-		
+
 		target = target.get();
 
 		$.each(target, function() {
 			var type = this.nodeName.toLowerCase();
 			var $this = $(this);
 			if (type != t) {
-				
+
 				var attr = {}
 				for (var i in self.src.adv) {
 					var v = $this.attr(i)
@@ -6725,9 +6725,9 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 				if (rowspan>1) {
 					attr.rowspan = rowspan;
 				}
-				
+
 				$this.replaceWith($('<'+t+' />').html($this.html()).attr(attr).css(css) );
-				
+
 			} else {
 				$this.css(css);
 			}
@@ -6735,7 +6735,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.parent(this.rte.selection.getNode(), /^TABLE$/)) {
 			this.domElem.removeClass('disabled');
@@ -6743,14 +6743,14 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 			this.domElem.addClass('disabled');
 		}
 	}
-	
+
 }
 
 })(jQuery);/**
  * @class button - table cells merge
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -6759,30 +6759,30 @@ elRTE.prototype.ui.prototype.buttons.tbcellprops = function(rte, name) {
 elRTE.prototype.ui.prototype.buttons.tbcellsmerge = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
-	
+
 	function selectedCells() {
 		var c1 = self.rte.dom.selfOrParent(self.rte.selection.getStart(), /^(TD|TH)$/);
-		var c2 = self.rte.dom.selfOrParent(self.rte.selection.getEnd(), /^(TD|TH)$/);		
+		var c2 = self.rte.dom.selfOrParent(self.rte.selection.getEnd(), /^(TD|TH)$/);
 		if (c1 && c2 && c1!=c2 && $(c1).parents('table').get(0) == $(c2).parents('table').get(0)) {
 			return [c1, c2];
 		}
 		return null;
 	}
-	
+
 	this.command = function() {
 		var cells = selectedCells();
 
 		if (cells) {
-			
+
 			var _s  = this.rte.dom.indexOf($(cells[0]).parent('tr').get(0));
 			var _e  = this.rte.dom.indexOf($(cells[1]).parent('tr').get(0));
 			var ro  = Math.min(_s, _e); // row offset
 			var rl  = Math.max(_s, _e) - ro + 1; // row length
-			var _c1 = this.rte.dom.tableColumn(cells[0], true, true); 
+			var _c1 = this.rte.dom.tableColumn(cells[0], true, true);
 			var _c2 = this.rte.dom.tableColumn(cells[1], true);
-			var _i1 = $.inArray(cells[0], _c1.column); 
+			var _i1 = $.inArray(cells[0], _c1.column);
 			var _i2 = $.inArray(cells[1], _c2.column);
-			
+
 			var colBegin = _c1.info.offset[_i1] < _c2.info.offset[_i2]  ? _c1 : _c2;
 			var colEnd   = _c1.info.offset[_i1] >= _c2.info.offset[_i2] ? _c1 : _c2;
 			var length   = 0;
@@ -6797,14 +6797,14 @@ elRTE.prototype.ui.prototype.buttons.tbcellsmerge = function(rte, name) {
 						var $this   = $(this);
 						var inBegin = $.inArray(this, colBegin.column);
 						var inEnd   = $.inArray(this, colEnd.column);
-						
+
 						if (inBegin!=-1 || inEnd!=-1) {
 							accept = inBegin!=-1 && inEnd==-1;
 							var len = parseInt($this.attr('colspan')||1)
 							if (i == 0) {
 								length += len;
 							}
-							
+
 							if (inBegin!=-1 && i>0) {
 								var delta = colBegin.info.delta[inBegin];
 								if (delta>0) {
@@ -6820,7 +6820,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsmerge = function(rte, name) {
 									}
 								}
 							}
-							
+
 							if (inEnd!=-1) {
 								var delta = colEnd.info.delta[inEnd];
 								if (len-delta>1) {
@@ -6849,7 +6849,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsmerge = function(rte, name) {
 							}
 							html += $this.html();
 							$this.remove();
-							
+
 
 						}
 					})
@@ -6863,12 +6863,12 @@ elRTE.prototype.ui.prototype.buttons.tbcellsmerge = function(rte, name) {
 			if (rl>1) {
 				target.attr('rowspan', rl);
 			}
-			// sometimes when merge cells with different rowspans we get "lost" cells in rows 
+			// sometimes when merge cells with different rowspans we get "lost" cells in rows
 			// this add cells if needed
 			this.rte.dom.fixTable($(cells[0]).parents('table').get(0));
 		}
 	}
-	
+
 	this.update = function() {
 		if (selectedCells()) {
 			this.domElem.removeClass('disabled');
@@ -6883,15 +6883,15 @@ elRTE.prototype.ui.prototype.buttons.tbcellsmerge = function(rte, name) {
  *
  * @param  elRTE  rte   объект-редактор
  * @param  String name  название кнопки
- * @todo split not merged cell 
+ * @todo split not merged cell
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
- * @copyright: Studio 42, http://www.std42.ru 
+ * @copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(TD|TH)$/);
 		if (n) {
@@ -6903,7 +6903,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 				var rnum = rowspan-1;
 				var tb   = this.rte.dom.parent(n, /^TABLE$/);
 				var tbm  = this.rte.dom.tableMatrix(tb);
-				
+
 				// ячейки в текущем ряду
 				if (cnum) {
 					for (var i=0; i<cnum; i++) {
@@ -6917,7 +6917,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 					// ячейки в следущих рядах
 					for (var r=rndx+1; r < rndx+rnum+1; r++) {
 						var cell;
-						
+
 						if (!tbm[r][cndx].nodeName) {
 							if (tbm[r][cndx-1].nodeName) {
 								cell = tbm[r][cndx-1];
@@ -6943,7 +6943,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(TD|TH)$/);
 		if (n && (parseInt(this.rte.dom.attr(n, 'colspan'))>1 || parseInt(this.rte.dom.attr(n, 'rowspan'))>1)) {
@@ -6959,7 +6959,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
  * @class button - Insert new column in table(before or after current)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -6968,7 +6968,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 elRTE.prototype.ui.prototype.buttons.tbcolbefore = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
-	
+
 	this.command = function() {
 		var cells = this.rte.dom.tableColumn(this.rte.selection.getNode(), false, true);
 		if (cells.length) {
@@ -6990,7 +6990,7 @@ elRTE.prototype.ui.prototype.buttons.tbcolbefore = function(rte, name) {
 			this.rte.ui.update();
 		}
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(TD|TH)$/)) {
 			this.domElem.removeClass('disabled');
@@ -7007,7 +7007,7 @@ elRTE.prototype.ui.prototype.buttons.tbcolafter = elRTE.prototype.ui.prototype.b
  * @class button - remove table colunm
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -7016,12 +7016,12 @@ elRTE.prototype.ui.prototype.buttons.tbcolafter = elRTE.prototype.ui.prototype.b
 elRTE.prototype.ui.prototype.buttons.tbcolrm = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
-	
+
 	this.command = function() {
 		var n     = this.rte.selection.getNode();
 		var c     = this.rte.dom.selfOrParent(n, /^(TD|TH)$/);
 		var prev  = $(c).prev('td,th').get(0);
-		var next  = $(c).next('td,th').get(0);			
+		var next  = $(c).next('td,th').get(0);
 		var tb    = this.rte.dom.parent(n, /^TABLE$/);
 		var cells = this.rte.dom.tableColumn(n, false, true);
 
@@ -7043,7 +7043,7 @@ elRTE.prototype.ui.prototype.buttons.tbcolrm = function(rte, name) {
 			this.rte.ui.update(true);
 		}
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(TD|TH)$/)) {
 			this.domElem.removeClass('disabled');
@@ -7058,11 +7058,11 @@ elRTE.prototype.ui.prototype.buttons.tbcolrm = function(rte, name) {
  * @class меню - Новый ряд в таблице
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  **/
 elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var n  = this.rte.selection.getNode();
 		var c  = this.rte.dom.selfOrParent(n, /^(TD|TH)$/);
@@ -7074,7 +7074,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 			var ro     = $(r).prevAll('tr').length;
 			var cnt    = 0;
 			var mdf    = [];
-			
+
 			function _find(x, y) {
 				while (y>0) {
 					y--;
@@ -7083,7 +7083,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 					}
 				}
 			}
-			
+
 			for (var i=0; i<mx[ro].length; i++) {
 				if (mx[ro][i] && mx[ro][i].nodeName) {
 					var cell    = $(mx[ro][i]);
@@ -7117,7 +7117,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 			this.rte.ui.update();
 		}
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TR$/)) {
 			this.domElem.removeClass('disabled');
@@ -7132,7 +7132,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowafter = elRTE.prototype.ui.prototype.b
  * @class button - remove table row
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -7142,13 +7142,13 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
 	this.command = function() {
-		
+
 		var n  = this.rte.selection.getNode(),
 			c  = this.rte.dom.selfOrParent(n, /^(TD|TH)$/),
 			r  = this.rte.dom.selfOrParent(c, /^TR$/),
 			tb = this.rte.dom.selfOrParent(c, /^TABLE$/),
 			mx = this.rte.dom.tableMatrix(tb);
-		
+
 		if (c && r && mx.length) {
 			this.rte.history.add();
 			if (mx.length==1) {
@@ -7157,7 +7157,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 			}
 			var mdf = [];
 			var ro  = $(r).prevAll('tr').length;
-			
+
 			function _find(x, y) {
 				while (y>0) {
 					y--;
@@ -7166,7 +7166,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					}
 				}
 			}
-			
+
 			// move cell with rowspan>1 to next row
 			function _move(cell, x) {
 				y = ro+1;
@@ -7177,7 +7177,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 							sibling = mx[y][_x];
 						}
 					};
-					
+
 					cell = cell.remove();
 					if (sibling) {
 						cell.insertAfter(sibling);
@@ -7186,7 +7186,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					}
 				}
 			}
-			
+
 			function _cursorPos(column) {
 				for (var i = 0; i<column.length; i++) {
 					if (column[i] == c) {
@@ -7194,7 +7194,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					}
 				}
 			}
-			
+
 			for (var i=0; i<mx[ro].length; i++) {
 				var cell = null;
 				var move = false;
@@ -7210,10 +7210,10 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 					if (rowspan>1) {
 						cell.attr('rowspan', rowspan-1);
 						move && _move(cell, i, ro);
-					} 
+					}
 				}
 			};
-			
+
 			var _c = _cursorPos(this.rte.dom.tableColumn(c));
 			if (_c) {
 				this.rte.selection.selectContents(_c).collapse(true);
@@ -7223,7 +7223,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 		}
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TR$/)) {
 			this.domElem.removeClass('disabled');
@@ -7237,15 +7237,15 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
  * @class кнопка - отмена повтор действий
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
- * 
+ * @param  String name  название кнопки
+ *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 	elRTE.prototype.ui.prototype.buttons.undo = function(rte, name) {
 		this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 		this.command = function() {
 			if (this.name == 'undo' && this.rte.history.canBack()) {
 				this.rte.history.back();
@@ -7255,7 +7255,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 				this.rte.ui.update();
 			}
 		}
-	
+
 		this.update = function() {
 			this.domElem.toggleClass('disabled', this.name == 'undo' ? !this.rte.history.canBack() : !this.rte.history.canFwd());
 		}
@@ -7270,7 +7270,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
  * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
- * @copyright: Studio 42, http://www.std42.ru 
+ * @copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 
@@ -7279,7 +7279,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 
 		this.command = function() {
 
-			var n = this.rte.selection.getNode(), 
+			var n = this.rte.selection.getNode(),
 				l = this.rte.dom.selfOrParentLink(n);
 
 			function isLink(n) { return n.nodeName == 'A' && n.href; }
@@ -7306,9 +7306,9 @@ elRTE.prototype.ui.prototype.buttons.tbrowrm = function(rte, name) {
 				this.rte.doc.execCommand('unlink', false, null);
 				this.rte.ui.update(true);
 			}
-		
+
 		}
-	
+
 		this.update = function() {
 			var n = this.rte.selection.getNode();
 			if (this.rte.dom.selfOrParentLink(n)) {

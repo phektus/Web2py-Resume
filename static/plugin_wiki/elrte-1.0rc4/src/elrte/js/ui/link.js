@@ -2,7 +2,7 @@
  * @class button - insert/edit link (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * Copyright: Studio 42, http://www.std42.ru
@@ -11,7 +11,7 @@
 elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	var self = this;
-	
+
 	function init() {
 		self.labels = {
 			id        : 'ID',
@@ -46,7 +46,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				height     : $('<input type="text" />'    ).attr({size : 6, title : self.rte.i18n('Height')}).css('text-align', 'right'),
 				left       : $('<input type="text" />'    ).attr({size : 6, title : self.rte.i18n('Left')}  ).css('text-align', 'right'),
 				top        : $('<input type="text" />'    ).attr({size : 6, title : self.rte.i18n('Top')}   ).css('text-align', 'right'),
-				location   : $('<input type="checkbox" />'),				
+				location   : $('<input type="checkbox" />'),
 				menubar    : $('<input type="checkbox" />'),
 				toolbar    : $('<input type="checkbox" />'),
 				scrollbars : $('<input type="checkbox" />'),
@@ -76,7 +76,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		}
 
 		$.each(
-			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'], 
+			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'],
 			function() {
 				self.src.events[this] = $('<input type="text" />');
 		});
@@ -90,16 +90,16 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				}
 			}
 		});
-		
+
 	}
-	
+
 	this.command = function() {
 		var n = this.rte.selection.getNode();
 		!this.src && init();
 		this.rte.browser.msie && this.rte.selection.saveIERange();
-		
+
 		function isLink(n) { return n.nodeName == 'A' && n.href; }
-		
+
 		this.link = this.rte.dom.selfOrParentLink(n);
 		if (!this.link) {
 			var sel = $.browser.msie ? this.rte.selection.selected() : this.rte.selection.selected({wrap : false});
@@ -115,11 +115,11 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				}
 			}
 		}
-		
+
 		this.link = this.link ? $(this.link) : $(this.rte.doc.createElement('a'));
 
 		this.updatePopup();
-		
+
 		this.src.main.anchor.empty();
 		$('a[href!=""][name]', this.rte.doc).each(function() {
 			var n = $(this).attr('name');
@@ -134,7 +134,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 					}
 				});
 		}
-		
+
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
 			tabs : { show : function(e, ui) { if (ui.index==3) { self.updateOnclick(); } } },
@@ -143,22 +143,22 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				width : 'auto',
 				width : 430,
 				title : this.rte.i18n('Link')
-				
+
 			}
 		}
 		var d = new elDialogForm(opts);
-		
+
 		var l = $('<div />')
 			.append( $('<label />').append(this.src.popup.location).append(this.rte.i18n('Location bar')))
 			.append( $('<label />').append(this.src.popup.menubar).append(this.rte.i18n('Menu bar')))
-			.append( $('<label />').append(this.src.popup.toolbar).append(this.rte.i18n('Toolbar')))				
+			.append( $('<label />').append(this.src.popup.toolbar).append(this.rte.i18n('Toolbar')))
 			.append( $('<label />').append(this.src.popup.scrollbars).append(this.rte.i18n('Scrollbars')));
 		var r = $('<div />')
 			.append( $('<label />').append(this.src.popup.status).append(this.rte.i18n('Status bar')))
 			.append( $('<label />').append(this.src.popup.resizable).append(this.rte.i18n('Resizable')))
-			.append( $('<label />').append(this.src.popup.dependent).append(this.rte.i18n('Depedent')))				
+			.append( $('<label />').append(this.src.popup.dependent).append(this.rte.i18n('Depedent')))
 			.append( $('<label />').append(this.src.popup.retfalse).append(this.rte.i18n('Add return false')));
-		
+
 		d.tab('main', this.rte.i18n('Properies'))
 			.tab('popup',  this.rte.i18n('Popup'))
 			.tab('adv',    this.rte.i18n('Advanced'))
@@ -168,7 +168,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			.append([this.rte.i18n('URL'),  this.src.popup.url],  'popup', true)
 			.append([this.rte.i18n('Window name'), this.src.popup.name], 'popup', true)
 			.append([this.rte.i18n('Window size'), $('<span />').append(this.src.popup.width).append(' x ').append(this.src.popup.height).append(' px')], 'popup', true)
-			.append([this.rte.i18n('Window position'), $('<span />').append(this.src.popup.left).append(' x ').append(this.src.popup.top).append(' px')], 'popup', true)				
+			.append([this.rte.i18n('Window position'), $('<span />').append(this.src.popup.left).append(' x ').append(this.src.popup.top).append(' px')], 'popup', true)
 			.separator('popup')
 			.append([l, r], 'popup', true);
 
@@ -177,7 +177,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		this.src.main.href.val(href).change(function() {
 			$(this).val(self.rte.utils.absoluteURL($(this).val()));
 		});
-		
+
 		if (this.rte.options.fmAllow && this.rte.options.fmOpen) {
 			var s = $('<span />').append(this.src.main.href.css('width', '87%'))
 				.append(
@@ -195,7 +195,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			d.append([this.rte.i18n('Link URL'), this.src.main.href], 'main', true);
 		}
 		this.src.main.href.change();
-		
+
 		d.append([this.rte.i18n('Title'), this.src.main.title.val(this.rte.dom.attr(link, 'title'))], 'main', true);
 		if (this.src.main.anchor.children().length) {
 			d.append([this.rte.i18n('Bookmark'), this.src.main.anchor.val(href)], 'main', true)
@@ -213,7 +213,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.src.events[n].val(v);
 			d.append([this.rte.i18n(this.labels[n] ? this.labels[n] : n), this.src.events[n]], 'events', true);
 		}
-		
+
 		this.src.popup.use.change(function() {
 			var c = $(this).attr('checked');
 			$.each(self.src.popup, function() {
@@ -229,15 +229,15 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		this.src.popup.use.change();
 		d.open();
 		setTimeout(function() { self.src.main.href.focus()}, 20);
-		
+
 	}
-	
+
 	this.update = function() {
 		var n = this.rte.selection.getNode();
-		
+
 		// var t = this.rte.dom.selectionHas(function(n) { return n.nodeName == 'A' && n.href; });
 		// this.rte.log(t)
-		
+
 		if (this.rte.dom.selfOrParentLink(n)) {
 			this.domElem.removeClass('disabled').addClass('active');
 		} else if (this.rte.dom.selectionHas(function(n) { return n.nodeName == 'A' && n.href; })) {
@@ -248,7 +248,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.domElem.addClass('disabled').removeClass('active');
 		}
 	}
-	
+
 	this.updatePopup = function() {
 		var onclick = this.rte.dom.attr(this.link.get(0), 'onclick');
 		onclick = onclick ? $.trim(onclick.toString()) : ''
@@ -307,9 +307,9 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 				}
 			});
 		}
-		
+
 	}
-	
+
 	this.updateOnclick = function () {
 		var url = this.src.popup.url.val();
 		if (this.src.popup.use.attr('checked') && url) {
@@ -362,7 +362,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.src.events.onclick.val(v);
 		}
 	}
-	
+
 	this.set = function() {
 		this.updateOnclick();
 		this.rte.browser.msie && this.rte.selection.restoreIERange();
@@ -372,7 +372,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 			this.link.parents().length && this.rte.doc.execCommand('unlink', false, null);
 		} else {
 			if (!this.link.parents().length) {
-				
+
 				var fakeURL = '#--el-editor---'+Math.random();
 				var r =this.rte.doc.execCommand('createLink', false, fakeURL);
 
@@ -405,7 +405,7 @@ elRTE.prototype.ui.prototype.buttons.link = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 }
 
 })(jQuery);

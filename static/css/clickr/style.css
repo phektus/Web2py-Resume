@@ -1,14 +1,14 @@
 @charset "utf-8";
 
 /* -- TABLE OF CONTENTS ---------
- 
+
 	1. RESET BROWSER DEFAULTS
 	2. TYPOGRAPHY
 	3. STRUCTURE
 	4. SLIDER
 	5. SUBSCRIBE FORM
 	6. MISCELLANEOUS
-	
+
 -------------------------------*/
 
 
@@ -26,14 +26,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner { border: none }
 
 /* -- 2. TYPOGRAPHY -- */
 
-body { margin:0px auto; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:21px; text-align:center; color:#555f6e; background:#fbfdff url(/static/images/clickr/pattern.jpg) }	
+body { margin:0px auto; font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:21px; text-align:center; color:#555f6e; background:#fbfdff url(/static/images/clickr/pattern.jpg) }
 p, ul, ol { margin-bottom: 21px }
 ul { list-style:square; margin-left: 21px }
 ol { list-style:decimal; margin-left: 21px }
-h1, h2, h3 { font-family: Helvetica, Arial, sans-serif; color:#3e4550; font-weight:bold; margin-bottom:21px; text-shadow:0px 1px 0px rgba(255,255,255,0.5) }	
+h1, h2, h3 { font-family: Helvetica, Arial, sans-serif; color:#3e4550; font-weight:bold; margin-bottom:21px; text-shadow:0px 1px 0px rgba(255,255,255,0.5) }
 h1 { font-size: 36px; line-height: 42px; letter-spacing:-1px; margin-bottom:0px }
 h2 { font-size: 26px; line-height: 30px; letter-spacing:0px; margin-bottom:12px }
-h3 { font-size: 16px; margin-bottom:6px }	
+h3 { font-size: 16px; margin-bottom:6px }
 a {	color:#DB7030; text-decoration:none; border:none; outline:none }
 a:hover { text-decoration:underline }
 em, i { font-style:italic }
@@ -70,11 +70,11 @@ input, textarea { border:none; outline:none }
 /* -- 5. SUBSCRIBE FORM -- */
 
 #subscribe { padding-bottom:21px; margin-bottom:6px }
-#subscribe input { font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#87909a; width:250px; padding:11px 10px; margin-right:2px; background:#eceff4; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; -khtml-border-radius:4px; border: 1px solid #e0e4ea; 
+#subscribe input { font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#87909a; width:250px; padding:11px 10px; margin-right:2px; background:#eceff4; border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; -khtml-border-radius:4px; border: 1px solid #e0e4ea;
 -moz-box-shadow:0px 1px 2px rgba(255,255,255,0.3);
 -webkit-box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
 box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
-} 
+}
 #subscribe input:hover, #subscribe input:focus { color:#555f6e }
 #subscribe input#submit { width:100px; background:url(/static/images/clickr/submit_btn.jpg) 0px 0px repeat-x; outline:none; border:none; border:1px solid #e27000; color:#fff; font-weight:bold;  text-shadow: 0px 1px 0px rgba(0,0,0,0.3); cursor:pointer;
 -moz-box-shadow:0px 1px 2px rgba(0,0,0,0.3);
@@ -91,30 +91,30 @@ box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
 .testimonial { position:relative; overflow:hidden; width:368px; float:left; margin-right:48px; padding:21px 0px 0px 21px; background:url(/static/images/clickr/quote.png) 0px 0px no-repeat; font-family:Georgia, "Times New Roman", Times, serif; color:#87909a; }
 ul.features { position:relative; overflow:hidden; margin:0px; padding:0px; list-style:none; font-size:14px; line-height:21px }
 ul.features li { position:relative; overflow:hidden }
-.button { 
-  font-family: Helvetica, sans-serif; 
-  letter-spacing:-1px; 
-  display:inline-block; 
-  padding:0px 21px; 
-  font-size:36px; 
-  line-height:70px; 
+.button {
+  font-family: Helvetica, sans-serif;
+  letter-spacing:-1px;
+  display:inline-block;
+  padding:0px 21px;
+  font-size:36px;
+  line-height:70px;
   border:1px solid #db7030;
-  background:url(/static/images/clickr/btn.jpg) 0px 0px repeat-x; 
-  color:#fff; 
-  text-decoration:none; 
-  text-shadow:0px 1px 0px #db7030; 
-  border-radius:10px; 
-  -moz-border-radius:10px; 
-  -webkit-border-radius:10px; 
+  background:url(/static/images/clickr/btn.jpg) 0px 0px repeat-x;
+  color:#fff;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #db7030;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
   -khtml-border-radius:10px;
   /*Box Shadow*/
   -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
   -webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
   box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
-  
+
 }
 .button:hover { text-decoration:none; background-position:0px -75px }
-.button:active { background-position:0px -151px; text-shadow:0px 1px 0px rgba(255,255,255,0.2); border-color:#db7030; 
+.button:active { background-position:0px -151px; text-shadow:0px 1px 0px rgba(255,255,255,0.2); border-color:#db7030;
 -moz-box-shadow:0px 2px 2px rgba(255,255,255,0.3);
 -webkit-box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
 box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
@@ -167,43 +167,43 @@ box-shadow: 0px 2px 2px rgba(255,255,255,0.3);
   filter: alpha(opacity=50);
 }
 
-div.flash { 
-  position: fixed; 
-  float: right; 
-  padding: 10px; 
-  top: 65px; 
-  right: 80px; 
-  opacity: 0.75; 
-  margin: 10px 10px 10px 10px; 
-  text-align: center; 
-  clear: both; 
-  color: #DB7030; 
-  font-size: 11pt; 
+div.flash {
+  position: fixed;
+  float: right;
+  padding: 10px;
+  top: 65px;
+  right: 80px;
+  opacity: 0.75;
+  margin: 10px 10px 10px 10px;
+  text-align: center;
+  clear: both;
+  color: #DB7030;
+  font-size: 11pt;
   font-weight: bold;
-  text-align: center; 
-  vertical-align: middle; 
-  cursor: pointer; 
-  background: black; 
-  border: 2px solid #fff; 
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px; 
-    z-index: 2; 
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background: black;
+  border: 2px solid #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    z-index: 2;
 }
 
 div.error {
-  background-color: red; 
-  color: #D3FF82; 
-  padding: 3px; 
+  background-color: red;
+  color: #D3FF82;
+  padding: 3px;
 }
 
 #login_auth .w2p_fw input {
   width: 150px;
   height: 30px;
   padding: 5px;
-  border: 2px solid #fff; 
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px; 
-    z-index: 2; 
+  border: 2px solid #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    z-index: 2;
 }
 
 #user_form input {
@@ -211,10 +211,10 @@ div.error {
   height: 30px;
   padding: 5px;
   font-size: 18px;
-  border: 2px solid #fff; 
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px; 
-    z-index: 2; 
+  border: 2px solid #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    z-index: 2;
 }
 
 #user_form #recaptcha_response_field {

@@ -45,7 +45,7 @@
 <body>
 	
 	<div id="cv">
-	
+
 {{if user:}}
 <!-- // ABOUT ME /////////////////////////////////////////////////////////////////// -->
 		
@@ -60,7 +60,7 @@
 </div><!-- end .cv-section -->
 
 <div id="pdfheader">
-  <span id="logo">CV courtesy of <a href="http://www.cvstash.com">CVStash</a> Free Resume Builder</span><span id="subtitle"></span>  
+  <span id="logo">CV courtesy of <a href="http://www.cvstash.com">CVStash</a> Free Resume Builder</span><span id="subtitle"></span>
 </div>
 
 <!-- // PERSONAL PROFILE //////////////////////////////////////////////////////// -->
@@ -83,7 +83,7 @@
 				</ul>
 				<p>{{=userprofile.about or ''}}</p>
 				<div id="socialmedia">
-				  <span class='st_email' ></span><span class='st_facebook' ></span><span class='st_linkedin' ></span><span class='st_twitter' ></span><span class='st_sharethis' ></span><span class='st_reddit' ></span><span class='st_blogger' ></span><span class='st_yahoo_bmarks' ></span><span class='st_stumbleupon' ></span><span class='st_delicious' ></span><span class='st_digg' ></span><span class='st_gbuzz' ></span><span class='st_fb_like' ></span>				
+				  <span class='st_email' ></span><span class='st_facebook' ></span><span class='st_linkedin' ></span><span class='st_twitter' ></span><span class='st_sharethis' ></span><span class='st_reddit' ></span><span class='st_blogger' ></span><span class='st_yahoo_bmarks' ></span><span class='st_stumbleupon' ></span><span class='st_delicious' ></span><span class='st_digg' ></span><span class='st_gbuzz' ></span><span class='st_fb_like' ></span>
           <script type="text/javascript">var switchTo5x=false;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
           <script type="text/javascript">stLight.options({publisher:'4d8bed4d-083e-4598-9c2b-af6c0d88c470'});</script>
         </div>        
@@ -148,7 +148,7 @@
 	
 	<div class="cv-section-items">
 		{{for education_entry in education_entries:}}
-		  <div class="item {{if education_entries[len(education_entries)-1] is education_entry:}}last-item{{pass}}">			 
+		  <div class="item {{if education_entries[len(education_entries)-1] is education_entry:}}last-item{{pass}}">
 		    <h3>
 			    {{if education_entry.link:}}
 			      <a class="entrylink" href="{{=education_entry.link}}">{{=education_entry.title}}</a>
@@ -232,7 +232,7 @@
 
 {{else:}}
 <h1>Resume not found</h1>
-{{pass}}		
+{{pass}}
 
 <div id="footer">
   <center>&copy; 2011 All Rights Reserved <a href="http://www.cvstash.com">CVStash.com</a></center>

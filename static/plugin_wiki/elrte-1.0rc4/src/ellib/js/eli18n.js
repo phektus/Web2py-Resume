@@ -1,11 +1,11 @@
 /**
  * @class eli18n
- * Javascript applications localization 
+ * Javascript applications localization
  *
  * @param Object o - class options. Object. {textdomain : 'имя_группы_сообщений', messages : {textdomain1 : {}[, textdomain2 : {}]...}}
  *
  * Usage:
- * 
+ *
  * var msgs = { Hello : 'Превэд', 'Hello %user' : 'Превед %user' };
  * //load messages and set default textdomain
  * var translator = new eli18n( {textdomain : 'test', messages : {test : msgs}} )
@@ -20,7 +20,7 @@
  * license:   BSD license
  **/
 function eli18n(o) {
-	
+
 	/**
 	 * Get/set default textdomain
 	 *
@@ -30,13 +30,13 @@ function eli18n(o) {
 	this.textdomain = function(d) {
 		return this.messages[d] ? this._domain = d : this._domain;
 	}
-	
+
 	o && o.messages   && this.load(o.messages);
 	o && o.textdomain && this.textdomain(o.textdomain);
 }
 
 eli18n.prototype = new function() {
-	
+
 	/**
 	 * @var Object messages (key - messages in English or message handler, value - message in selected language)
 	 **/
@@ -45,7 +45,7 @@ eli18n.prototype = new function() {
 	 * @var String default textdomain
 	 **/
 	this._domain   = '';
-	
+
 	/**
 	 * Load new messages
 	 *
@@ -58,7 +58,7 @@ eli18n.prototype = new function() {
 				var _msgs = msgs[d];
 				if (typeof(_msgs) == 'object') {
 					if (!this.messages[d]) {
-						this.messages[d] = {}; 
+						this.messages[d] = {};
 					}
 					for (var k in _msgs) {
 						if (typeof(_msgs[k]) == 'string') {
@@ -81,9 +81,9 @@ eli18n.prototype = new function() {
 	this.translate = function(msg, d) {
 		var d = d && this.messages[d] ? d : this._domain;
 		return this.messages[d] && this.messages[d][msg] ? this.messages[d][msg] : msg;
-		
+
 	}
-	
+
 	/**
 	 * Translate message and replace placeholders (%placeholder)
 	 *

@@ -98,10 +98,10 @@ ${elrte_js}:
 
 elrte-uninstall:
 	${RM} -f ${CSS}/${elrte_css} ${CSS}/elrte-inner.css \
-	         ${JS}/${elrte_js} ${JS}/${elrte_js_min} ${I18N}/elrte.??.js ${IMG}/elrte-* 
+	         ${JS}/${elrte_js} ${JS}/${elrte_js_min} ${I18N}/elrte.??.js ${IMG}/elrte-*
 
 clean-elrte:
-	${RM} -f ${elrte_css} ${elrte_js} ${elrte_js_min} 
+	${RM} -f ${elrte_css} ${elrte_js} ${elrte_js_min}
 
 
 # compressor

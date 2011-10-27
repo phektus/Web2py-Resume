@@ -376,48 +376,48 @@ a:hover {
 	padding: 0;
 }
 
-.auth_navbar { 
-  text-align: right; 
-  z-index: 20; 
-  position: absolute; 
-  top: 10px; 
-  right:30px; 
-  border:0; 
-  padding:0; 
-  font-size: 120%; 
+.auth_navbar {
+  text-align: right;
+  z-index: 20;
+  position: absolute;
+  top: 10px;
+  right:30px;
+  border:0;
+  padding:0;
+  font-size: 120%;
   color: #94B24D;
 }
 
-.auth_navbar a {   
+.auth_navbar a {
   color: #94B24D;
 }
 
-div.flash { 
-  position: fixed; 
-  float: right; 
-  padding: 10px; 
-  top: 50px; 
-  right: 30px; 
-  opacity: 0.75; 
-  margin: 10px 10px 10px 10px; 
-  text-align: center; 
-  clear: both; 
-  color: #D3FF82; 
-  font-size: 11pt; 
-  text-align: center; 
-  vertical-align: middle; 
-  cursor: pointer; 
-  background: black; 
-  border: 2px solid #fff; 
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px; 
-    z-index: 2; 
+div.flash {
+  position: fixed;
+  float: right;
+  padding: 10px;
+  top: 50px;
+  right: 30px;
+  opacity: 0.75;
+  margin: 10px 10px 10px 10px;
+  text-align: center;
+  clear: both;
+  color: #D3FF82;
+  font-size: 11pt;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background: black;
+  border: 2px solid #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    z-index: 2;
 }
 
-div.error { 
-  background-color: red; 
-  color: #D3FF82; 
-  padding: 3px; 
+div.error {
+  background-color: red;
+  color: #D3FF82;
+  padding: 3px;
 }
 
 .wrapped {

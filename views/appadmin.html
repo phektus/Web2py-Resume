@@ -2,7 +2,7 @@
 <script><!--
 jQuery(document).ready(function(){
   jQuery("table.sortable tbody tr").mouseover( function() {
-     jQuery(this).addClass("highlight"); }).mouseout( function() { 
+     jQuery(this).addClass("highlight"); }).mouseout( function() {
      jQuery(this).removeClass("highlight"); });
   jQuery('table.sortable tbody tr:odd').addClass('odd');
   jQuery('table.sortable tbody tr:even').addClass('even');
@@ -51,11 +51,11 @@ jQuery(document).ready(function(){
     <br/><br/>
     <h3>{{=nrows}} {{=T("selected")}}</h3>
     {{if start>0:}}[ {{=A(T('previous 100 rows'),_href=URL('select',args=request.args[0],vars=dict(start=start-100)))}} ]{{pass}}
-    {{if stop<nrows:}}[ {{=A(T('next 100 rows'),_href=URL('select',args=request.args[0],vars=dict(start=start+100)))}} ]{{pass}}    
+    {{if stop<nrows:}}[ {{=A(T('next 100 rows'),_href=URL('select',args=request.args[0],vars=dict(start=start+100)))}} ]{{pass}}
     {{if rows:}}
        <div style="overflow: auto;" width="80%">
        {{linkto=URL('update',args=request.args[0])}}
-       {{upload=URL('download',args=request.args[0])}}    
+       {{upload=URL('download',args=request.args[0])}}
        {{=SQLTABLE(rows,linkto,upload,orderby=True,_class='sortable')}}
        </div>
     {{pass}}
@@ -66,7 +66,7 @@ jQuery(document).ready(function(){
   {{pass}}
 
 
-{{elif request.function=='insert':}}  
+{{elif request.function=='insert':}}
   <h1>{{=T("database")}} {{=A(request.args[0],_href=URL('index'))}}
     {{if hasattr(table,'_primarykey'):}}
       {{fieldname=table._primarykey[0]}}
@@ -74,7 +74,7 @@ jQuery(document).ready(function(){
       {{tablename=request.args[1]}}
       {{cond = table[fieldname].type in ['string','text'] and '!=""' or '>0'}}
       {{=T("table")}} {{=A(tablename,_href=URL('select',args=dbname,vars=dict(query='%s.%s.%s%s'%(dbname,tablename,fieldname,cond))))}}
-    {{else:}}  
+    {{else:}}
       {{=T("table")}} {{=A(request.args[1],_href=URL('select',args=request.args[0],vars=dict(query='%s.%s.id>0'%tuple(request.args[:2]))))}}
     {{pass}}
   </h1>
@@ -89,7 +89,7 @@ jQuery(document).ready(function(){
       {{fieldname=request.vars.keys()[0]}}
       {{dbname=request.args[0]}}
       {{tablename=request.args[1]}}
-      {{cond = table[fieldname].type in ['string','text'] and '!=""' or '>0'}}      
+      {{cond = table[fieldname].type in ['string','text'] and '!=""' or '>0'}}
       {{=T("table")}} {{=A(tablename,_href=URL('select',args=dbname,vars=dict(query='%s.%s.%s%s'%(dbname,tablename,fieldname,cond))))}}
       {{=T("record")}} {{=A('%s=%s'%request.vars.items()[0],_href=URL('update',args=request.args[:2],vars=request.vars))}}
     {{else:}}
@@ -121,69 +121,69 @@ jQuery(document).ready(function(){
     <div class="content">
         <h3>Overview</h3>
         <p>
-            Hit Ratio: 
-            <strong>{{=total['ratio']}}%</strong> 
-            (<strong>{{=total['hits']}}</strong> hits 
+            Hit Ratio:
+            <strong>{{=total['ratio']}}%</strong>
+            (<strong>{{=total['hits']}}</strong> hits
             and <strong>{{=total['misses']}}</strong> misses)
         </p>
         <p>
-            Size of cache: 
-            <strong>{{=total['objects']}}</strong> items, 
-            <strong>{{=total['bytes']}}</strong> bytes 
+            Size of cache:
+            <strong>{{=total['objects']}}</strong> items,
+            <strong>{{=total['bytes']}}</strong> bytes
             {{if total['bytes'] > 524287:}}
                 (<strong>{{="%.0d" % (total['bytes'] / 1048576)}} MB</strong>)
             {{pass}}
         </p>
         <p>
-            Cache contains items up to 
-            <strong>{{="%02d" % total['oldest'][0]}}</strong> hours 
-            <strong>{{="%02d" % total['oldest'][1]}}</strong> minutes 
+            Cache contains items up to
+            <strong>{{="%02d" % total['oldest'][0]}}</strong> hours
+            <strong>{{="%02d" % total['oldest'][1]}}</strong> minutes
             <strong>{{="%02d" % total['oldest'][2]}}</strong> seconds old.
         </p>
         <h3>RAM</h3>
         <p>
-            Hit Ratio: 
-            <strong>{{=ram['ratio']}}%</strong> 
-            (<strong>{{=ram['hits']}}</strong> hits 
+            Hit Ratio:
+            <strong>{{=ram['ratio']}}%</strong>
+            (<strong>{{=ram['hits']}}</strong> hits
             and <strong>{{=ram['misses']}}</strong> misses)
         </p>
         <p>
-            Size of cache: 
-            <strong>{{=ram['objects']}}</strong> items, 
-            <strong>{{=ram['bytes']}}</strong> bytes 
+            Size of cache:
+            <strong>{{=ram['objects']}}</strong> items,
+            <strong>{{=ram['bytes']}}</strong> bytes
             {{if ram['bytes'] > 524287:}}
                 (<strong>{{=ram['bytes'] / 1048576}} MB</strong>)
             {{pass}}
         </p>
         <p>
-            RAM contains items up to 
-            <strong>{{="%02d" % ram['oldest'][0]}}</strong> hours 
-            <strong>{{="%02d" % ram['oldest'][1]}}</strong> minutes 
+            RAM contains items up to
+            <strong>{{="%02d" % ram['oldest'][0]}}</strong> hours
+            <strong>{{="%02d" % ram['oldest'][1]}}</strong> minutes
             <strong>{{="%02d" % ram['oldest'][2]}}</strong> seconds old.
         </p>
         <h3>DISK</h3>
         <p>
-            Hit Ratio: 
-            <strong>{{=disk['ratio']}}%</strong> 
-            (<strong>{{=disk['hits']}}</strong> hits 
+            Hit Ratio:
+            <strong>{{=disk['ratio']}}%</strong>
+            (<strong>{{=disk['hits']}}</strong> hits
             and <strong>{{=disk['misses']}}</strong> misses)
         </p>
         <p>
-            Size of cache: 
-            <strong>{{=disk['objects']}}</strong> items, 
-            <strong>{{=disk['bytes']}}</strong> bytes 
+            Size of cache:
+            <strong>{{=disk['objects']}}</strong> items,
+            <strong>{{=disk['bytes']}}</strong> bytes
             {{if disk['bytes'] > 524287:}}
                 (<strong>{{=disk['bytes'] / 1048576}} MB</strong>)
             {{pass}}
         </p>
         <p>
-            DISK contains items up to 
-            <strong>{{="%02d" % disk['oldest'][0]}}</strong> hours 
-            <strong>{{="%02d" % disk['oldest'][1]}}</strong> minutes 
+            DISK contains items up to
+            <strong>{{="%02d" % disk['oldest'][0]}}</strong> hours
+            <strong>{{="%02d" % disk['oldest'][1]}}</strong> minutes
             <strong>{{="%02d" % disk['oldest'][2]}}</strong> seconds old.
         </p>
     </div>
-    
+
     <div class="list-header">
     Manage Cache
     </div>

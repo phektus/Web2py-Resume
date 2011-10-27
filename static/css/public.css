@@ -201,12 +201,12 @@ body {
   color: #222;
   font-weight: bold;
   text-shadow: 0 1px hsla( 0, 0%, 100%, 0.5 );
-  background-image: -moz-linear-gradient(-90deg, 
-    hsla( 0, 0%, 100%, 0.5 ) , 
-    hsla( 0, 0%, 100%, 0.0 ) 
+  background-image: -moz-linear-gradient(-90deg,
+    hsla( 0, 0%, 100%, 0.5 ) ,
+    hsla( 0, 0%, 100%, 0.0 )
   );
-  background-image: -webkit-gradient(linear, 0 top, 0 bottom, 
-    from( hsla( 0, 0%, 100%, 0.5 ) ), 
+  background-image: -webkit-gradient(linear, 0 top, 0 bottom,
+    from( hsla( 0, 0%, 100%, 0.5 ) ),
     to(   hsla( 0, 0%, 100%, 0.0 ) )
   );
     margin-bottom: 0.2em;
@@ -307,7 +307,7 @@ body.doc {
   body.doc {
     margin-left: 0px;
   }
-  
+
   .doc nav {
     width: auto;
     position: relative;
@@ -358,7 +358,7 @@ body.doc {
 }
 #docs-nav ul a:hover,
 #docs-nav ul .current a:hover { color: white; }
-  
+
 #docs-nav ul .current .toc a {
   font-size: 12px;
   padding-left: 1.2em;
@@ -373,7 +373,7 @@ body.doc {
   padding-top: 0.8em;
 }
 
-.doc h2:target { 
+.doc h2:target {
   padding: 10px;
   background: white;
   color: #222;
@@ -524,7 +524,7 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
   font-size: 18px;
   line-height: 1.8em;
   margin: 2px;
-  font-weight: 300;  
+  font-weight: 300;
   padding-left: 25px;
 }
 
@@ -532,13 +532,13 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 #super-list li a {
   display: block;
   padding: 0.2em 0.5em;
-  color: black;   
+  color: black;
 }
 #super-list li a:hover {
   background: white;
 }
 #super-list li span.title {
-  background: #E0E0E0; 
+  background: #E0E0E0;
   width: 1000px;
 }
 #super-list li span.description {
@@ -596,20 +596,20 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
   margin-bottom: 2.5em;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   font-size: 20px;
-  line-height: 1.1em;  
+  line-height: 1.1em;
   right: 0;
-  text-align: right; 
-  width: 1050px;    
+  text-align: right;
+  width: 1050px;
 }
 #ident-header a {
   color: #000000;
   font-weight: bold;
-  font-size: 45px;  
+  font-size: 45px;
 }
 #ident-header span {
   color: #757575;
   font-weight: bold;
-  font-size: 13px;   
+  font-size: 13px;
 }
 #ident-header img {
   margin-left: 15px;
@@ -623,8 +623,8 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 
 #main-header {
   margin-top: 20px;
-  color: #202020; 
-  font-size: 30px; 
+  color: #202020;
+  font-size: 30px;
   border-top: 1px solid #333;
   border-bottom: 1px solid #333;
   width: 1050px;
@@ -651,7 +651,7 @@ code .nd { color: #9FAD7E; } /* CSS pseudo selector */
 
 #options .option-combo {
   display: inline-block;
-  
+
 }
 
 #options h2 {

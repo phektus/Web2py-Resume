@@ -2,7 +2,7 @@
   //@Author: Adrian "yEnS" Mato Gondelle
   //@website: www.yensdesign.com
   //@email: yensamg@gmail.com
-  //@license: Feel free to use it, but keep this credits please!	
+  //@license: Feel free to use it, but keep this credits please!
   //
   //  Note: Edited to be reusable
   //				
@@ -22,7 +22,7 @@
 		  $("#dialogBG-"+dialog_id).fadeIn("slow");
 		  $("#"+dialog_id).fadeIn("slow");
 		  popupStatus = 1;
-		  
+
 		  //request data for centering
 	    var windowWidth = document.documentElement.clientWidth;
 	    var windowHeight = document.documentElement.clientHeight;

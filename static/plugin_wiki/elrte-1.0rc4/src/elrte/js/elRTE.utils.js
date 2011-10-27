@@ -16,22 +16,22 @@ elRTE.prototype.utils = function(rte) {
 	this.baseURL = '';
 	this.path    = '';
 	var self     = this;
-	
+
 	this.rgb2hex = function(str) {
 	    function hex(x)  {
 	    	hexDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8","9", "a", "b", "c", "d", "e", "f"];
 	        return !x  ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x% 16];
 	    }
-		var rgb = str.match(/\(([0-9]{1,3}),\s*([0-9]{1,3}),\s*([0-9]{1,3})\)/); 
+		var rgb = str.match(/\(([0-9]{1,3}),\s*([0-9]{1,3}),\s*([0-9]{1,3})\)/);
 		return rgb ? "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]) : '';
 	}
-	
+
 	this.toPixels = function(num) {
 		var m = num.match(/([0-9]+\.?[0-9]*)\s*(px|pt|em|%)/);
 		if (m) {
 			num  = m[1];
 			unit = m[2];
-		} 
+		}
 		if (num[0] == '.') {
 			num = '0'+num;
 		}
@@ -48,7 +48,7 @@ elRTE.prototype.utils = function(rte) {
 		}
 		return num;
 	}
-	
+
 	// TODO: add parse rel path ../../etc
 	this.absoluteURL = function(url) {
 		!this.url && this._url();
@@ -66,7 +66,7 @@ elRTE.prototype.utils = function(rte) {
 			//this.rte.log('Invalid URL: '+url)
 			return '';
 		}
-		if (!this.rte.options.absoluteURLs) { 
+		if (!this.rte.options.absoluteURLs) {
 			return url;
 		}
 		if (u.protocol) {
@@ -87,7 +87,7 @@ elRTE.prototype.utils = function(rte) {
 		}
 		return url;
 	}
-	
+
 	this.parseURL = function(url) {
 		var u   = url.match(this.reg);
 		var ret = {};
@@ -99,18 +99,18 @@ elRTE.prototype.utils = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	this.trimEventCallback = function(c) {
 		c = c ? c.toString() : '';
 		return $.trim(c.replace(/\r*\n/mg, '').replace(/^function\s*on[a-z]+\s*\(\s*event\s*\)\s*\{(.+)\}$/igm, '$1'));
 	}
-	
+
 	this._url = function() {
 		this.url     = this.parseURL(window.location.href);
 		this.baseURL = this.url.protocol+'://'+(this.url.userInfo ?  parts.userInfo+'@' : '')+this.url.host+(this.url.port ? ':'+this.url.port : '');
 		this.path    = !this.url.file ? this.url.path : this.url.path.substring(0, this.url.path.length - this.url.file.length);
 	}
-	
+
 }
 
 })(jQuery);

@@ -5,7 +5,7 @@
  * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
- * @copyright: Studio 42, http://www.std42.ru 
+ * @copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 
@@ -14,7 +14,7 @@
 
 		this.command = function() {
 
-			var n = this.rte.selection.getNode(), 
+			var n = this.rte.selection.getNode(),
 				l = this.rte.dom.selfOrParentLink(n);
 
 			function isLink(n) { return n.nodeName == 'A' && n.href; }
@@ -41,9 +41,9 @@
 				this.rte.doc.execCommand('unlink', false, null);
 				this.rte.ui.update(true);
 			}
-		
+
 		}
-	
+
 		this.update = function() {
 			var n = this.rte.selection.getNode();
 			if (this.rte.dom.selfOrParentLink(n)) {

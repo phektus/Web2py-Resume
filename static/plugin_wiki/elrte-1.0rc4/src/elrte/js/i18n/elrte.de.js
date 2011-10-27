@@ -25,7 +25,7 @@ elRTE.prototype.i18Messages.de = {
 	'Paste'                   : 'Einfügen',
 	'Paste only text'         : 'Fügen sie nur text',
 	'Paste formatted text'    : 'Fügen sie formatierten text',
-	'Clean format'            : 'Formatierungen entfernen', 
+	'Clean format'            : 'Formatierungen entfernen',
 	'Undo last action'        : 'Rückgängig',
 	'Redo previous action'    : 'Wiederherstellen',
 	'Bold'                    : 'Fett',
@@ -40,8 +40,8 @@ elRTE.prototype.i18Messages.de = {
 	'Align full'              : 'Blocksatz',
 	'Font color'              : 'Textfarbe',
 	'Background color'        : 'Hintergrundfarbe',
-	'Indent'                  : 'Einzug erhöhen', 
-	'Outdent'                 : 'Einzug verringern', 
+	'Indent'                  : 'Einzug erhöhen',
+	'Outdent'                 : 'Einzug verringern',
 	'Format'                  : 'Format',
 	'Font size'               : 'Größe',
 	'Font'                    : 'Schriftart',
@@ -102,13 +102,13 @@ elRTE.prototype.i18Messages.de = {
 	'Open in' : '',
 	// copy
 	'This operation is disabled in your browser on security reason. Use shortcut instead.' : 'Dieser Vorgang ist in Ihrem Browser aus Sicherheitsgründen deaktiviert. Tastenkombination statt.',
-	// format 
+	// format
 	'Heading 1' : 'Überschrift 1',
 	'Heading 2' : 'Überschrift 2',
 	'Heading 3' : 'Überschrift 3',
 	'Heading 4' : 'Überschrift 4',
 	'Heading 5' : 'Überschrift 5',
-	'Heading 6' : 'Überschrift 6',	
+	'Heading 6' : 'Überschrift 6',
 	'Paragraph' : 'Formatiert',
 	'Address' : 'Addresse',
 	'Preformatted' : '',
@@ -119,7 +119,7 @@ elRTE.prototype.i18Messages.de = {
 	'Normal (14pt)' : '',
 	'Large (18pt)'  : '',
 	'Large (24pt)'  : '',
-	'Large (36pt)'  : '',				
+	'Large (36pt)'  : '',
 	// bookmark
 	'Bookmark name' : 'Anker Name',
 	// link
@@ -158,7 +158,7 @@ elRTE.prototype.i18Messages.de = {
 	'Cells'         : 'Zellen',
 	'Caption'       : 'Tabellen-Eigenschaften',
 	'Inner borders' : 'Innere Grenzen'
-	
-	
+
+
 }
 })(jQuery);

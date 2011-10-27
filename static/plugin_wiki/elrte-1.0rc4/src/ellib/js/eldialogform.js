@@ -10,7 +10,7 @@
  *		.append(['Another field name: ', $('<input type="text" name="f2" />')])
  *      .open()
  * will create dialog with pair text field separated by horizontal rule
- * Calling append() with 2 additional arguments ( d.append([..], null, true)) 
+ * Calling append() with 2 additional arguments ( d.append([..], null, true))
  *  - will create table in dialog and put text inputs and labels in table cells
  *
  * Dialog with tabs:
@@ -29,7 +29,7 @@
  *   name      - hidden text field in wich selected value will saved
  *
  * Notice!
- * When close dialog, it will destroing insead of dialog('close'). Reason - strange bug with tabs in dialog on secondary opening. 
+ * When close dialog, it will destroing insead of dialog('close'). Reason - strange bug with tabs in dialog on secondary opening.
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  *
@@ -37,7 +37,7 @@
 
 function elDialogForm(o) {
 	var self = this;
-	
+
 	var defaults = {
 		'class'   : 'el-dialogform',
 		submit    : function(e, d) { window.console && window.console.log && window.console.log('submit called'); d.close(); },
@@ -82,11 +82,11 @@ function elDialogForm(o) {
 	if (this.opts.validate) {
 		this.form.validate(this.opts.validate);
 	}
-	
+
 	this.option = function(name, value) {
 		return this.dialog.dialog('option', name, value)
 	}
-	
+
 	this.showError = function(msg, hideContent) {
 		this.hideMessage();
 		this.hideSpinner();
@@ -94,28 +94,28 @@ function elDialogForm(o) {
 		hideContent && this.content.hide();
 		return this;
 	}
-	
+
 	this.hideError= function() {
 		this.error.text('').hide();
 		this.content.show();
-		return this;		
+		return this;
 	}
-	
+
 	this.showSpinner = function(txt) {
 		this.error.hide();
 		this.message.hide();
 		this.content.hide();
 		this.spinner.text(txt||this.opts.spinner).show();
 		this.option('buttons', {});
-		return this;		
+		return this;
 	}
-	
+
 	this.hideSpinner = function() {
 		this.content.show();
 		this.spinner.hide();
-		return this;		
+		return this;
 	}
-	
+
 	this.showMessage = function(txt, hideContent) {
 		this.hideError();
 		this.hideSpinner();
@@ -123,22 +123,22 @@ function elDialogForm(o) {
 		hideContent && this.content.hide();
 		return this;
 	}
-	
+
 	this.hideMessage = function() {
 		this.message.hide();
 		this.content.show();
-		return this;		
+		return this;
 	}
-	
+
 	/**
 	 * Create new tab
 	 * @param string id    - tab id
 	 * @param string title - tab name
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.tab = function(id, title) {
 		id = this.opts.tabPrefix+id;
-		
+
 		if (!this.ul) {
 			this.ul = jQuery('<ul />').prependTo(this.form);
 		}
@@ -146,28 +146,28 @@ function elDialogForm(o) {
 		this.tabs[id] = {tab : jQuery('<div />').attr('id', id).addClass('tab').appendTo(this.form), table : null};
 		return this;
 	}
-	
+
 	/**
 	 * Create new table
 	 * @param string id  tab id, if set - table will create in tab, otherwise - in dialog
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.table = function(id) {
 		id = id && id.indexOf(this.opts.tabPrefix) == -1 ? this.opts.tabPrefix+id : id;
 		if (id && this.tabs && this.tabs[id]) {
 			this.tabs[id].table = jQuery('<table />').appendTo(this.tabs[id].tab);
 		} else {
-			this._table = jQuery('<table />').appendTo(this.form); 
+			this._table = jQuery('<table />').appendTo(this.form);
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Append html, dom nodes or jQuery objects to dialog or tab
 	 * @param array|object|string  data object(s) to append to dialog
 	 * @param string               tid  tab id, if adding to tab
 	 * @param bool                 t    if true - data will added in table (creating automagicaly)
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.append = function(data, tid, t) {
 		tid = tid ? 'el-df-tab-'+tid : '';
@@ -175,7 +175,7 @@ function elDialogForm(o) {
 		if (!data) {
 			return this;
 		}
-		
+
 		if (tid && this.tabs[tid]) {
 			if (t) {
 				!this.tabs[tid].table && this.table(tid);
@@ -196,7 +196,7 @@ function elDialogForm(o) {
 					};
 				}
 			}
-			
+
 		} else {
 			if (!t) {
 				if (!jQuery.isArray(data)) {
@@ -222,11 +222,11 @@ function elDialogForm(o) {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Append separator (div class="separator") to dialog or tab
 	 * @param  string tid  tab id, if adding to tab
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.separator = function(tid) {
 		tid = 'el-df-tab-'+tid;
@@ -238,10 +238,10 @@ function elDialogForm(o) {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Open dialog window
-	 * @return elDialogForm	
+	 * @return elDialogForm
 	**/
 	this.open = function() {
 		this.ul && this.form.tabs(this.opts.tabs);
@@ -255,10 +255,10 @@ function elDialogForm(o) {
 		this.form.find(':text').eq(0).focus();
 		return this;
 	}
-	
+
 	/**
 	 * Close dialog window and destroy content
-	 * @return void	
+	 * @return void
 	**/
 	this.close = function() {
 		if (typeof(this.opts.close) == 'function') {
@@ -266,6 +266,6 @@ function elDialogForm(o) {
 		}
 		this.dialog.dialog('destroy').remove();
 	}
-	
+
 }
 

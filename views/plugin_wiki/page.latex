@@ -8,7 +8,7 @@ def image_mapper(name):
         name=db.plugin_wiki_attachment(name).file
     else:
         name=name.split('/')[-1]
-      	pass    
+      	pass
     fullname=os.path.join(request.folder,'uploads',name)
     if not os.path.exists(fullname):
         items=name.split('.')

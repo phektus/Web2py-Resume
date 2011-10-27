@@ -3,7 +3,7 @@
  * уменьшает padding/margin/самомнение ;)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  * @todo decrease lists nesting level!
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
@@ -22,7 +22,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 			this.rte.ui.update();
 		}
 	}
-	
+
 	this.find = function(n) {
 		function checkNode(n) {
 			var ret = {type : '', val : 0};
@@ -35,7 +35,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 			}
 			return ret;
 		}
-		
+
 		var n = this.rte.selection.getNode();
 		var ret = checkNode(n);
 		if (ret.val) {
@@ -51,7 +51,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 		}
 		return ret;
 	}
-	
+
 	this.update = function() {
 		var v = this.find();
 		if (v.node) {
@@ -61,7 +61,7 @@ elRTE.prototype.ui.prototype.buttons.outdent = function(rte, name) {
 		}
 	}
 
-	
+
 }
 
 })(jQuery);

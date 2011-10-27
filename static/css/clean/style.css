@@ -122,7 +122,7 @@ body{
 
 #formstatus{clear:both;font-weight:700; font-size:12px; line-height:10px; }
 	.formstatuserror{color:#FF0000;}
-	.formstatusok{color:#0C3;}	
+	.formstatusok{color:#0C3;}
 
 
 /* =GET-MINE
@@ -137,8 +137,8 @@ a.getmine{ _background-image:none; background:#333 url(/static/images/clean/bg-g
 			
 	a.getmine:hover{ background:#222 url(/static/images/clean/bg-getmine.png) 90% 50% no-repeat; _position:absolute; _background-image:none; }
 	a.active.getmine{ background:#222 url(/static/images/clean/bg-emailme-extended.png) 90% 50% no-repeat; _position:absolute; _background-image:none; }
-	
-#header-wrap {    
+
+#header-wrap {
   position: fixed;
   top: 0;
   left: 0;
@@ -174,9 +174,9 @@ a.getmine{ _background-image:none; background:#333 url(/static/images/clean/bg-g
 
 #header-container li a {
   color: #C8C8C8;
-  text-decoration: none;  
+  text-decoration: none;
   display:block;
-  font:15px 'Colaborate-MediumRegular', Arial, sans-serif;  
+  font:15px 'Colaborate-MediumRegular', Arial, sans-serif;
   font-weight: bold;
 }
 
@@ -190,7 +190,7 @@ a.getmine{ _background-image:none; background:#333 url(/static/images/clean/bg-g
   background: url(/static/images/temptation/logo.png) no-repeat center left;
   text-decoration: none;
   color: #DB7030;
-  padding-left: 40px;  
+  padding-left: 40px;
 }
 
 #header-container #subtitle {

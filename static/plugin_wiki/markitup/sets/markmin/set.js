@@ -21,7 +21,7 @@ mySettings = {
 		{name:'Heading 4', key:'4', openWith:'#### ', placeHolder:'SubSubsection' },
 		{name:'Heading 5', key:'5', openWith:'##### ', placeHolder:'SubSubsection' },
 		{name:'Heading 6', key:'6', openWith:'###### ', placeHolder:'SubSubsection' },
-		{separator:'---------------' },		
+		{separator:'---------------' },
 		{name:'Bold', key:'B', openWith:'**', closeWith:'**'},
 		{name:'Italic', key:'I', openWith:"''", closeWith:"''"},
 		{separator:'---------------' },
@@ -29,7 +29,7 @@ mySettings = {
                 {name:'Numeric List', openWith:'+ ' },
 		{separator:'---------------' },
 		{name:'Picture', key:'P', replaceWith:'[[[![Alternative text]!] [![Url:!:http://]!] center]]'},
-		{name:'Link', key:'L', openWith:'[[', closeWith:' [![Url:!:http://]!]]]', placeHolder:'Your text to link here...' },		
+		{name:'Link', key:'L', openWith:'[[', closeWith:' [![Url:!:http://]!]]]', placeHolder:'Your text to link here...' },
 	]
 }
 

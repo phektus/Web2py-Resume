@@ -3,27 +3,27 @@
 
 
 
-$('select#left-backgrounds').change(function () { 
+$('select#left-backgrounds').change(function () {
 	var n = $(this).children(":selected").val();
 	if (n == 'bg1') {
 		$('#left').css('backgroundColor', '#2b2b2b').removeClass().addClass("plates");
 	}
-	
+
 	else if (n == 'bg2') {
 		$('#left').css('backgroundColor', '#2b2b2b').removeClass().addClass("grid-left");
 	}
 	else if (n == 'bg3') {
 		$('#left').css('backgroundColor', '#2b2b2b').removeClass().addClass("noise");
 	}
-});	
+});
 
 
-$('select#right-backgrounds').change(function () { 
+$('select#right-backgrounds').change(function () {
 	var n = $(this).children(":selected").val();
 	if (n == 'rbg1') {
 		$('#right').css('backgroundColor', '#f7f7f7').removeClass().addClass("lines-1");
 	}
-	
+
 	else if (n == 'rbg2') {
 		$('#right').css('backgroundColor', '#f7f7f7').removeClass().addClass("lines-2");
 	}
@@ -39,15 +39,15 @@ $('select#right-backgrounds').change(function () {
 	else if (n == 'rbg6') {
 		$('#right').css('backgroundColor', '#f7f7f7').removeClass().addClass("cross-big");
 	}
-});	
+});
 
 
-$('select#presets').change(function () { 
+$('select#presets').change(function () {
 	var w = $(this).children(":selected").val();
 	if (w == 'pre1') {
 		window.location.href = "../../single/orange/index.html";
 	}
-	
+
 	else if (w == 'pre2') {
 		window.location.href = "../../single/lime/index.html";
 	}
@@ -104,9 +104,9 @@ $('select#presets').change(function () {
 	}else if (w == 'pre21') {
 		window.location.href = "../../single/green/index-cycle-slider.html";
 	}
-});	
+});
 
-	
+
 $('.close').click(function () {
 	$('#optwrap').animate({"left": "-=210px"}, "4000");
 	$(this).hide();
@@ -124,9 +124,8 @@ $('.open').click(function () {
 
 
 }); // end of jquery
-  
-  
-  
-  
-  
-  
+
+
+
+
+

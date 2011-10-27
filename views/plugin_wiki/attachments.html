@@ -7,7 +7,7 @@
       TD {text-align: left; vertical-align:top}
     </style>
     {{include 'web2py_ajax.html'}}
-  </head>  
+  </head>
   <body>
     {{if request.args(2):}}
     [{{=A('new attachment',_href=URL(r=request,args=request.args[:2]))}}]

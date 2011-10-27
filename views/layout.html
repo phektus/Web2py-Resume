@@ -13,7 +13,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
-  <title>   
+  <title>
   {{=response.title}}
   </title>
   {{response.files.append(URL(request.application,'static','plugin_layouts/layouts/ConcreteV2/default.css'))}}
@@ -33,26 +33,26 @@ ul.web2py-menu-vertical li a { margin:0; padding: 1px 3px 1px 3px; border:0; wid
   <!-- start header -->
   <div id="header">
     <div class="wrapped">
-       <div id="logo"><a href="/">{{=response.title}}</a></div>  
+       <div id="logo"><a href="/">{{=response.title}}</a></div>
        <div id="slogan">{{=response.subtitle}}</div>
     </div>
   </div>
   <!-- end header -->
-  
+
   <!-- start page -->
-  <div id="page">   
-    <div class="wrapped"> 
+  <div id="page">
+    <div class="wrapped">
       <!-- start content -->
-      
+
       <div class="flash">{{=response.flash or ''}}</div>
       {{include}}
-      
+
       <!-- end content -->
       <br style="clear: both;" />
-    </div>      
+    </div>
   </div>
   <!-- end page -->
-  
+
   <!-- start footer -->
   <div id="footer">
    <p class="links">
@@ -87,7 +87,7 @@ ul.web2py-menu-vertical li a { margin:0; padding: 1px 3px 1px 3px; border:0; wid
     </a>
    </p>
    <p class="legal">
-    &copy;2011 CVStash. All Rights Reserved.		
+    &copy;2011 CVStash. All Rights Reserved.
     &nbsp;&nbsp;&bull;&nbsp;&nbsp;
 		Powered by
     <a href="http://web2py.com/">
