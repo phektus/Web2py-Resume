@@ -2,7 +2,7 @@
  * @class button - horizontal rule (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -23,23 +23,23 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 		'class' : $('<input type="text" />').css('width', '100%'),
 		style   : $('<input type="text" />').css('width', '100%')
 	}
-	
+
 	this.command = function() {
 		this.src.bg.elColorPicker({palettePosition : 'outer', 'class' : 'el-colorpicker ui-icon ui-icon-pencil'});
-		
+
 		var n   = this.rte.selection.getEnd();
 		this.hr = n.nodeName == 'HR' ? $(n) : $(rte.doc.createElement('hr')).css({width : '100%', height : '1px'});
 		this.src.border.elBorderSelect({styleHeight : 73, value : this.hr});
-		
+
 		var _w  = this.hr.css('width') || this.hr.attr('width');
 		this.src.width.val(parseInt(_w) || 100);
 		this.src.wunit.val(_w.indexOf('px') != -1 ? 'px' : '%');
-		
+
 		this.src.height.val( this.rte.utils.toPixels(this.hr.css('height') || this.hr.attr('height')) || 1) ;
 		this.src.bg.val(this.rte.utils.rgb2hex(this.hr.css('background-color')) || '');
 		this.src['class'].val(this.rte.dom.attr(this.hr, 'class'));
 		this.src.style.val(this.rte.dom.attr(this.hr, 'style'));
-		
+
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
 			dialog : {
@@ -56,7 +56,7 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 			.append([this.rte.i18n('Css style'),   this.src.style], null, true)
 			.open();
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		if (this.rte.selection.getEnd().nodeName == 'HR') {
@@ -65,7 +65,7 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 			this.domElem.removeClass('active');
 		}
 	}
-	
+
 	this.set = function() {
 		this.rte.history.add();
 		!this.hr.parentNode && this.rte.selection.insertNode(this.hr.get(0));
@@ -88,12 +88,12 @@ elRTE.prototype.ui.prototype.buttons.horizontalrule = function(rte, name) {
 			.removeAttr('align')
 			.attr(attr)
 			.css(css);
-		
+
 		if (this.src['class'].val()) {
-			this.hr.attr('class', this.src['class'].val());	
+			this.hr.attr('class', this.src['class'].val());
 		}
 		this.rte.ui.update()
 	}
-	
+
 }
 })(jQuery);

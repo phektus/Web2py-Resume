@@ -2,7 +2,7 @@
  * @class button - insert formatted text (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -13,7 +13,7 @@ elRTE.prototype.ui.prototype.buttons.pasteformattext = function(rte, name) {
 	this.iframe = $(document.createElement('iframe')).addClass('el-rte-paste-input');
 	this.doc    = null;
 	var self    = this;
-	
+
 	this.command = function() {
 		this.rte.browser.msie && this.rte.selection.saveIERange();
 		var opts = {
@@ -38,13 +38,13 @@ elRTE.prototype.ui.prototype.buttons.pasteformattext = function(rte, name) {
 				html += '<link rel="stylesheet" type="text/css" href="'+this+'" />';
 			});
 		}
-		html += '</head><body>  </body></html>';	
-		
+		html += '</head><body>  </body></html>';
+
 		this.doc.open();
 		this.doc.write(html);
 		this.doc.close();
 		if (!this.rte.browser.msie) {
-			try { this.doc.designMode = "on"; } 
+			try { this.doc.designMode = "on"; }
 			catch(e) { }
 		} else {
 			this.doc.body.contentEditable = true;
@@ -52,7 +52,7 @@ elRTE.prototype.ui.prototype.buttons.pasteformattext = function(rte, name) {
 		this.iframe.get(0).contentWindow.focus();
 
 	}
-	
+
 	this.paste = function() {
 		$(this.doc.body).find('[class]').removeAttr('class');
 		var html = $.trim($(this.doc.body).html());

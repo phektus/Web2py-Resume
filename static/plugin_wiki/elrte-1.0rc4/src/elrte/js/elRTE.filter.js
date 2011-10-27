@@ -19,7 +19,7 @@
 		this._deny = rte.options.denyTags||[];
 		/* swf placeholder class */
 		this.swfClass = 'elrte-swf-placeholder';
-		
+
 		n = $('<span />').addClass(this.swfClass).appendTo(rte.editor).text('swf')[0];
 		if (typeof n.currentStyle != "undefined") {
 			url = n.currentStyle['backgroundImage'];
@@ -48,9 +48,9 @@
 		if (!this._chains.fromSource || !this._chains.fromSource.length) {
 			this._chains.fromSource = [this.rules.fromSource]
 		}
-		
+
 		/**
-		 * Procces html in required chains 
+		 * Procces html in required chains
 		 *
 		 * @param String
 		 * @param String  chain name
@@ -64,9 +64,9 @@
 			}
 			return html;
 		}
-		
+
 		/**
-		 * Procces html in toSource chain 
+		 * Procces html in toSource chain
 		 *
 		 * @param String
 		 * @return String
@@ -74,9 +74,9 @@
 		this.toSource = function(html) {
 			return this.proccess(html, 'toSource');
 		}
-		
+
 		/**
-		 * Procces html in fromSource chain 
+		 * Procces html in fromSource chain
 		 *
 		 * @param String
 		 * @return String
@@ -84,7 +84,7 @@
 		this.fromSource = function(html) {
 			return this.proccess(html, 'fromSource');
 		}
-		
+
 		/**
 		 * Add user methods for replace/restore any patterns in html
 		 *
@@ -99,9 +99,9 @@
 				this._chains.toSource.unshift(rp);
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * Default rules
 	 */
@@ -121,16 +121,16 @@
 					small  : ['span', 'font-size:small'],
 					u      : ['span', 'text-decoration:underline']
 				};
-			
+
 			if ($.browser.opera||$.browser.msie) {
 				html = f.rules.tagsToLower(f, html);
 			}
-				
+
 			/* Replace non-semantic tags */
 			html = html.replace(/\<(\/?)(b|i|u|font|center|nobr|big|small)(\s+[^>]*)?\>/gi, function(t, s, n, a) {
 				n = n.toLowerCase(n);
 				a = (a||'').toLowerCase(a);
-				
+
 				if (map[n]) {
 					if (!s && map[n][1]) {
 						a = a.indexOf('style="') == -1 ? a+' style="'+map[n][1]+'"' : a.replace('style="', 'style="'+map[n][1]+';');
@@ -144,7 +144,7 @@
 			html = html.replace(/\<([a-z1-6]+)\s+([^>]*(border|bordercolor|color|background|bgcolor|align|valign|hspace|vspace|clear|size|face)=[^>]*)\>/gi, function(t, n, a) {
 				var attrs = {},
 					m = a.match(/([a-z]+)="([^"]*)"/gi), _t, i;
-				
+
 				function style(v) {
 					if (!attrs.style) {
 						attrs.style = '';
@@ -156,9 +156,9 @@
 						_t = m[i].split('=');
 						attrs[_t[0]] = _t[1].replace(/"/g, '');
 					}
-				} 
+				}
 
-				
+
 				if (attrs.border) {
 					style('border:'+attrs.border+'px solid '+(attrs.bordercolor||'#000'));
 					delete attrs.border;
@@ -192,7 +192,7 @@
 					} else {
 						style('text-align:'+attrs.align);
 					}
-					
+
 					delete attrs.align;
 				}
 				if (attrs.valign) {
@@ -214,7 +214,7 @@
 						style('font-size:'+(fsize[attrs.size]||'medium'));
 					}
 					delete attrs.size;
-				} 
+				}
 				if (attrs.clear) {
 					style('clear:'+(attrs.clear=='all' ? 'both' : attrs.clear));
 					delete attrs.clear;
@@ -222,8 +222,8 @@
 				if (attrs.face) {
 					delete attrs.face;
 				}
-				
-				
+
+
 				a = '';
 				for (i in attrs) {
 					if (attrs.hasOwnProperty(i) && attrs[i]) {
@@ -232,7 +232,7 @@
 				}
 				return '<'+n+a+'>';
 			})
-			
+
 			/* Remove not allowed tags */
 			if ( at || dt) {
 				html = html.replace(/\<(\/?)([a-z1-6]+)([^>]*)\>/gi, function(t, s, n, a) {
@@ -245,54 +245,54 @@
 
 		/* move tags to lowercase in ie and opera */
 		tagsToLower : function(f, html) {
-			return html.replace(/\<(\/?)([a-z1-6]+)([^\>]*)\>/ig, function(s, sl, tag, arg) { 
+			return html.replace(/\<(\/?)([a-z1-6]+)([^\>]*)\>/ig, function(s, sl, tag, arg) {
 				arg = arg.replace(/([a-z\-]+)\:/ig, function(s, a) { return a.toLowerCase()+':' });
 				arg = arg.replace(/([a-z\-]+)=/ig, function(s, a) { return a.toLowerCase()+'=' });
 				arg = arg.replace(/([a-z\-]+)=([a-z1-9\-]+)/ig, function(s, a, v) { return a+'="'+v+'"' })
 				return '<'+sl+tag.toLowerCase()+arg+'>';
 			})//.replace(/\<\/([a-z1-6]+)\>/ig, function(s, tag) { return '</'+tag.toLowerCase()+'>';});
 		},
-		
+
 		/* make xhtml tags */
 		xhtmlTags : function(f, html) {
 			return html.replace(/\<(img|hr|br)([^>\/]*)\>/gi, "<$1$2 />");
 		},
-		
-		/* proccess html for textarea */
-		toSource : function(f, html) { 
 
-			
+		/* proccess html for textarea */
+		toSource : function(f, html) {
+
+
 			html = f.rules.restore(f, html);
 
 
 			/* clean tags & attributes */
 			html = f.rules.cleanup(f, html);
-			
-			
-			
+
+
+
 			/* make xhtml tags if required */
 			if (f._xhtml) {
 				html = f.rules.xhtmlTags(f, html);
 			}
-			
+
 			return html;
 		},
-		
+
 		/* proccess html for editor */
-		fromSource : function(f, html) { 
+		fromSource : function(f, html) {
 
 			html = f.rules.replace(f, html);
-		
+
 			/* clean tags & attributes */
 			html = f.rules.cleanup(f, html);
-			
+
 			return html;
 		},
-		
+
 		/* replace swf with placeholder */
-		replace : function(f, html) { 
+		replace : function(f, html) {
 			var n = $('<div/>').html(html);
-			
+
 			n.find('object[classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"]')
 				.each(function() {
 				var t = $(this),
@@ -328,12 +328,12 @@
 					});
 					$(this).replaceWith(img);
 			})
-			
+
 			return n.html();
 		},
-		
+
 		/* restore swf from placeholder */
-		restore : function(f, html) { 
+		restore : function(f, html) {
 			var n = $('<div/>').html(html);
 
 			n.find('.'+f.swfClass).each(function() {
@@ -360,7 +360,7 @@
 			return n.html();
 		}
 	}
-	
+
 
 	/**
 	 * Default chains configuration
@@ -369,7 +369,7 @@
 		toSource   : [ 'toSource' ],
 		fromSource : [ 'fromSource' ]
 	}
-	
 
-	
+
+
 })(jQuery);

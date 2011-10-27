@@ -1,5 +1,5 @@
 (function($) {
-	
+
 	elRTE.prototype.ui.prototype.buttons.flash = function(rte, name) {
 		this.constructor.prototype.constructor.call(this, rte, name);
 		var self = this;
@@ -21,7 +21,7 @@
 						.append($('<option />').val('text-bottom').text(this.rte.i18n('Text bottom'))),
 			margin : $('<div />')
 		}
-		
+
 		this.command = function() {
 
 			var n = this.rte.selection.getEnd(), opts, url='', w='', h='', f, a, d;
@@ -36,13 +36,13 @@
 				f = $(n).css('float');
 				a = $(n).css('vertical-align');
 				this.src.margin.val(n);
-			} 
+			}
 			this.src.url.val(url);
 			this.src.width.val(w);
 			this.src.height.val(h);
 			this.src.align.val(f||a);
 
-			
+
 
 			var opts = {
 				submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
@@ -53,7 +53,7 @@
 				}
 			}
 			var d = new elDialogForm(opts);
-			
+
 			if (this.rte.options.fmAllow && this.rte.options.fmOpen) {
 				var src = $('<span />').append(this.src.url.css('width', '85%'))
 						.append(
@@ -69,18 +69,18 @@
 			} else {
 				var src = this.src.url;
 			}
-			
+
 			d.append([this.rte.i18n('URL'), src], null, true);
 			d.append([this.rte.i18n('Size'), $('<span />').append(this.src.width).append(' x ').append(this.src.height).append(' px')], null, true)
 			d.append([this.rte.i18n('Alignment'), this.src.align], null, true);
 			d.append([this.rte.i18n('Margins'), this.src.margin], null, true);
-			
-			
-			
+
+
+
 			d.open();
 			setTimeout( function() {self.src.url.focus()}, 100)
-			
-			
+
+
 			var fs = $('<fieldset />').append($('<legend />').text(this.rte.i18n('Preview')))
 			d.append(fs, 'main');
 			var frame = document.createElement('iframe');
@@ -91,7 +91,7 @@
 			frame.contentWindow.document.close();
 			this.frame = frame.contentWindow.document;
 			this.preview = $(frame.contentWindow.document.body);
-			 				 
+
 
 			this.src.width.change(function() {
 				if (self.swf) {
@@ -114,7 +114,7 @@
 					$(this).val('');
 				}
 			});
-			
+
 			this.src.align.change(function() {
 				var v = $(this).val(), f = v=='left' || v=='right';
 				if (self.swf) {
@@ -126,7 +126,7 @@
 					$(this).val('');
 				}
 			});
-			
+
 			this.src.margin.change(function() {
 				if (self.swf) {
 					var m = self.src.margin.val();
@@ -136,13 +136,13 @@
 						self.swf.css('margin-top', m.top);
 						self.swf.css('margin-right', m.right);
 						self.swf.css('margin-bottom', m.bottom);
-						self.swf.css('margin-left', m.left);						
+						self.swf.css('margin-left', m.left);
 					}
 				}
 
-				
+
 			});
-			
+
 			this.src.url.change(function() {
 				var url = self.rte.utils.absoluteURL($(this).val());
 				if (url) {
@@ -159,7 +159,7 @@
 
 			}).trigger('change');
 		}
-		
+
 		this.set = function() {
 			self.swf = null
 			var url = this.rte.utils.absoluteURL(this.src.url.val()),
@@ -174,7 +174,7 @@
 						width : w,
 						height : h,
 						'float' : f,
-						'vertical-align' : f ? '' : a 
+						'vertical-align' : f ? '' : a
 					};
 				if (m.css) {
 					css['margin'] = m.css;
@@ -201,19 +201,19 @@
 					self.placeholder.remove();
 				}
 			}
-			
-			
-		}
-		
 
-		
+
+		}
+
+
+
 		this.update = function() {
 			this.domElem.removeClass('disabled');
 			var n = this.rte.selection.getNode();
 			this.domElem.toggleClass('active', n.nodeName == 'IMG' && $(n).hasClass('elrte-swf-placeholder'))
-			
+
 		}
-		
-		
+
+
 	}
 })(jQuery);

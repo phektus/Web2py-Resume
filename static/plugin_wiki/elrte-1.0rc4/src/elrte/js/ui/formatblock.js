@@ -2,7 +2,7 @@
  * @class drop-down menu - formatting text block
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -11,9 +11,9 @@
 elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 
-	var cmd = this.rte.browser.msie 
+	var cmd = this.rte.browser.msie
 		? function(v) { self.val = v; self.constructor.prototype.command.call(self); }
-		: function(v) { self.ieCommand(v); } 
+		: function(v) { self.ieCommand(v); }
 	var self = this;
 	var opts = {
 		labelTpl : '%label',
@@ -35,22 +35,22 @@ elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 	}
 
 	this.select = this.domElem.elSelect(opts);
-	
+
 	this.command = function() {
 
 	}
-	
+
 	this.formatBlock = function(v) {
 
 		function format(n, tag) {
-			
+
 			function replaceChilds(p) {
 				$(p).find('h1,h2,h3,h4,h5,h6,p,address,pre').each(function() {
 					$(this).replaceWith($(this).html());
 				});
 				return p;
 			}
-			
+
 			if (/^(LI|DT|DD|TD|TH|CAPTION)$/.test(n.nodeName)) {
 				!self.rte.dom.isEmpty(n) && self.rte.dom.wrapContents(replaceChilds(n), tag);
 			} else if (/^(UL|OL|DL|TABLE)$/.test(n.nodeName)) {
@@ -58,7 +58,7 @@ elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 			} else {
 				!self.rte.dom.isEmpty(n) && $(replaceChilds(n)).replaceWith( $(self.rte.dom.create(tag)).html($(n).html()));
 			}
-			
+
 		}
 		this.rte.history.add();
 
@@ -97,7 +97,7 @@ elRTE.prototype.ui.prototype.buttons.formatblock = function(rte, name) {
 
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(H[1-6]|P|ADDRESS|PRE)$/);

@@ -2,7 +2,7 @@
  * @class кнопка - Закладка (открывает диалоговое окно)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  **/
@@ -11,7 +11,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	this.input = $('<input type="text" />').attr('name', 'anchor').attr('size', '16')
 	var self = this;
-	
+
 	this.command = function() {
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); d.close(); self.set();  },
@@ -20,7 +20,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 			}
 		}
 
-		
+
 		this.anchor = this.rte.dom.selfOrParentAnchor(this.rte.selection.getEnd()) || rte.dom.create('a');
 		!this.rte.selection.collapsed() && this.rte.selection.collapse(false);
 		this.input.val($(this.anchor).addClass('el-rte-anchor').attr('name'));
@@ -29,7 +29,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 		d.append([this.rte.i18n('Bookmark name'), this.input], null, true).open();
 		setTimeout(function() { self.input.focus()}, 20);
 	}
-	
+
 	this.update = function() {
 		var n = this.rte.selection.getNode();
 		if (this.rte.dom.selfOrParentLink(n)) {
@@ -40,7 +40,7 @@ elRTE.prototype.ui.prototype.buttons.anchor = function(rte, name) {
 			this.domElem.removeClass('disabled').removeClass('active');
 		}
 	}
-	
+
 	this.set = function() {
 		var n = $.trim(this.input.val());
 

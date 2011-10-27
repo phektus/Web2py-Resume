@@ -4,15 +4,15 @@
  * Новые div'ы создаются только из несхлопнутого выделения
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
- * 
+ * @param  String name  название кнопки
+ *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 elRTE.prototype.ui.prototype.buttons.div = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var n, nodes;
 		this.rte.history.add();
@@ -28,7 +28,7 @@ elRTE.prototype.ui.prototype.buttons.div = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		if (this.rte.selection.collapsed()) {
 			if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^DIV$/)) {

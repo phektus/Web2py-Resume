@@ -43,7 +43,7 @@ elRTE.prototype.options   = {
 		'paste'               : 'Paste',
 		'pastetext'           : 'Paste only text',
 		'pasteformattext'     : 'Paste formatted text',
-		'removeformat'        : 'Clean format', 
+		'removeformat'        : 'Clean format',
 		'undo'                : 'Undo last action',
 		'redo'                : 'Redo previous action',
 		'bold'                : 'Bold',
@@ -104,7 +104,7 @@ elRTE.prototype.options   = {
 		elements   : ['horizontalrule', 'blockquote', 'div', 'stopfloat', 'css', 'nbsp'],
 		links      : ['link', 'unlink', 'anchor'],
 		images     : ['image'],
-		media      : ['image', 'flash'],		
+		media      : ['image', 'flash'],
 		tables     : ['table', 'tableprops', 'tablerm',  'tbrowbefore', 'tbrowafter', 'tbrowrm', 'tbcolbefore', 'tbcolafter', 'tbcolrm', 'tbcellprops', 'tbcellsmerge', 'tbcellsplit'],
 		elfinder   : ['elfinder'],
 		fullscreen : ['fullscreen']
@@ -116,7 +116,7 @@ elRTE.prototype.options   = {
 		complete : ['save', 'copypaste', 'undoredo', 'style', 'alignment', 'colors', 'format', 'indent', 'lists', 'links', 'elements', 'media', 'fullscreen'],
 		maxi     : ['save', 'copypaste', 'undoredo', 'elfinder', 'style', 'alignment', 'colors', 'format', 'indent', 'lists', 'links', 'elements', 'media', 'tables', 'fullscreen'],
 		eldorado : ['save', 'copypaste', 'elfinder', 'undoredo', 'style', 'alignment', 'colors', 'format', 'indent', 'lists', 'links', 'elements', 'media', 'tables', 'fullscreen']
-		
+
 	},
 	panelNames : {
 		save      : 'Save',

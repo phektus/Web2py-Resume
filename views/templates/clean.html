@@ -39,27 +39,27 @@
 		Cufon.replace('.item h2');
 		Cufon.replace('h2.cv-section-name');
 	</script>			 	
-	
-	<!--imports scrollTo plugin--> 
-  <script type="text/javascript" src="/static/js/temptation/jquery.scrollTo-1.4.2-min.js"></script> 
-  <!--imports local scroll plugin--> 
-  <script type="text/javascript" src="/static/js/temptation/jquery.localscroll-1.2.7-min.js"></script> 
+
+	<!--imports scrollTo plugin-->
+  <script type="text/javascript" src="/static/js/temptation/jquery.scrollTo-1.4.2-min.js"></script>
+  <!--imports local scroll plugin-->
+  <script type="text/javascript" src="/static/js/temptation/jquery.localscroll-1.2.7-min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
 		  $('#navigation').localScroll();
 		});
 	</script>
-	
-	<link rel="icon" href="/static/favicon.ico" type="image/x-icon"> 
-  <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"> 
-  
-  <!-- bit client --> 
+
+	<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+
+  <!-- bit client -->
   <script type="text/javascript" src="http://api.bitp.it/bitp.it.js"></script>
   <script type="text/javascript">
     bitpit({clientId: "98"});
   </script>
-  
-  <!-- google analytics --> 
+
+  <!-- google analytics -->
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-23484172-1']);
@@ -79,18 +79,18 @@
 	      {{=LI(A('Dashboard', _href=URL('dashboard')))}}
 	    {{else:}}
 	      {{=LI(A('Home', _href='/'))}}
-	    {{pass}}	 
+	    {{pass}}
 	    <li>&nbsp;</li>
 	    {{if skills: }}<li><a href="#skills">Skills</a></li>{{pass}}
 	    {{if work_entries: }}<li><a href="#work">Work</a></li>{{pass}}
 	    {{if education_entries: }}<li><a href="#education">Education</a></li>{{pass}}
 	    {{if personal_entries: }}<li><a href="#personal">Personal</a></li>{{pass}}
 	    <li><a href="#contactinfo">Contact</a></li>
-	    <li>&nbsp;</li>	       
+	    <li>&nbsp;</li>
 	    <li><a href="http://pdfmyurl.com?url=http://www.cvstash.com{{=URL('pdfdownload/%s' % resumeurl.code)}}&-O=Portrait&-s=A4&--filename=resume.pdf">Download</a></li>
 	    <li><a href="javaScript:window.print();">Print</a></li>
 	    <li><a href="http://www.cvstash.com/profile/{{=resumeurl.code}}">Permalink</a></li>
-	    {{if auth.user_id: }}	    	    
+	    {{if auth.user_id: }}
   	    <li>{{=A('Logout', _href=URL('user/logout'))}}</li>
   	  {{else:}}
   	    <li>{{=A('Signup/Login', _href=URL('user/login'))}}</li>

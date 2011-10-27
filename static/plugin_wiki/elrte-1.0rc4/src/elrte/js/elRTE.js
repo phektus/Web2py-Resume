@@ -26,8 +26,8 @@ elRTE = function(target, opts) {
 	this.options = $.extend(true, {}, this.options, opts);
 	this.browser = $.browser;
 	this.target  = $(target);
-	
-	
+
+
 	this.toolbar   = $('<div class="toolbar"/>');
 	this.iframe    = document.createElement('iframe');
 	// this.source    = $('<textarea />').hide();
@@ -35,16 +35,16 @@ elRTE = function(target, opts) {
 	this.statusbar = $('<div class="statusbar"/>');
 	this.tabsbar   = $('<div class="tabsbar"/>');
 	this.editor    = $('<div class="'+this.options.cssClass+'" />').append(this.toolbar).append(this.workzone).append(this.statusbar).append(this.tabsbar);
-	
+
 	this.doc     = null;
 	this.$doc     = null;
 	this.window  = null;
-	
+
 	this.utils     = new this.utils(this);
 	this.dom       = new this.dom(this);
-	this._i18n     = new eli18n({textdomain : 'rte', messages : { rte : this.i18Messages[this.options.lang] || {}} });	
+	this._i18n     = new eli18n({textdomain : 'rte', messages : { rte : this.i18Messages[this.options.lang] || {}} });
 	this.filter    = new this.filter(this)
-	
+
 	/* attach editor to document */
 	this.editor.insertAfter(target);
 	/* init editor textarea */
@@ -87,17 +87,17 @@ elRTE = function(target, opts) {
 						}
 						self.ui.disable();
 						self.statusbar.empty();
-						
+
 					}
 				}
-				
+
 			});
 	}
-	
+
 	this.window = this.iframe.contentWindow;
 	this.doc    = this.iframe.contentWindow.document;
 	this.$doc   = $(this.doc);
-	
+
 	/* put content into iframe */
 	html = '<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
 	$.each(self.options.cssfiles, function() {
@@ -106,39 +106,39 @@ elRTE = function(target, opts) {
 	this.doc.open();
 	this.doc.write(self.options.doctype+html+'</head><body>'+(this.filter.fromSource(content))+'</body></html>');
 	this.doc.close();
-	
+
 	this.source.val(this.filter.toSource(content));
-	
+
 	/* make iframe editable */
 	if ($.browser.msie) {
 		this.doc.body.contentEditable = true;
 	} else {
-		try { this.doc.designMode = "on"; } 
+		try { this.doc.designMode = "on"; }
 		catch(e) { }
 		this.doc.execCommand('styleWithCSS', false, this.options.styleWithCSS);
 	}
-	
+
 	if (this.options.height>0) {
 		this.workzone.height(this.options.height);
 		$(this.iframe).height(this.options.height);
 		this.source.height(this.options.height);
 	}
-	
+
 	this.window.focus();
-	
+
 	this.history = new this.history(this)
-	
+
 	/* init selection object */
 	this.selection = new this.selection(this);
 	/* init buttons */
 	this.ui = new this.ui(this);
-	
-	
+
+
 	/* bind updateSource to parent form submit */
 	this.target.parents('form').bind('submit', function() {
 		self.beforeSave();
 	});
-	
+
 	/* update buttons on click and keyup */
 	this.$doc.bind('mouseup', function() {
 		self.ui.update();
@@ -162,13 +162,13 @@ elRTE = function(target, opts) {
 			}
 		}
 	})
-	
+
 	this.typing = false;
 	this.lastKey = null;
-	
+
 	this.$doc.bind('keydown', function(e) {
 		//@todo shortcuts
-		
+
 		if ((e.keyCode>=48 && e.keyCode <=57) || e.keyCode==61 || e.keyCode == 109 || (e.keyCode>=65 && e.keyCode<=90) || e.keyCode==188 ||e.keyCode==190 || e.keyCode==191 || (e.keyCode>=219 && e.keyCode<=222)) {
 			if (!self.typing) {
 				self.history.add(true);
@@ -187,12 +187,12 @@ elRTE = function(target, opts) {
 		self.typing = false;
 		self.lastKey = null;
 	}).bind('paste', function(e) {
-		setTimeout( function() { 
+		setTimeout( function() {
 			self.updateSource();
 			$(self.doc.body).html(self.filter.fromSource(self.source.val()));
 		}, 30);
 	});
-	
+
 	if ($.browser.msie) {
 		this.$doc.bind('keyup', function(e) {
 			if (e.keyCode == 86 && (e.metaKey||e.ctrlKey)) {
@@ -276,14 +276,14 @@ elRTE.prototype.log = function(msg) {
 	if (window.console && window.console.log) {
 		window.console.log(msg);
 	}
-        
+
 }
 
 elRTE.prototype.i18Messages = {};
 
-$.fn.elrte = function(o, v) { 
+$.fn.elrte = function(o, v) {
 	var cmd = typeof(o) == 'string' ? o : '', ret;
-	
+
 	this.each(function() {
 		if (!this.elrte) {
 			this.elrte = new elRTE(this, typeof(o) == 'object' ? o : {});
@@ -302,7 +302,7 @@ $.fn.elrte = function(o, v) {
 				break;
 		}
 	});
-	
+
 	if (cmd == 'val') {
 		if (!this.length) {
 			return '';

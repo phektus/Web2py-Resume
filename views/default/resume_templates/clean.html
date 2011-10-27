@@ -39,27 +39,27 @@
 		Cufon.replace('.item h2');
 		Cufon.replace('h2.cv-section-name');
 	</script>			 	
-	
-	<!--imports scrollTo plugin--> 
-  <script type="text/javascript" src="/static/js/temptation/jquery.scrollTo-1.4.2-min.js"></script> 
-  <!--imports local scroll plugin--> 
-  <script type="text/javascript" src="/static/js/temptation/jquery.localscroll-1.2.7-min.js"></script> 
+
+	<!--imports scrollTo plugin-->
+  <script type="text/javascript" src="/static/js/temptation/jquery.scrollTo-1.4.2-min.js"></script>
+  <!--imports local scroll plugin-->
+  <script type="text/javascript" src="/static/js/temptation/jquery.localscroll-1.2.7-min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
 		  $('#navigation').localScroll();
 		});
 	</script>
-	
-	<link rel="icon" href="/static/favicon.ico" type="image/x-icon"> 
-  <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"> 
-  
-  <!-- bit client --> 
+
+	<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+
+  <!-- bit client -->
   <script type="text/javascript" src="http://api.bitp.it/bitp.it.js"></script>
   <script type="text/javascript">
     bitpit({clientId: "98"});
   </script>
-  
-  <!-- google analytics --> 
+
+  <!-- google analytics -->
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-23484172-1']);
@@ -80,24 +80,24 @@
 	        {{=LI(A('Dashboard', _href=URL('dashboard')))}}
 	      {{else:}}
 	        {{=LI(A('Home', _href='/'))}}
-	      {{pass}}	 
+	      {{pass}}
 	      <li>&nbsp;</li>
 	      {{if skills: }}<li><a href="#skills">Skills</a></li>{{pass}}
 	      {{if work_entries: }}<li><a href="#work">Work</a></li>{{pass}}
 	      {{if education_entries: }}<li><a href="#education">Education</a></li>{{pass}}
 	      {{if personal_entries: }}<li><a href="#personal">Personal</a></li>{{pass}}
 	      <li><a href="#contactinfo">Contact</a></li>
-	      <li>&nbsp;</li>	       
+	      <li>&nbsp;</li>
 	      <li><a href="http://pdfmyurl.com?url=http://www.cvstash.com{{=URL('pdfdownload/%s' % usersettings.resumeurl)}}&-O=Portrait&-s=A4&--filename=resume.pdf">Download</a></li>
 	      <li><a href="javaScript:window.print();">Print</a></li>
 	      <li><a href="http://www.cvstash.com/profile/{{=usersettings.resumeurl}}">Permalink</a></li>
-	      {{if auth.user_id: }}	    	    
+	      {{if auth.user_id: }}
     	    <li>{{=A('Logout', _href=URL('user/logout'))}}</li>
     	  {{else:}}
     	    <li>{{=A('Signup/Login', _href=URL('user/login'))}}</li>
 	      {{pass}}
 	    </ul>
-    </div>	    
+    </div>
 	</div>
 	<div id="cv">
 	<div class="flash">{{=response.flash or ''}}</div>
@@ -135,7 +135,7 @@
 				</ul>
 				<p>{{=userprofile.about or ''}}</p>
 				<div id="socialmedia">
-				  <span class='st_email' ></span><span class='st_facebook' ></span><span class='st_linkedin' ></span><span class='st_twitter' ></span><span class='st_sharethis' ></span><span class='st_reddit' ></span><span class='st_blogger' ></span><span class='st_yahoo_bmarks' ></span><span class='st_stumbleupon' ></span><span class='st_delicious' ></span><span class='st_digg' ></span><span class='st_gbuzz' ></span><span class='st_fb_like' ></span>				
+				  <span class='st_email' ></span><span class='st_facebook' ></span><span class='st_linkedin' ></span><span class='st_twitter' ></span><span class='st_sharethis' ></span><span class='st_reddit' ></span><span class='st_blogger' ></span><span class='st_yahoo_bmarks' ></span><span class='st_stumbleupon' ></span><span class='st_delicious' ></span><span class='st_digg' ></span><span class='st_gbuzz' ></span><span class='st_fb_like' ></span>
           <script type="text/javascript">var switchTo5x=false;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
           <script type="text/javascript">stLight.options({publisher:'4d8bed4d-083e-4598-9c2b-af6c0d88c470'});</script>
         </div>        
@@ -309,7 +309,7 @@
 
 {{else:}}
 <h1>Resume not found</h1>
-{{pass}}		
+{{pass}}
 
 <div id="footer">
     <center>&copy; 2011 All Rights Reserved CVStash by Arbie Samong</center>

@@ -1,5 +1,5 @@
 /*
- * DOM utilites for elRTE 
+ * DOM utilites for elRTE
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  */
@@ -11,15 +11,15 @@ elRTE.prototype.dom = function(rte) {
 		textNodes         : /^(A|ABBR|ACRONYM|ADDRESS|B|BDO|BIG|BLOCKQUOTE|CAPTION|CENTER|CITE|CODE|DD|DEL|DFN|DIV|DT|EM|FIELDSET|FONT|H[1-6]|I|INS|KBD|LABEL|LEGEND|LI|MARQUEE|NOBR|NOEMBED|P|PRE|Q|SAMP|SMALL|SPAN|STRIKE|STRONG|SUB|SUP|TD|TH|TT|VAR)$/,
 		textContainsNodes : /^(A|ABBR|ACRONYM|ADDRESS|B|BDO|BIG|BLOCKQUOTE|CAPTION|CENTER|CITE|CODE|DD|DEL|DFN|DIV|DL|DT|EM|FIELDSET|FONT|H[1-6]|I|INS|KBD|LABEL|LEGEND|LI|MARQUEE|NOBR|NOEMBED|OL|P|PRE|Q|SAMP|SMALL|SPAN|STRIKE|STRONG|SUB|SUP|TABLE|THEAD|TBODY|TFOOT|TD|TH|TR|TT|UL|VAR)$/,
 		block             : /^(APPLET|BLOCKQUOTE|BR|CAPTION|CENTER|COL|COLGROUP|DD|DIV|DL|DT|H[1-6]|EMBED|FIELDSET|LI|MARQUEE|NOBR|OBJECT|OL|P|PRE|TABLE|THEAD|TBODY|TFOOT|TD|TH|TR|UL)$/,
-		selectionBlock    : /^(APPLET|BLOCKQUOTE|BR|CAPTION|CENTER|COL|COLGROUP|DD|DIV|DL|DT|H[1-6]|EMBED|FIELDSET|LI|MARQUEE|NOBR|OBJECT|OL|P|PRE|TD|TH|TR|UL)$/,		
+		selectionBlock    : /^(APPLET|BLOCKQUOTE|BR|CAPTION|CENTER|COL|COLGROUP|DD|DIV|DL|DT|H[1-6]|EMBED|FIELDSET|LI|MARQUEE|NOBR|OBJECT|OL|P|PRE|TD|TH|TR|UL)$/,
 		header            : /^H[1-6]$/,
 		formElement       : /^(FORM|INPUT|HIDDEN|TEXTAREA|SELECT|BUTTON)$/
 	};
-	
+
 	/********************************************************/
 	/*                      Утилиты                         */
-	/********************************************************/	
-	
+	/********************************************************/
+
 	/**
 	 * Возвращает body редактируемого документа
 	 *
@@ -59,7 +59,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ndx;
 	}
-	
+
 	/**
 	 * Вовращает значение аттрибута в нижнем регистре (ох уж этот IE)
 	 *
@@ -74,10 +74,10 @@ elRTE.prototype.dom = function(rte) {
 			if (v && attr != 'src' && attr != 'href') {
 				v = v.toString().toLowerCase();
 			}
-		} 
+		}
 		return v||'';
 	}
-	
+
 	/**
 	 * Вовращает ближайший общий контейнер для 2-х эл-тов
 	 *
@@ -180,7 +180,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает все предыдующие соседнии ноды (не включаются текстовые ноды не создающие значимые пробелы между инлайн элементами)
 	 *
@@ -194,7 +194,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает все следующие соседнии inline ноды (не включаются текстовые ноды не создающие значимые пробелы между инлайн элементами)
 	 *
@@ -208,7 +208,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает все предыдующие соседнии inline ноды (не включаются текстовые ноды не создающие значимые пробелы между инлайн элементами)
 	 *
@@ -222,7 +222,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает TRUE, если нода - первый непустой эл-т внутри родителя
 	 *
@@ -237,7 +237,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Вовращает TRUE, если нода - последний непустой эл-т внутри родителя
 	 *
@@ -252,7 +252,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Вовращает TRUE, если нода - единственный непустой эл-т внутри родителя
 	 *
@@ -262,7 +262,7 @@ elRTE.prototype.dom = function(rte) {
 	this.isOnlyNotEmpty = function(n) {
 		return this.isFirstNotEmpty(n) && this.isLastNotEmpty(n);
 	}
-	
+
 	/**
 	 * Вовращает последний непустой дочерний эл-т ноды или FALSE
 	 *
@@ -283,9 +283,9 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Возвращает TRUE, если нода "inline" 
+	 * Возвращает TRUE, если нода "inline"
 	 *
 	 * @param  DOMElement n  нода
 	 * @return bool
@@ -301,12 +301,12 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return true;
 	}
-	
-	
+
+
 	/********************************************************/
 	/*                  Поиск элементов                     */
 	/********************************************************/
-	
+
 	this.is = function(n, f) {
 		if (n && n.nodeName) {
 			if (typeof(f) == 'string') {
@@ -318,10 +318,10 @@ elRTE.prototype.dom = function(rte) {
 				return f(n);
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Вовращает элемент(ы) отвечающие условиям поиска
 	 *
@@ -341,8 +341,8 @@ elRTE.prototype.dom = function(rte) {
 		};
 		return ret;
 	}
-	
-	
+
+
 	/**
 	 * Вовращает массив родительских элементов, отвечающих условиям поиска
 	 *
@@ -360,7 +360,7 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Вовращает ближайший родительский эл-т, отвечающий условиям поиска
 	 *
@@ -368,10 +368,10 @@ elRTE.prototype.dom = function(rte) {
 	 * @param  RegExp||String f   фильтр условия поиска (RegExp или имя ключа this.regExp или *)
 	 * @return DOMElement
 	 **/
-	this.parent = function(n, f) { 
-		return this.parents(n, f)[0] || null; 
+	this.parent = function(n, f) {
+		return this.parents(n, f)[0] || null;
 	}
-	
+
 	/**
 	 * Вовращает или саму ноду или ее ближайшего родителя, если выполняются условия sf для самой ноды или pf для родителя
 	 *
@@ -383,7 +383,7 @@ elRTE.prototype.dom = function(rte) {
 	this.selfOrParent = function(n, sf, pf) {
 		return this.is(n, sf) ? n : this.parent(n, pf||sf);
 	}
-	
+
 	/**
 	 * Вовращает родительскую ноду - ссылку
 	 *
@@ -417,7 +417,7 @@ elRTE.prototype.dom = function(rte) {
 		$('a[href]', n).each(function() { res.push(this); });
 		return res;
 	}
-	
+
 	this.selectionHas = function(f) {
 		var n = this.rte.selection.cloneContents(), i;
 		if (n && n.childNodes && n.childNodes.length) {
@@ -433,13 +433,13 @@ elRTE.prototype.dom = function(rte) {
 				}
 			};
 		}
-		
+
 		return false;
 	}
 	/********************************************************/
 	/*                    Изменения DOM                     */
 	/********************************************************/
-	
+
 	/**
 	 * Оборачивает одну ноду другой
 	 *
@@ -458,7 +458,7 @@ elRTE.prototype.dom = function(rte) {
 		})
 		return w;
 	}
-	
+
 	/**
 	 * Оборачивает все содержимое ноды
 	 *
@@ -474,7 +474,7 @@ elRTE.prototype.dom = function(rte) {
 		n.appendChild(w);
 		return w;
 	}
-	
+
 	this.cleanNode = function(n) {
 
 		if (n.nodeType != 1) {
@@ -500,16 +500,16 @@ elRTE.prototype.dom = function(rte) {
 			$n.replaceWith($n.html());
 		}
 	}
-	
+
 	this.cleanChildNodes = function(n) {
 		var cmd = this.cleanNode;
 		$(n).children().each(function() { cmd(this); });
 	}
-	
+
 	/********************************************************/
 	/*                       Таблицы                        */
 	/********************************************************/
-	
+
 	this.tableMatrix = function(n) {
 		var mx = [];
 		if (n && n.nodeName == 'TABLE') {
@@ -521,12 +521,12 @@ elRTE.prototype.dom = function(rte) {
 					}
 				};
 			}
-			
+
 			$(n).find('tr').each(function(r) {
 				if (!$.isArray(mx[r])) {
 					mx[r] = [];
 				}
-				
+
 				$(this).children('td,th').each(function() {
 					var w = parseInt($(this).attr('colspan')||1);
 					var h = parseInt($(this).attr('rowspan')||1);
@@ -547,18 +547,18 @@ elRTE.prototype.dom = function(rte) {
 		}
 		return mx;
 	}
-	
+
 	this.indexesOfCell = function(n, tbm) {
 		for (var rnum=0; rnum < tbm.length; rnum++) {
 			for (var cnum=0; cnum < tbm[rnum].length; cnum++) {
 				if (tbm[rnum][cnum] == n) {
 					return [rnum, cnum];
 				}
-				
+
 			};
 		};
 	}
-	
+
 	this.fixTable = function(n) {
 		if (n && n.nodeName == 'TABLE') {
 			var tb = $(n);
@@ -574,11 +574,11 @@ elRTE.prototype.dom = function(rte) {
 			// for (var i=0; i<mx.length; i++) {
 			// 	this.rte.log(mx[i]);
 			// }
-			
+
 			for (var r=0; r<mx.length; r++) {
 				var l = mx[r].length;
 				//this.rte.log(r+' : '+l)
-				
+
 				if (l==0) {
 					//this.rte.log('remove: '+tb.find('tr').eq(r))
 					tb.find('tr').eq(r).remove();
@@ -591,10 +591,10 @@ elRTE.prototype.dom = function(rte) {
 					}
 				}
 			}
-			
+
 		}
 	}
-	
+
 	this.tableColumn = function(n, ext, fix) {
 		n      = this.selfOrParent(n, /^TD|TH$/);
 		var tb = this.selfOrParent(n, /^TABLE$/);
@@ -617,7 +617,7 @@ elRTE.prototype.dom = function(rte) {
 					break;
 				}
 			}
-			
+
 			// this.rte.log('matrix');
 			// for (var i=0; i<mx.length; i++) {
 			// 	this.rte.log(mx[i]);

@@ -2,11 +2,11 @@
  * @class меню - Новый ряд в таблице
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  **/
 elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var n  = this.rte.selection.getNode();
 		var c  = this.rte.dom.selfOrParent(n, /^(TD|TH)$/);
@@ -18,7 +18,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 			var ro     = $(r).prevAll('tr').length;
 			var cnt    = 0;
 			var mdf    = [];
-			
+
 			function _find(x, y) {
 				while (y>0) {
 					y--;
@@ -27,7 +27,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 					}
 				}
 			}
-			
+
 			for (var i=0; i<mx[ro].length; i++) {
 				if (mx[ro][i] && mx[ro][i].nodeName) {
 					var cell    = $(mx[ro][i]);
@@ -61,7 +61,7 @@ elRTE.prototype.ui.prototype.buttons.tbrowbefore = function(rte, name) {
 			this.rte.ui.update();
 		}
 	}
-	
+
 	this.update = function() {
 		if (this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TR$/)) {
 			this.domElem.removeClass('disabled');

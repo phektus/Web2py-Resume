@@ -11,7 +11,7 @@ elRTE.prototype.selection = function(rte) {
 	var self      = this;
 	this.w3cRange = null;
 	var start, end, node, bm;
-	
+
 	$(this.rte.doc)
 		.keyup(function(e) {
 			if (e.ctrlKey || e.metaKey || (e.keyCode >= 8 && e.keyCode <= 13) || (e.keyCode>=32 && e.keyCode<= 40) || e.keyCode == 46 || (e.keyCode >=96 && e.keyCode <= 111)) {
@@ -36,7 +36,7 @@ elRTE.prototype.selection = function(rte) {
 			end  = e.target;
 			node = null;
 		}).click();
-		
+
 	/**
 	 * возвращает selection
 	 *
@@ -45,7 +45,7 @@ elRTE.prototype.selection = function(rte) {
 	function selection() {
 		return self.rte.window.getSelection ? self.rte.window.getSelection() : self.rte.window.document.selection;
 	}
-	
+
 	/**
 	 * Вспомогательная функция
 	 * Возвращает самого верхнего родителя, отвечающего условию - текущая нода - его единственная непустая дочерняя нода
@@ -61,7 +61,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return n;
 	}
-	
+
 	/**
 	 * Возвращает TRUE, если выделение "схлопнуто"
 	 *
@@ -70,9 +70,9 @@ elRTE.prototype.selection = function(rte) {
 	this.collapsed = function() {
 		return this.getRangeAt().isCollapsed();
 	}
-	
+
 	/**
-	 * "Схлопывает" выделение 
+	 * "Схлопывает" выделение
 	 *
 	 * @param   bool  toStart  схлопнуть к начальной точке
 	 * @return  void
@@ -80,7 +80,7 @@ elRTE.prototype.selection = function(rte) {
 	this.collapse = function(toStart) {
 		this.getRangeAt().collapse(toStart ? true : false);
 	}
-	
+
 	/**
 	 * Возвращает TextRange
 	 * Для нормальных браузеров - нативный range
@@ -96,18 +96,18 @@ elRTE.prototype.selection = function(rte) {
 			updateW3cRange && this.w3cRange.update();
 			return this.w3cRange;
 		}
-		
+
 		var s = selection();
 		var r = s.rangeCount > 0 ? s.getRangeAt(0) : this.rte.doc.createRange();
 		r.getStart = function() {
-			return this.startContainer.nodeType==1 
-				? this.startContainer.childNodes[Math.min(this.startOffset, this.startContainer.childNodes.length-1)] 
+			return this.startContainer.nodeType==1
+				? this.startContainer.childNodes[Math.min(this.startOffset, this.startContainer.childNodes.length-1)]
 				: this.startContainer;
 		}
-		
+
 		r.getEnd = function() {
-			return this.endContainer.nodeType==1 
-				? this.endContainer.childNodes[ Math.min(this.startOffset == this.endOffset ? this.endOffset : this.endOffset-1, this.endContainer.childNodes.length-1)] 
+			return this.endContainer.nodeType==1
+				? this.endContainer.childNodes[ Math.min(this.startOffset == this.endOffset ? this.endOffset : this.endOffset-1, this.endContainer.childNodes.length-1)]
 				: this.endContainer;
 		}
 		r.isCollapsed = function() {
@@ -115,24 +115,24 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return r;
 	}
-	
+
 	this.saveIERange = function() {
 		if ($.browser.msie) {
 			bm = this.getRangeAt().getBookmark();
 		}
 	}
-	
+
 	this.restoreIERange = function() {
 		$.browser.msie && bm && this.getRangeAt().moveToBookmark(bm);
 	}
-	
+
 	this.cloneContents = function() {
 		var n = this.rte.dom.create('div'), r, c, i;
 		if ($.browser.msie) {
-			try { 
-				r = this.rte.window.document.selection.createRange(); 
-			} catch(e) { 
-				r = this.rte.doc.body.createTextRange(); 
+			try {
+				r = this.rte.window.document.selection.createRange();
+			} catch(e) {
+				r = this.rte.doc.body.createTextRange();
 			}
 			$(n).html(r.htmlText);
 		} else {
@@ -143,7 +143,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return n;
 	}
-	
+
 	/**
 	 * Выделяет ноды
 	 *
@@ -153,19 +153,19 @@ elRTE.prototype.selection = function(rte) {
 	 **/
 	this.select = function(s, e) {
 		e = e||s;
-		
+
 		if (this.rte.browser.msie) {
 			var r  = this.rte.doc.body.createTextRange(),
 				r1 = r.duplicate(),
 				r2 = r.duplicate();
-			
+
 			r1.moveToElementText(s);
 			r2.moveToElementText(e);
 			r.setEndPoint('StartToStart', r1);
 			r.setEndPoint('EndToEnd',     r2);
 			r.select();
 		} else {
-			
+
 			var sel = selection(),
 				r = this.getRangeAt();
 			r.setStartBefore(s);
@@ -175,7 +175,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return this.cleanCache();
 	}
-	
+
 	/**
 	 * Выделяет содержимое ноды
 	 *
@@ -202,7 +202,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Вставляет ноду в текущее выделение
 	 *
@@ -240,7 +240,7 @@ elRTE.prototype.selection = function(rte) {
 		if (collapse && !this.collapsed()) {
 			this.collapse();
 		}
-		
+
 		if (this.rte.browser.msie) {
 			this.getRangeAt().range().pasteHTML(html);
 		} else {
@@ -267,14 +267,14 @@ elRTE.prototype.selection = function(rte) {
 		var r, r1, r2, _s, _e,
 			s = this.rte.dom.createBookmark(),
 			e = this.rte.dom.createBookmark();
-			
-		
-		
+
+
+
 		if ($.browser.msie) {
-			try { 
-				r = this.rte.window.document.selection.createRange(); 
-			} catch(e) { 
-				r = this.rte.doc.body.createTextRange(); 
+			try {
+				r = this.rte.window.document.selection.createRange();
+			} catch(e) {
+				r = this.rte.doc.body.createTextRange();
 			}
 			r1 = r.duplicate();
 			r2 = r.duplicate();
@@ -291,15 +291,15 @@ elRTE.prototype.selection = function(rte) {
 
 			// s = this.rte.doc.getElementById($(s).attr('id'));
 			// e = this.rte.doc.getElementById($(e).attr('id'));
-			
+
 		} else {
 				var sel = selection();
 				var r = sel.rangeCount > 0 ? sel.getRangeAt(0) : this.rte.doc.createRange();
-				
+
 			// r  = this.getRangeAt();
 			r1 = r.cloneRange();
 			r2 = r.cloneRange();
-			
+
 			// this.insertNode(this.rte.dom.create('hr'))
 			// return
 			r2.collapse(false);
@@ -308,13 +308,13 @@ elRTE.prototype.selection = function(rte) {
 			r1.insertNode(s);
 			this.select(s, e);
 		}
-		
+
 		return [s.id, e.id];
 	}
 
 	this.moveToBookmark = function(b) {
 		this.rte.window.focus();
-		
+
 		if (b && b.length==2) {
 			var s = this.rte.doc.getElementById(b[0]),
 				e = this.rte.doc.getElementById(b[1]),
@@ -330,12 +330,12 @@ elRTE.prototype.selection = function(rte) {
 					sel.removeAllRanges();
 					sel.addRange(r);
 				}
-				
+
 				s.parentNode.removeChild(s);
 				e.parentNode.removeChild(e);
 			}
 		}
-		return this;	
+		return this;
 	}
 
 	this.removeBookmark = function(b) {
@@ -360,7 +360,7 @@ elRTE.prototype.selection = function(rte) {
 		return this;
 	}
 
-	
+
 	/**
 	 * Возвращает ноду начала выделения
 	 *
@@ -373,7 +373,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		return start;
 	}
-	
+
 	/**
 	 * Возвращает ноду конца выделения
 	 *
@@ -400,7 +400,7 @@ elRTE.prototype.selection = function(rte) {
 		return node;
 	}
 
-	
+
 	/**
 	 * Возвращает массив выбранных нод
 	 *
@@ -416,13 +416,13 @@ elRTE.prototype.selection = function(rte) {
 			tag       : 'span'  // во что оборачиваем
 		}
 		opts = $.extend({}, opts, o);
-		
+
 		// блочное выделение - ищем блочную ноду, но не таблицу
 		if (opts.blocks) {
 			var n  = this.getNode(), _n = null;
 			if (_n = this.rte.dom.selfOrParent(n, 'selectionBlock') ) {
 				return [_n];
-			} 
+			}
 		}
 
 		var sel    = this.selectedRaw(opts.collapsed, opts.blocks);
@@ -432,7 +432,7 @@ elRTE.prototype.selection = function(rte) {
 
 		// оборачиваем ноды в буффере
 		function wrap() {
-			
+
 			function allowParagraph() {
 				for (var i=0; i < buffer.length; i++) {
 					if (buffer[i].nodeType == 1 && (self.rte.dom.selfOrParent(buffer[i], /^P$/) || $(buffer[i]).find('p').length>0)) {
@@ -440,8 +440,8 @@ elRTE.prototype.selection = function(rte) {
 					}
 				};
 				return true;
-			} 
-			
+			}
+
 			if (buffer.length>0) {
 				var tag  = opts.tag == 'p' && !allowParagraph() ? 'div' : opts.tag;
 				var n    = self.rte.dom.wrap(buffer, tag);
@@ -450,7 +450,7 @@ elRTE.prototype.selection = function(rte) {
 				buffer   = [];
 			}
 		}
-		
+
 		// добавляем ноды в буффер
 		function addToBuffer(n) {
 			if (n.nodeType == 1) {
@@ -464,21 +464,21 @@ elRTE.prototype.selection = function(rte) {
 					var tag = opts.tag == 'p' && $(n).find('p').length>0 ? 'div' : opts.tag;
 					var n = self.rte.dom.wrapContents(n, tag);
 					return ret.push(n);
-				} 
-			} 
+				}
+			}
 			var prev = buffer.length>0 ? buffer[buffer.length-1] : null;
 			if (prev && prev != self.rte.dom.prev(n)) {
 				wrap();
 			}
-			buffer.push(n); 
+			buffer.push(n);
 			if (ndx === null) {
 				ndx = ret.length;
 				ret.push('dummy'); // заглушка для оборачиваемых элементов
 			}
 		}
-		
+
 		if (sel.nodes.length>0) {
-			
+
 			for (var i=0; i < sel.nodes.length; i++) {
 				var n = sel.nodes[i];
 					// первую и посл текстовые ноды разрезаем, если необходимо
@@ -500,16 +500,16 @@ elRTE.prototype.selection = function(rte) {
 								ret.push(n);
 							}
 							break;
-						// оборачиваем все инлайн элементы	
+						// оборачиваем все инлайн элементы
 						case 'inline':
 							if (this.rte.dom.isInline(n)) {
 								addToBuffer(n);
 							} else if (n.nodeType == 1) {
-								
+
 								ret.push(n);
 							}
 							break;
-						// оборачиваем все	
+						// оборачиваем все
 						case 'all':
 							if (n.nodeType == 1 || !this.rte.dom.isEmpty(n)) {
 								addToBuffer(n);
@@ -524,12 +524,12 @@ elRTE.prototype.selection = function(rte) {
 			};
 			wrap();
 		}
-	
+
 		if (ret.length) {
 			this.rte.window.focus();
-			
+
 			this.select(ret[0], ret[ret.length-1]);
-		}	
+		}
 		return opts.filter ? this.rte.dom.filter(ret, opts.filter) : ret;
 	}
 
@@ -561,27 +561,27 @@ elRTE.prototype.selection = function(rte) {
 		var s, e;  // start & end nodes
 		var sf  = false; // start node fully selected
 		var ef  = false; // end node fully selected
-		
+
 		// возвращает true, если нода не текстовая или выделена полностью
 		function isFullySelected(n, s, e) {
 			if (n.nodeType == 3) {
 				e = e>=0 ? e : n.nodeValue.length;
 				return (s==0 && e==n.nodeValue.length) || $.trim(n.nodeValue).length == $.trim(n.nodeValue.substring(s, e)).length;
-			} 
+			}
 			return true;
 		}
-		
+
 		// возвращает true, если нода пустая или в ней не выделено ни одного непробельного символа
 		function isEmptySelected(n, s, e) {
 			if (n.nodeType == 1) {
 				return self.rte.dom.isEmpty(n);
 			} else if (n.nodeType == 3) {
 				return $.trim(n.nodeValue.substring(s||0, e>=0 ? e : n.nodeValue.length)).length == 0;
-			} 
+			}
 			return true;
 		}
-		
-		
+
+
 		//this.dump()
 		// начальная нода
 		if (r.startContainer.nodeType == 1) {
@@ -595,8 +595,8 @@ elRTE.prototype.selection = function(rte) {
 		} else {
 			s = r.startContainer;
 			res.so = r.startOffset;
-		} 
-		
+		}
+
 		// выделение схлопнуто
 		if (r.collapsed) {
 			if (collapsed) {
@@ -605,27 +605,27 @@ elRTE.prototype.selection = function(rte) {
 					s = realSelected(s);
 					if (!this.rte.dom.isEmpty(s) || (s = this.rte.dom.next(s))) {
 						res.nodes = [s];
-					} 
-					
-					// добавляем инлайн соседей 
+					}
+
+					// добавляем инлайн соседей
 					if (this.rte.dom.isInline(s)) {
 						res.nodes = this.rte.dom.toLineStart(s).concat(res.nodes, this.rte.dom.toLineEnd(s));
 					}
-					
+
 					// offset для текстовых нод
 					if (res.nodes.length>0) {
 						res.so = res.nodes[0].nodeType == 1 ? null : 0;
 						res.eo = res.nodes[res.nodes.length-1].nodeType == 1 ? null : res.nodes[res.nodes.length-1].nodeValue.length;
 					}
-					
+
 				} else if (!this.rte.dom.isEmpty(s)) {
 					res.nodes = [s];
 				}
-				
+
 			}
 			return res;
 		}
-		
+
 		// конечная нода
 		if (r.endContainer.nodeType == 1) {
 			e = r.endContainer.childNodes[r.endOffset-1];
@@ -633,10 +633,10 @@ elRTE.prototype.selection = function(rte) {
 		} else {
 			e = r.endContainer;
 			res.eo = r.endOffset;
-		} 
+		}
 		// this.rte.log('select 1')
 		//this.dump(ca, s, e, res.so, res.eo)
-		
+
 		// начальная нода выделена полностью - поднимаемся наверх по левой стороне
 		if (s.nodeType == 1 || blocks || isFullySelected(s, res.so, s.nodeValue.length)) {
 //			this.rte.log('start text node is fully selected')
@@ -681,7 +681,7 @@ elRTE.prototype.selection = function(rte) {
 		}
 		 // this.rte.log('start 2')
 		  //this.dump(ca, s, e, res.so, res.eo)
-		
+
 		// находим начальную и конечную точки - ноды из иерархии родителей начальной и конечно ноды, у которых родитель - контейнер
 		var sp = s;
 		while (sp.nodeName != 'BODY' && sp.parentNode !== ca && sp.parentNode.nodeName != 'BODY') {
@@ -690,7 +690,7 @@ elRTE.prototype.selection = function(rte) {
 		//this.rte.log(s.nodeName)
 		// this.rte.log('start point')
 		// this.rte.log(sp)
-		
+
 		var ep = e;
 //		this.rte.log(ep)
 		while (ep.nodeName != 'BODY' && ep.parentNode !== ca && ep.parentNode.nodeName != 'BODY') {
@@ -699,8 +699,8 @@ elRTE.prototype.selection = function(rte) {
 		}
 		// this.rte.log('end point')
 		// this.rte.log(ep)
-		
-		
+
+
 		//  если начальная нода не пустая - добавляем ее
 		if (!isEmptySelected(s, res.so, s.nodeType==3 ? s.nodeValue.length : null)) {
 			res.nodes.push(s);
@@ -737,7 +737,7 @@ elRTE.prototype.selection = function(rte) {
 		if (!isEmptySelected(e, 0, e.nodeType==3 ? res.eo : null)) {
 			res.nodes.push(e);
 		}
-		
+
 		if (blocks) {
 			// добавляем инлайн соседей слева
 			if (this.rte.dom.isInline(s)) {
@@ -750,11 +750,11 @@ elRTE.prototype.selection = function(rte) {
 				res.eo    = res.nodes[res.nodes.length-1].nodeType == 1 ? null : res.nodes[res.nodes.length-1].nodeValue.length;
 			}
 		}
-		
+
 		// все радуются! :)
 		return res;
 	}
-	
+
 }
 
 })(jQuery);

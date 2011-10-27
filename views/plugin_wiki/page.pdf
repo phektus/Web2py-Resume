@@ -7,7 +7,7 @@ def image_mapper(name):
     else:
         name=name.split('/')[-1]
         pass
-    fullname=os.path.join(request.folder,'uploads',name)    
+    fullname=os.path.join(request.folder,'uploads',name)
     if not os.path.exists(fullname):
     items=name.split('.')
 	fullname=os.path.join(request.folder,'uploads',

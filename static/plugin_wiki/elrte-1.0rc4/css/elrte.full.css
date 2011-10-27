@@ -21,7 +21,7 @@ a { outline: none; }
 .rounded-6 { -moz-border-radius: 6px; -webkit-border-radius: 5px; border-radius: 6px; }
 .rounded-7 { -moz-border-radius: 7px; -webkit-border-radius: 7px; border-radius: 7px; }
 .rounded-left-3 { -moz-border-radius-topleft: 3px; -webkit-border-top-left-radius: 3px; -moz-border-radius-bottomleft: 3px; -webkit-border-bottom-left-radius: 3px; }
-.rounded-bottom-7 { -moz-border-radius-bottomleft:7px; -moz-border-radius-bottomright:7px; -webkit-border-bottom-left-radius: 7px;-webkit-border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;}	
+.rounded-bottom-7 { -moz-border-radius-bottomleft:7px; -moz-border-radius-bottomright:7px; -webkit-border-bottom-left-radius: 7px;-webkit-border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;}
 
 
 .ui-widget { font-size:.9em;}
@@ -132,7 +132,7 @@ a { outline: none; }
 }
 .el-dialogform-error {
 	background: #fee; color:#ff0000; border: 2px #844 solid; padding: 10px; margin-bottom: 1em 0;
-	
+
 }
 .el-dialogform-message {
 	background: #efe; color: #040; border: 2px #484 solid; padding: 10px; margin-bottom: 1em 0;
@@ -215,7 +215,7 @@ a { outline: none; }
 }
 
 /*  контейнер */
-.el-rte { 
+.el-rte {
 	font-family: Trebuchet MS, Verdana, Geneva,sans-serif;
 }
 .el-rte.el-fullscreen {
@@ -229,14 +229,14 @@ a { outline: none; }
 
 .elrte-swf-placeholder {
 	width:1px;
-	background: url('../images/swf.png') 0 0 no-repeat;	
+	background: url('../images/swf.png') 0 0 no-repeat;
 }
 
 /* панель инструментов */
 .el-rte .toolbar { background:#eee; padding:3px 7px 2px 7px; border:1px solid #ccc; }
 /* панель кнопок */
 .el-rte .toolbar ul {
-	display:inline-block; 
+	display:inline-block;
 	display: -moz-inline-stack;
     display: inline-block;
     vertical-align: top;
@@ -245,7 +245,7 @@ a { outline: none; }
 	margin:0;
 	list-style:none;
 	padding:0 2px 0 5px;
-	background: url('../images/elrte-toolbar.png') -857px -2px no-repeat;	
+	background: url('../images/elrte-toolbar.png') -857px -2px no-repeat;
 }
 /* первая панель кнопок */
 .el-rte .toolbar ul.first {
@@ -254,17 +254,17 @@ a { outline: none; }
 }
 /* кнопка */
 .el-rte .toolbar ul li {
-	display:inline-block; 
+	display:inline-block;
 	display: -moz-inline-stack;
     display: inline-block;
-	height:22px; 
+	height:22px;
 	width:22px;
     vertical-align: top;
     zoom: 1;
     *display: inline;
 	margin:1px 1px;
-	background:url('../images/elrte-toolbar.png') no-repeat; 
-	border:1px solid #ccc;	
+	background:url('../images/elrte-toolbar.png') no-repeat;
+	border:1px solid #ccc;
 }
 /* активная и подсвеченная и неактивная кнопка */
 .el-rte .toolbar ul li.hover    { border:1px solid #54b9bf; }
@@ -280,7 +280,7 @@ a { outline: none; }
 .el-rte .toolbar ul li.pastetext           {background-position:-534px -2px}
 .el-rte .toolbar ul li.pasteformattext     {background-position:-154px -2px}
 .el-rte .toolbar ul li.removeformat        {background-position:-180px -2px}
-.el-rte .toolbar ul li.docstructure        {background-position:-712px -4px}  
+.el-rte .toolbar ul li.docstructure        {background-position:-712px -4px}
 .el-rte .toolbar ul li.undo                {background-position:-205px -2px}
 .el-rte .toolbar ul li.redo                {background-position:-230px -2px}
 .el-rte .toolbar ul li.bold                {background-position:-252px -2px; }
@@ -299,13 +299,13 @@ a { outline: none; }
 .el-rte .toolbar ul li.indent              {background-position:-32px  -29px}
 .el-rte .toolbar ul li.blockquote          {background-position:-220px -30px}
 .el-rte .toolbar ul li.div                 {background-position:-655px -29px}
-.el-rte .toolbar ul li.stopfloat           {background-position:-771px -5px}  
-.el-rte .toolbar ul li.nbsp                {background-position:-580px -2px} 
+.el-rte .toolbar ul li.stopfloat           {background-position:-771px -5px}
+.el-rte .toolbar ul li.nbsp                {background-position:-580px -2px}
 .el-rte .toolbar ul li.forecolor           {background-position:-372px -30px}
 .el-rte .toolbar ul li.hilitecolor         {background-position:-395px -30px}
 .el-rte .toolbar ul li.link                {background-position:-244px -29px}
 .el-rte .toolbar ul li.unlink              {background-position:-270px -29px}
-.el-rte .toolbar ul li.anchor              {background-position:-296px -30px} 
+.el-rte .toolbar ul li.anchor              {background-position:-296px -30px}
 .el-rte .toolbar ul li.image               {background-position:-384px -2px}
 .el-rte .toolbar ul li.flash               {background-position:-410px -1px}
 .el-rte .toolbar ul li.file                {background-position:-436px -3px}
@@ -325,8 +325,8 @@ a { outline: none; }
 .el-rte .toolbar ul li.spec-text           {background-position:-487px -2px}
 .el-rte .toolbar ul li.print               {background-position:-509px -2px}
 .el-rte .toolbar ul li.horizontalrule      {background-position:-199px -29px}
-.el-rte .toolbar ul li.fullscreen          {background-position:-348px -30px}  
-.el-rte .toolbar ul li.elfinder            {background-position:-436px -2px}  
+.el-rte .toolbar ul li.fullscreen          {background-position:-348px -30px}
+.el-rte .toolbar ul li.elfinder            {background-position:-436px -2px}
 
 
 /* рабочая зона (обертка над iframe) */
@@ -337,15 +337,15 @@ a { outline: none; }
 .el-rte textarea  { width:100%;  height:100%; border:none; zoom:1; outline:none;}
 .el-rte.small textarea  { min-height:250px;}
 /* редактор */
-.el-rte iframe    { 
-	width: 100%; 
-	height:400px; 
+.el-rte iframe    {
+	width: 100%;
+	height:400px;
 
-	outline:none; 
-	border:0 solid; 
-	padding:0; 
+	outline:none;
+	border:0 solid;
+	padding:0;
 	margin:0;
-	background:#fff; 
+	background:#fff;
 	z-index:100;
 }
 .el-rte.small iframe  { min-height:250px;}
@@ -356,19 +356,19 @@ a { outline: none; }
 	padding: 0 9px;
 	font: 11px/21px 'monaco', 'andale mono', 'lucida console', monospace;
 	background-color:#eee;
-	border-top:1px solid #ccc;	
+	border-top:1px solid #ccc;
 	border-top:none;
 }
 /* табы */
 .el-rte .tabsbar { display: block; margin-bottom:.7em; }
 .el-rte .tabsbar .tab {
-	float:left;  
-	margin-right:2px; 
+	float:left;
+	margin-right:2px;
 	padding: 6px 17px;
-	font-size: .82em; 
+	font-size: .82em;
 	font-weight:bold;
 	color:#777;
-	text-align:center;  
+	text-align:center;
 	border:1px solid #eee;
 	border-top:none;
 	background: #fff;

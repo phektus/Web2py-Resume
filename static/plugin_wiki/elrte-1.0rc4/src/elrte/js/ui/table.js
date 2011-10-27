@@ -2,7 +2,7 @@
  * @class button - create/edit table (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * Copyright: Studio 42, http://www.std42.ru
@@ -13,7 +13,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 	var self    = this;
 	this.src    = null;
 	this.labels = null;
-	
+
 	function init() {
 		self.labels = {
 			main      : 'Properies',
@@ -27,7 +27,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			lang      : 'Language',
 			href      : 'URL'
 		}
-		
+
 		self.src = {
 			main : {
 				caption : $('<input type="text" />'),
@@ -36,17 +36,17 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				width   : $('<input type="text" />').attr('size', 5),
 				wunit   : $('<select />')
 							.append($('<option />').val('%').text('%'))
-							.append($('<option />').val('px').text('px')),				
-				height  : $('<input type="text" />').attr('size', 5),	
+							.append($('<option />').val('px').text('px')),
+				height  : $('<input type="text" />').attr('size', 5),
 				hunit   : $('<select />')
 							.append($('<option />').val('%').text('%'))
-							.append($('<option />').val('px').text('px')),	
+							.append($('<option />').val('px').text('px')),
 				align   : $('<select />')
 							.append($('<option />').val('').text(self.rte.i18n('Not set')))
 							.append($('<option />').val('left').text(self.rte.i18n('Left')))
-							.append($('<option />').val('center').text(self.rte.i18n('Center')))	
-							.append($('<option />').val('right').text(self.rte.i18n('Right'))),	
-				spacing : $('<input type="text" />').attr('size', 5),	
+							.append($('<option />').val('center').text(self.rte.i18n('Center')))
+							.append($('<option />').val('right').text(self.rte.i18n('Right'))),
+				spacing : $('<input type="text" />').attr('size', 5),
 				padding : $('<input type="text" />').attr('size', 5),
 				border  : $('<div />'),
 				// frame   : $('<select />')
@@ -62,7 +62,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				bg      : $('<div />'),
 				bgimg   : $('<input type="text" />').css('width', '90%')
 			},
-			
+
 			adv : {
 				id        : $('<input type="text" />'),
 				summary   : $('<input type="text" />'),
@@ -74,14 +74,14 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 								.append($('<option />').text(self.rte.i18n('Right to left')).val('rtl')),
 				lang      : $('<input type="text" />')
 			},
-			
+
 			events : {}
 		}
-		
+
 		$.each(self.src, function() {
 			for (var n in this) {
 				this[n].attr('name', n);
-				var t = this[n].get(0).nodeName; 
+				var t = this[n].get(0).nodeName;
 				if (t == 'INPUT' && n != 'bgimg') {
 					this[n].css(this[n].attr('size') ? {'text-align' : 'right'} : {width : '100%'});
 				} else if (t == 'SELECT' && n!='wunit' && n!='hunit') {
@@ -89,13 +89,13 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				}
 			}
 		});
-		
+
 		$.each(
-			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'], 
+			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'],
 			function() {
 				self.src.events[this] = $('<input type="text" />').attr('name', this).css('width', '100%');
 		});
-		
+
 		self.src.main.align.change(function() {
 			var v = $(this).val();
 			if (v == 'center') {
@@ -107,28 +107,28 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				}
 			}
 		});
-		
+
 		self.src.main.bgimg.change(function() {
 			var t = $(this);
 			t.val(self.rte.utils.absoluteURL(t.val()));
 		})
-		
+
 	}
-	
+
 	this.command = function() {
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TABLE$/);
-		
+
 		if (this.name == 'table') {
-			this.table = $(this.rte.doc.createElement('table'));	
+			this.table = $(this.rte.doc.createElement('table'));
 		} else {
-			this.table = n ? $(n) : $(this.rte.doc.createElement('table'));					
+			this.table = n ? $(n) : $(this.rte.doc.createElement('table'));
 		}
-		
+
 		!this.src && init();
 		this.src.main.border.elBorderSelect({styleHeight : 117});
 		this.src.main.bg.elColorPicker({palettePosition : 'outer', 'class' : 'el-colorpicker ui-icon ui-icon-pencil'});
 		this.src.main.margin.elPaddingInput({ type : 'margin', value : this.table});
-		
+
 		if (this.table.parents().length) {
 			this.src.main.rows.val('').attr('disabled', true);
 			this.src.main.cols.val('').attr('disabled', true);
@@ -136,12 +136,12 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			this.src.main.rows.val(2).removeAttr('disabled');
 			this.src.main.cols.val(2).removeAttr('disabled');
 		}
-		
+
 		var w = this.table.css('width') || this.table.attr('width');
 		this.src.main.width.val(parseInt(w)||'');
 		this.src.main.wunit.val(w.indexOf('px') != -1 ? 'px' : '%');
-		
-		var h = this.table.css('height') || this.table.attr('height');	
+
+		var h = this.table.css('height') || this.table.attr('height');
 		this.src.main.height.val(parseInt(h)||'');
 		this.src.main.hunit.val(h && h.indexOf('px') != -1 ? 'px' : '%');
 
@@ -173,7 +173,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			}
 		}
 		var d = new elDialogForm(opts);
-		
+
 		for (var tab in this.src) {
 			d.tab(tab, this.rte.i18n(this.labels[tab]));
 			if (tab == 'main') {
@@ -186,7 +186,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				var t3 = $('<table />')
 					.append($('<tr />').append('<td>'+this.rte.i18n('Spacing')+'</td>').append($('<td />').append(this.src.main.spacing.val(this.table.attr('cellspacing')||''))))
 					.append($('<tr />').append('<td>'+this.rte.i18n('Padding')+'</td>').append($('<td />').append(this.src.main.padding.val(this.table.attr('cellpadding')||''))));
-				
+
 				d.append([this.rte.i18n('Caption'), this.src.main.caption.val(this.table.find('caption').eq(0).text() || '')], 'main', true)
 					.separator('main')
 					.append([t1, t2, t3], 'main', true)
@@ -202,17 +202,17 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 					var v = this.rte.dom.attr(this.table, name);
 					if (tab == 'events') {
 						v = this.rte.utils.trimEventCallback(v);
-					} 
+					}
 					d.append([this.rte.i18n(this.labels[name] ? this.labels[name] : name), this.src[tab][name].val(v)], tab, true);
 				}
 			}
 		}
-		
+
 		d.open();
 	}
-	
+
 	this.set = function() {
-		
+
 		if (!this.table.parents().length) {
 			var r = parseInt(this.src.main.rows.val()) || 0;
 			var c = parseInt(this.src.main.cols.val()) || 0;
@@ -243,7 +243,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 				.removeAttr('rules')
 				.removeAttr('style');
 		}
-		
+
 		var cap = $.trim(this.src.main.caption.val());
 		if (cap) {
 			if (!this.table.children('caption').length) {
@@ -253,7 +253,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 		} else {
 			this.table.children('caption').remove();
 		}
-		
+
 		for (var tab in this.src) {
 			if (tab != 'main') {
 				for (var n in this.src[tab]) {
@@ -270,16 +270,16 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 
 		if ((spacing = parseInt(this.src.main.spacing.val())) && spacing>=0) {
 			this.table.attr('cellspacing', spacing);
-		} 
+		}
 
 		if ((padding = parseInt(this.src.main.padding.val())) && padding>=0) {
 			this.table.attr('cellpadding', padding);
-		} 
-		
+		}
+
 		if ((rules = this.src.main.rules.val())) {
 			this.table.attr('rules', rules);
 		}
-		
+
 		var
 			w = parseInt(this.src.main.width.val()) || '',
 			h = parseInt(this.src.main.height.val()) || '',
@@ -293,7 +293,7 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 			border             : $.trim(b.width+' '+b.style+' '+b.color),
 			'background-color' : this.src.main.bg.val(),
 			'background-image' : i ? 'url('+i+')' : ''
-		});	
+		});
 		if (m.css) {
 			this.table.css('margin', m.css);
 		} else {
@@ -310,17 +310,17 @@ elRTE.prototype.ui.prototype.buttons.table = function(rte, name) {
 		if (!this.table.attr('style')) {
 			this.table.removeAttr('style');
 		}
-		
+
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 		if (this.name == 'tableprops' && !this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^TABLE$/)) {
 			this.domElem.addClass('disabled').removeClass('active');
 		}
 	}
-	
+
 }
 
 elRTE.prototype.ui.prototype.buttons.tableprops = elRTE.prototype.ui.prototype.buttons.table;

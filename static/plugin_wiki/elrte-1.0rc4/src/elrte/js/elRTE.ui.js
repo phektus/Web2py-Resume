@@ -16,14 +16,14 @@ elRTE.prototype.ui = function(rte) {
 		tb        = this.rte.options.toolbars[rte.options.toolbar && rte.options.toolbars[rte.options.toolbar] ? rte.options.toolbar : 'normal'],
 		tbl       = tb.length,
 		p, pname, pl, n, c, b, i;
-	
+
 	// add prototype to all buttons
 	for (i in this.buttons) {
 		if (this.buttons.hasOwnProperty(i) && i != 'button') {
 			this.buttons[i].prototype = this.buttons.button.prototype;
 		}
 	}
-	
+
 	// create buttons and put on toolbar
 	while (tbl--) {
 		pname = tb[tbl];
@@ -39,13 +39,13 @@ elRTE.prototype.ui = function(rte) {
 			p.prepend(b.domElem);
 		}
 	}
-	
+
 
 	/**
 	 * Переключает вид редактора между окном редактирования и исходника
 	 **/
 	// this.rte.tabsbar.children('.tab').click(function(e) {
-	// 
+	//
 	// 	if (!$(e.target).hasClass('active')) {
 	// 		self.rte.tabsbar.children('.tab').toggleClass('active');
 	// 		self.rte.workzone.children().toggle();
@@ -62,13 +62,13 @@ elRTE.prototype.ui = function(rte) {
 	// });
 
 	this.update();
-	
+
 	this.disable = function() {
 		$.each(self._buttons, function() {
 			!this.active && this.domElem.addClass('disabled');
 		});
 	}
-	
+
 }
 
 /**
@@ -99,9 +99,9 @@ elRTE.prototype.ui.prototype.update = function(cleanCache) {
 
 
 elRTE.prototype.ui.prototype.buttons = {
-	
+
 	/**
-	 * @class кнопка на toolbar редактора 
+	 * @class кнопка на toolbar редактора
 	 * реализует поведение по умолчанию и является родителем для других кнопок
 	 *
 	 * @param  elRTE  rte   объект-редактор
@@ -141,7 +141,7 @@ elRTE.prototype.ui.prototype.buttons.button.prototype.command = function() {
 	} catch(e) {
 		return this.rte.log('commands failed: '+this.name);
 	}
-	
+
 	this.rte.ui.update(true);
 }
 

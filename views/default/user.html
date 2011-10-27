@@ -1,14 +1,14 @@
-{{extend 'templates/clickr.html'}} 
+{{extend 'templates/clickr.html'}}
 
 {{if 'profile' in request.args(0):}}
-  <h1>My Profile</h1> 
-  <div id="web2py_user_form">   
+  <h1>My Profile</h1>
+  <div id="web2py_user_form">
   <p>
   <img src='{{=Gravatar(auth.user.email, default="http://www.cvstash.com/static/images/avatar-default.jpg").thumb}}'>
   <br />
   [ <a href="http://www.gravatar.com" target="#">change</a> ]
   </p>
-  {{=form}} 
+  {{=form}}
   {{if auth.user_id:}}
     <p>[ {{=A('Back to My Resume', _href=URL('public'))}} ]</p>
   {{pass}}
@@ -21,7 +21,7 @@
   //-->
   </script>
 
-{{else:}}  
+{{else:}}
   {{title=dict(
        login='',
        register=H1('Register'),
@@ -34,11 +34,11 @@
          retrieve_username=H1('Request username'),
          not_authorized=H1('Denied!')
          )}}
-  <div id="login_main">      
-  <center>   
-  <p>{{=title[request.args(0)]}}</p> 
-  {{=form}}   
-  </center> 
+  <div id="login_main">
+  <center>
+  <p>{{=title[request.args(0)]}}</p>
+  {{=form}}
+  </center>
   </div>
   {{if auth.user_id:}}
     {{=A('back to Dashboard', _href=URL('dashboard'))}}

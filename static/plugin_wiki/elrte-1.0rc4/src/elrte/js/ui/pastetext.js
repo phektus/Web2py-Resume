@@ -1,8 +1,8 @@
 /**
- * @class кнопка "вставить только текст" 
+ * @class кнопка "вставить только текст"
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -12,7 +12,7 @@ elRTE.prototype.ui.prototype.buttons.pastetext = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
 	this.input = $('<textarea />').addClass('el-rte-paste-input');
 	var self   = this;
-	
+
 	this.command = function() {
 		this.rte.browser.msie && this.rte.selection.saveIERange();
 		var opts = {
@@ -30,7 +30,7 @@ elRTE.prototype.ui.prototype.buttons.pastetext = function(rte, name) {
 		var d = new elDialogForm(opts);
 		d.append(this.input).open();
 	}
-	
+
 	this.paste = function() {
 		var txt = $.trim(this.input.val());
 		if (txt) {
@@ -45,6 +45,6 @@ elRTE.prototype.ui.prototype.buttons.pastetext = function(rte, name) {
 	this.update = function() {
 		this.domElem.removeClass('disabled');
 	}
-	
+
 }
 })(jQuery);

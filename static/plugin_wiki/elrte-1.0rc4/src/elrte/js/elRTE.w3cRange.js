@@ -17,23 +17,23 @@ elRTE.prototype.w3cRange = function(rte) {
 	this.startOffset             = 0;
 	this.endOffset               = 0;
 	this.commonAncestorContainer = null;
-	
+
 	this.range = function() {
-		try { 
-			this.r = this.rte.window.document.selection.createRange(); 
-		} catch(e) { 
-			this.r = this.rte.doc.body.createTextRange(); 
+		try {
+			this.r = this.rte.window.document.selection.createRange();
+		} catch(e) {
+			this.r = this.rte.doc.body.createTextRange();
 		}
 		return this.r;
 	}
-	
+
 	this.insertNode = function(html) {
 		this.range();
 		self.r.collapse(false)
 		var r = self.r.duplicate();
 		r.pasteHTML(html);
 	}
-	
+
 	this.getBookmark = function() {
 		this.range();
 		if (this.r.item) {
@@ -43,13 +43,13 @@ elRTE.prototype.w3cRange = function(rte) {
 		}
 		return this.r.getBookmark();
 	}
-	
+
 	this.moveToBookmark = function(bm) {
 		this.rte.window.focus();
 		this.range().moveToBookmark(bm);
 		this.r.select();
 	}
-	
+
 	/**
 	 * Обновляет данные о выделенных нодах
 	 *
@@ -68,7 +68,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			}
 
 			r.pasteHTML(marker);
-			
+
 			childs = p.childNodes;
 			for (var i=0; i < childs.length; i++) {
 				var n = childs[i];
@@ -101,9 +101,9 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setEnd(i.parentNode, this.startOffset+1);
 		} else {
 			this.collapsed = this.r.boundingWidth == 0;
-			var start = _findPos(true); 
+			var start = _findPos(true);
 			var end   = _findPos(false);
-			
+
 			start.parent.normalize();
 			end.parent.normalize();
 			start.ndx = Math.min(start.ndx, start.parent.childNodes.length-1);
@@ -123,13 +123,13 @@ elRTE.prototype.w3cRange = function(rte) {
 		}
 		return this;
 	}
-	
+
 	this.isCollapsed = function() {
 		this.range();
 		this.collapsed = this.r.item ? false : this.r.boundingWidth == 0;
 		return this.collapsed;
 	}
-	
+
 	/**
 	 * "Схлопывает" выделение
 	 *
@@ -158,8 +158,8 @@ elRTE.prototype.w3cRange = function(rte) {
 		var s = r.parentElement();
 		return s && s.nodeName == 'BODY' ? s.firstChild : s;
 	}
-	
-	
+
+
 	this.getEnd = function() {
 		this.range();
 		if (this.r.item) {
@@ -171,7 +171,7 @@ elRTE.prototype.w3cRange = function(rte) {
 		return e && e.nodeName == 'BODY' ? e.lastChild : e;
 	}
 
-	
+
 	/**
 	 * Устанавливает начaло выделения на указаную ноду
 	 *
@@ -186,7 +186,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.commonAncestorContainer = this.rte.dom.findCommonAncestor(this.startContainer, this.endContainer);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает конец выделения на указаную ноду
 	 *
@@ -201,7 +201,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.commonAncestorContainer = this.rte.dom.findCommonAncestor(this.startContainer, this.endContainer);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает начaло выделения перед указаной нодой
 	 *
@@ -213,7 +213,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setStart(n.parentNode, this.rte.dom.indexOf(n));
 		}
 	}
-	
+
 	/**
 	 * Устанавливает начaло выделения после указаной ноды
 	 *
@@ -225,7 +225,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setStart(n.parentNode, this.rte.dom.indexOf(n)+1);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает конец выделения перед указаной нодой
 	 *
@@ -237,7 +237,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setEnd(n.parentNode, this.rte.dom.indexOf(n));
 		}
 	}
-	
+
 	/**
 	 * Устанавливает конец выделения после указаной ноды
 	 *
@@ -249,7 +249,7 @@ elRTE.prototype.w3cRange = function(rte) {
 			this.setEnd(n.parentNode, this.rte.dom.indexOf(n)+1);
 		}
 	}
-	
+
 	/**
 	 * Устанавливает новое выделение после изменений
 	 *
@@ -271,14 +271,14 @@ elRTE.prototype.w3cRange = function(rte) {
 			n.nodeValue = val;
 			return p;
 		};
-		
-		this.r = this.rte.doc.body.createTextRange(); 
+
+		this.r = this.rte.doc.body.createTextRange();
 		var so = this.startOffset;
 		var eo = this.endOffset;
-		var s = this.startContainer.nodeType == 1 
+		var s = this.startContainer.nodeType == 1
 			? this.startContainer.childNodes[Math.min(so, this.startContainer.childNodes.length - 1)]
 			: this.startContainer;
-		var e = this.endContainer.nodeType == 1 
+		var e = this.endContainer.nodeType == 1
 			? this.endContainer.childNodes[Math.min(so == eo ? eo : eo - 1, this.endContainer.childNodes.length - 1)]
 			: this.endContainer;
 
@@ -291,7 +291,7 @@ elRTE.prototype.w3cRange = function(rte) {
 				this.r.collapse(true);
 			}
 		} else {
-			var r  = this.rte.doc.body.createTextRange(); 
+			var r  = this.rte.doc.body.createTextRange();
 			var sp = getPos(s, so);
 			var ep = getPos(e, eo);
 			if (s.nodeType == 3) {
@@ -306,17 +306,17 @@ elRTE.prototype.w3cRange = function(rte) {
 			}
 			this.r.setEndPoint('EndToEnd', r);
 		}
-		
+
 		try {
 			this.r.select();
 		} catch(e) {
-			
+
 		}
 		if (r) {
 			r = null;
 		}
 	}
-	
+
 	this.dump = function() {
 		this.rte.log('collapsed: '+this.collapsed);
 		//this.rte.log('commonAncestorContainer: '+this.commonAncestorContainer.nodeName||'#text')
@@ -325,6 +325,6 @@ elRTE.prototype.w3cRange = function(rte) {
 		this.rte.log('endContainer: '+(this.endContainer ? this.endContainer.nodeName : 'none'));
 		this.rte.log('endOffset: '+this.endOffset);
 	}
-	
+
 }
 })(jQuery);

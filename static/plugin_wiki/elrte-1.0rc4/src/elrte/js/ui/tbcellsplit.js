@@ -3,15 +3,15 @@
  *
  * @param  elRTE  rte   объект-редактор
  * @param  String name  название кнопки
- * @todo split not merged cell 
+ * @todo split not merged cell
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
- * @copyright: Studio 42, http://www.std42.ru 
+ * @copyright: Studio 42, http://www.std42.ru
  **/
 (function($) {
 elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 	this.constructor.prototype.constructor.call(this, rte, name);
-	
+
 	this.command = function() {
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(TD|TH)$/);
 		if (n) {
@@ -23,7 +23,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 				var rnum = rowspan-1;
 				var tb   = this.rte.dom.parent(n, /^TABLE$/);
 				var tbm  = this.rte.dom.tableMatrix(tb);
-				
+
 				// ячейки в текущем ряду
 				if (cnum) {
 					for (var i=0; i<cnum; i++) {
@@ -37,7 +37,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 					// ячейки в следущих рядах
 					for (var r=rndx+1; r < rndx+rnum+1; r++) {
 						var cell;
-						
+
 						if (!tbm[r][cndx].nodeName) {
 							if (tbm[r][cndx-1].nodeName) {
 								cell = tbm[r][cndx-1];
@@ -63,7 +63,7 @@ elRTE.prototype.ui.prototype.buttons.tbcellsplit = function(rte, name) {
 		}
 		this.rte.ui.update(true);
 	}
-	
+
 	this.update = function() {
 		var n = this.rte.dom.selfOrParent(this.rte.selection.getNode(), /^(TD|TH)$/);
 		if (n && (parseInt(this.rte.dom.attr(n, 'colspan'))>1 || parseInt(this.rte.dom.attr(n, 'rowspan'))>1)) {

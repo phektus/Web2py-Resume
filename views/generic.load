@@ -17,7 +17,7 @@ def index():
 def auxiliary():
     form=SQLFORM.factory(Field('name'))
     if form.accepts(request.vars):
-        response.flash = 'ok' 
+        response.flash = 'ok'
         return dict(message="Hello %s" % form.vars.name)
     return dict(form=form)
 

@@ -2,7 +2,7 @@
  * @class button - insert/edit image (open dialog window)
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * Copyright: Studio 42, http://www.std42.ru
@@ -13,7 +13,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 	var self = this;
 	this.img = null
 	this.init = function() {
-		
+
 		this.labels = {
 			main   : 'Properies',
 			link   : 'Link',
@@ -27,7 +27,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			target  : 'Open in',
 			title   : 'Title'
 		}
-		
+
 		this.src = {
 			main : {
 				src    : $('<input type="text" />').css('width', '100%'),
@@ -60,24 +60,24 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			// 	href  : $('<input type="text" />').css('width', '100%'),
 			// 	title : $('<input type="text" />').css('width', '100%')
 			// },
-			
+
 			events : {}
 		}
-		
+
 		$.each(
-			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'], 
+			['onblur', 'onfocus', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmouseleave', 'onkeydown', 'onkeypress', 'onkeyup'],
 			function() {
 				self.src.events[this] = $('<input type="text" />').css('width', '100%');
 		});
-		
+
 		$.each(self.src, function() {
 			for (var n in this) {
 				this[n].attr('name', n);
 			}
 		});
-		
+
 	}
-	
+
 	this.command = function() {
 		!this.src && this.init();
 		this.rte.browser.msie && this.rte.selection.saveIERange();
@@ -86,7 +86,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 
 		this.cleanValues();
 		this.src.main.src.val('');
-		
+
 		var n = this.rte.selection.getEnd();
 		this.preview = null;
 		this.prevImg = null;
@@ -95,9 +95,9 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.img     = $(n);
 		} else {
 			this.img = $(this.rte.doc.createElement('img'));
-			
+
 		}
-		
+
 		var opts = {
 			submit : function(e, d) { e.stopPropagation(); e.preventDefault(); self.set(); d.close(); },
 			dialog : {
@@ -107,7 +107,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			}
 		}
 		var d = new elDialogForm(opts);
-		
+
 		if (this.rte.options.fmAllow && this.rte.options.fmOpen) {
 			var src = $('<span />').append(this.src.main.src.css('width', '88%'))
 					.append(
@@ -123,7 +123,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 		} else {
 			var src = this.src.main.src;
 		}
-		
+
 		d.tab('main', this.rte.i18n('Properies'))
 			.append([this.rte.i18n('Image URL'), src],                 'main', true)
 			.append([this.rte.i18n('Title'),     this.src.main.title], 'main', true)
@@ -151,9 +151,9 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				}
 			}
 		};
-				
+
 		d.open();
-		
+
 		var fs = $('<fieldset />').append($('<legend />').text(this.rte.i18n('Preview')))
 		d.append(fs, 'main');
 		var frame = document.createElement('iframe');
@@ -166,12 +166,12 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 		this.frame = frame.contentWindow.document
 		this.preview = $(frame.contentWindow.document.body)
 		 				 .text('Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin');
-		
+
 		if (this.img.attr('src')) {
-			
+
 			this.prevImg = $(this.frame.createElement('img'))
 				.attr('src',  this.rte.utils.absoluteURL(this.img.attr('src')))
-				
+
 			this.prevImg.attr('width', this.img.attr('width'))
 				.attr('height', this.img.attr('height'))
 				.attr('title', this.img.attr('title')||'')
@@ -182,12 +182,12 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				if (a) {
 					this.prevImg.attr(n, a)
 				}
-			}	
-				
+			}
+
 			this.preview.prepend(this.prevImg);
 			this.updateValues();
 		}
-		
+
 		$.each(this.src, function() {
 			$.each(this, function() {
 				if (this === self.src.main.src) {
@@ -199,30 +199,30 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				}
 			});
 		});
-		
+
 		// this.src.link.href.change(function() {
 		// 	var $this = $(this);
 		// 	$this.val(self.rte.utils.absoluteURL($this.val()));
 		// });
-		
-	}
-	
 
-	
+	}
+
+
+
 	/**
 	 * Устанавливает значения полей формы из аттрибутов prevImg
 	 * Вызывается после загрузки prevImg
 	 *
 	 **/
 	this.updateValues = function() {
-		
+
 		var i = this.prevImg.get(0);
-		
-		this.origW = this.prevImg.attr('width'); 
+
+		this.origW = this.prevImg.attr('width');
 		this.origH = this.prevImg.attr('height');
-		
+
 		this.src.main.src.val(this.rte.dom.attr(i, 'src'));
-		this.src.main.title.val(this.rte.dom.attr(i, 'title'));		
+		this.src.main.title.val(this.rte.dom.attr(i, 'title'));
 		this.src.main.alt.val(this.rte.dom.attr(i, 'alt'));
 		this.src.main.width.val(this.origW);
 		this.src.main.height.val(this.origH);
@@ -233,7 +233,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 		this.src.main.border.val(this.prevImg)
 		this.src.adv.style.val(this.rte.dom.attr(i, 'style'));
 	}
-	
+
 	/**
 	 * Очищает поля формы
 	 *
@@ -248,7 +248,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			});
 		});
 	}
-	
+
 	/**
 	 * Устанавливает аттрибуты prevImg из полей формы
 	 *
@@ -264,8 +264,8 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 
 		var a = this.src.main.align.val();
 		var f = a == 'left' || a == 'right' ? a : '';
-		
-		var b = this.src.main.border.val(); 
+
+		var b = this.src.main.border.val();
 		var m = this.src.main.margin.val();
 		this.prevImg.css('float', f);
 		this.prevImg.css('vertical-align', f ? '' : a);
@@ -276,7 +276,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.prevImg.css('margin-top', m.top);
 			this.prevImg.css('margin-right', m.right);
 			this.prevImg.css('margin-bottom', m.bottom);
-			this.prevImg.css('margin-left', m.left);						
+			this.prevImg.css('margin-left', m.left);
 		}
 
 		$.each([this.src.events, this.src.adv], function() {
@@ -293,15 +293,15 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 				}
 			});
 		});
-		
+
 	}
-	
+
 	/**
 	 * Обновляет форму выбора изображения
 	 *
 	 **/
 	this.updatePreview = function() {
-		
+
 		var imgsrc = this.prevImg ? this.prevImg.attr('src') : '';
 		var src    = $.trim(this.src.main.src.val());
 		if (!src || src !=imgsrc) { // new image or empty src
@@ -311,7 +311,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			}
 			this.cleanValues();
 			if (src) {  // new image
-				
+
 				this.prevImg = $(this.frame.createElement('img'))
 					.attr('src',  this.rte.utils.absoluteURL(src))
 					.bind('load', function() {
@@ -324,27 +324,27 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.updateImg();
 		}
 	}
-	
+
 	this.updateDimesions = function(e) {
-		
+
 		var w = parseInt(this.src.main.width.val())  || 0;
 		var h = parseInt(this.src.main.height.val()) || 0;
 		if (w > 0 && h > 0) {
 			if (e.currentTarget == this.src.main.width.get(0)) {
-				
+
 				this.src.main.height.val(parseInt(w*this.origH/this.origW));
 			} else {
 				this.src.main.width.val(parseInt(h*this.origW/this.origH));
-			}	
+			}
 		} else {
 			this.src.main.width.val(this.origW);
-			this.src.main.height.val(this.origH);			
+			this.src.main.height.val(this.origH);
 		}
 
 		this.updateImg();
 
 	}
-	
+
 	this.set = function() {
 		this.rte.history.add();
 		if (!this.prevImg || !this.prevImg.attr('width')) {
@@ -363,7 +363,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 					width  : parseInt(this.src.main.width.val()),
 					height : parseInt(this.src.main.height.val())
 				});
-				
+
 			for (var _n in this.src.adv) {
 				if (_n != 'style') {
 					var val = this.src.adv[_n].val();
@@ -372,7 +372,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 					} else {
 						this.img.removeAttr(_n)
 					}
-					
+
 				}
 			}
 			for (var _n in this.src.events) {
@@ -383,7 +383,7 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 					this.img.removeAttr(_n)
 				}
 			}
-				
+
 			if (!this.img.parents().length) {
 				this.rte.selection.insertNode(this.img.get(0))
 			}
@@ -418,6 +418,6 @@ elRTE.prototype.ui.prototype.buttons.image = function(rte, name) {
 			this.domElem.removeClass('active');
 		}
 	}
-	
+
 }
 })(jQuery);

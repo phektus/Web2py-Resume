@@ -2,7 +2,7 @@
  * @class drop-down menu - font-family for selected text
  *
  * @param  elRTE  rte   объект-редактор
- * @param  String name  название кнопки 
+ * @param  String name  название кнопки
  *
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  * @copyright: Studio 42, http://www.std42.ru
@@ -33,12 +33,12 @@ elRTE.prototype.ui.prototype.buttons.fontname = function(rte, name) {
 			'verdana,geneva,sans-serif'                     : 'Verdana'
 		}
 	}
-	
+
 	this.select = this.domElem.elSelect(opts);
-	
+
 	this.command = function() {
 	}
-	
+
 	this.set = function(size) {
 		this.rte.history.add();
 		var nodes = this.rte.selection.selected({filter : 'textContainsNodes'});
@@ -48,9 +48,9 @@ elRTE.prototype.ui.prototype.buttons.fontname = function(rte, name) {
 		});
 		this.rte.ui.update();
 	}
-	
+
 	this.update = function() {
-		this.domElem.removeClass('disabled'); 
+		this.domElem.removeClass('disabled');
 		var n = this.rte.selection.getNode();
 		if (n.nodeType != 1) {
 			n = n.parentNode;

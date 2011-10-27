@@ -4,7 +4,7 @@
  * @author:    Dmitry Levashov (dio) dio@std42.ru
  **/
 (function($) {
-	
+
 	$.fn.elPaddingInput = function(o) {
 		var self = this;
 		var opts = $.extend({}, $.fn.elPaddingInput.defaults, {name : this.attr('name')}, o);
@@ -15,9 +15,9 @@
 			right  : new RegExp(opts.type == 'padding' ? 'padding-right\s*:\s*([^;"]+)'  : 'margin-right\s*:\s*([^;"]+)',  'im'),
 			bottom : new RegExp(opts.type == 'padding' ? 'padding-bottom\s*:\s*([^;"]+)' : 'margin-bottom\s*:\s*([^;"]+)', 'im')
 		};
-			
+
 		$.each(['left', 'top', 'right', 'bottom'], function() {
-			
+
 			self[this] = $('<input type="text" />')
 				.attr('size', 3)
 				.css('text-align', 'right')
@@ -36,13 +36,13 @@
 				self[this].append('<option value="%">%</option>');
 			}
 		});
-		
+
 		this.empty().addClass(opts['class'])
 			.append(this.left).append(this.uleft).append(' x ')
 			.append(this.top).append(this.utop).append(' x ')
 			.append(this.right).append(this.uright).append(' x ')
 			.append(this.bottom).append(this.ubottom);
-			
+
 		this.val = function(v) {
 			if (!v && v!=='') {
 				var l = parseNum(this.left.val());
@@ -50,7 +50,7 @@
 				var r = parseNum(this.right.val());
 				var b = parseNum(this.bottom.val());
 				var ret = {
-					left   : l=='auto' || l==0 ? l : (l!=='' ? l+this.uleft.val()   : ''), 
+					left   : l=='auto' || l==0 ? l : (l!=='' ? l+this.uleft.val()   : ''),
 					top    : t=='auto' || t==0 ? t : (t!=='' ? t+this.utop.val()    : ''),
 					right  : r=='auto' || r==0 ? r : (r!=='' ? r+this.uright.val()  : ''),
 					bottom : b=='auto' || b==0 ? b : (b!=='' ? b+this.ubottom.val() : ''),
@@ -63,10 +63,10 @@
 						ret.css = ret.top+' '+ret.right+' '+ret.bottom+' '+ret.left;
 					}
 				}
-				
+
 				return ret;
 			} else {
-				
+
 				if (v.nodeName || v.css) {
 					if (!v.css) {
 						v = $(v);
@@ -94,7 +94,7 @@
 						}
 					}
 					var v = val;
-				} 
+				}
 
 				$.each(['left', 'top', 'right', 'bottom'], function() {
 					var name = this.toString();
@@ -109,25 +109,25 @@
 				return this;
 			}
 		}
-			
+
 		function parseNum(num) {
 			num = $.trim(num.toString());
-			if (num[0] == '.') { 
+			if (num[0] == '.') {
 				num = '0'+num;
 			}
 			n = parseFloat(num);
 			return !isNaN(n) ? n : (num == 'auto' ? num : '');
 		}
-			
+
 		function change() {
 			opts.change && opts.change(self);
 		}
-		
+
 		this.val(opts.value);
-		
+
 		return this;
 	}
-	
+
 	$.fn.elPaddingInput.defaults = {
 		name     : 'el-paddinginput',
 		'class'  : 'el-paddinginput',
@@ -136,5 +136,5 @@
 		percents : true,
 		change   : null
 	}
-	
+
 })(jQuery);

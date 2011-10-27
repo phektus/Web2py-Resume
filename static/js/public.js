@@ -11,13 +11,13 @@ $('#sort a').click(function(){
   $list.isotope({ sortBy : sortName });
   return false;
 });
-    
+
 // toggle description
-$list.find('.entry').live('click', function(){      
+$list.find('.entry').live('click', function(){
   $(this).find('.description').toggle();
   $list.isotope('reLayout');
 });
-      
+
 var currentLayout = 'fitRows';
 
 $('#layouts a').click(function(){
@@ -39,10 +39,10 @@ $('#options').find('.option-set a').click(function(){
   }
 });
 
-$(function(){      
+$(function(){
   $list.isotope({
-    layoutMode : 'straightDown',  
-    sortBy : 'recent',      
+    layoutMode : 'straightDown',
+    sortBy : 'recent',
     getSortData : {
       duration : function( $elem ) {
         return $elem.attr('data-duration');
@@ -53,5 +53,5 @@ $(function(){
     },
     sortAscending : false
   });
-  
+
 });
